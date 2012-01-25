@@ -1,0 +1,5 @@
+# ignore netbeans files
+nbproject/*
+
+# ignore database credentials
+php/db_login.php

@@ -16,7 +16,7 @@
              $braceCounter = 0;
              
              // See if you can open the named file.
-             $fileName = "C:/xampp/htdocs/base/structure.js";
+             $fileName = './Reader.php';
              $testPath = is_file($fileName);            
              $fileHandle = fopen($fileName, 'r');
              

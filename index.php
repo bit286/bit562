@@ -41,7 +41,7 @@
         <h2><?php echo $commandObj->getValue("href") ?></h2>
         <h2><?php echo $commandObj->getValue("text") ?></h2>
         <h2><?php echo $commandObj->matchObjectID("abcde-abcde-abcde-abcde") ?></h2>
-        <a href="/PHPProject1/php/fileReader.php">Check out the file reader</a><br /><br />
-        <a href="/PHPProject1/php/codeTest.php">Take a look at a code sample</a>
+        <a href="php/fileReader.php">Check out the file reader</a><br /><br />
+        <a href="php/codeTest.php">Take a look at a code sample</a>
     </body>
 </html>

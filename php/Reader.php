@@ -1,7 +1,7 @@
 <?php
 
-require_once('PackagerFactory.php');
-require_once('Command.php');
+include('PackagerFactory.php');
+include('Command.php');
 
 class Reader {
    

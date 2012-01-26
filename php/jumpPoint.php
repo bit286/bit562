@@ -1,7 +1,7 @@
 <?php
 
-   require_once('Reader.php');
-   require_once('DBManager.php');
+   include('Reader.php');
+   include('DBManager.php');
 
    $db_host = 'localhost';
    $db_username = '';

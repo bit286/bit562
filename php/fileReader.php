@@ -10,7 +10,7 @@
     <body>
         <?php
         
-             require_once('indentation.php');
+             include('indentation.php');
              
              $position = 0;
              $braceCounter = 0;

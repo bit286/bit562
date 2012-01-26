@@ -7,9 +7,9 @@
     <body>
                
         <?php
-            require_once('/php/Command.php');
-            require_once('/php/Reader.php');
-            require_once('/php/DBManager.php');
+            include('/php/Command.php');
+            include('/php/Reader.php');
+            include('/php/DBManager.php');
             
             $db_host = 'localhost';
             $db_username = '';

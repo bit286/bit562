@@ -9,7 +9,8 @@ class DBManager {
 	private $db_username;
 	private $db_password;
 	private $db_database;
-	private $connection;
+    private $db_dsn;
+	private $connection = null; //Object is instantiated when connection is opened
 	private $db_select;
 	private $positiveTest = true;
 	private $assertOn = false;
@@ -19,6 +20,7 @@ class DBManager {
           $this->db_username = $db_username;
           $this->db_password = $db_password;
           $this->db_database = $db_database;
+          $this->db_dsn = "mysql:host={$db_host};dbname={$db_database}";
 	}
 	
 	public function getDBName() {
@@ -29,19 +31,10 @@ class DBManager {
 	// the open function sets up the database for operation.
 	public function open() {
           try {
-            $connection = mysql_connect($this->db_host, $this->db_username, $this->db_password);
-            if ( !$connection ) {
-              throw new Exception ("The database connection was not made correctly."
-                   .$this->db_host."  ".$this->db_password."  ".$this->db_database);
-            }
-
-            $db_select = mysql_select_db($this->db_database);
-            if ( !$db_select ) {
-              throw new Exception ("Could not find the requested database.");
-            }
+              $this->connection = new PDO($this->db_dsn, $this->db_username, $this->db_password);
           }
-          catch(Exception $e) {
-            echo $e->getMessage();
+          catch(PDOException $e) {
+              echo "An error occured while connecting to the database: {$e->getMessage()}";
           }
 	}
 	
@@ -50,7 +43,7 @@ class DBManager {
 	// exception protection built in and thus prevents the need to constantly write exception code.
 	public function execute($sql) {
           try {
-            $result = mysql_query($sql);
+            $result = $this->connection->query($sql);
             if ( !$result ) 
                     throw new Exception();
             return $result;
@@ -58,7 +51,10 @@ class DBManager {
           catch (Exception $e ) {
             $this->testDescription("Execute failed: ".$this->scrub($sql));
             return $result;
-          }		
+          }
+          catch (PDOException $e) {
+              echo "A PDO Exception occured querying the database: {$e->getMessage()}";
+          }
 	}
 	
 	// Replace apostrophes in a string with "%pos;"
@@ -82,7 +78,7 @@ class DBManager {
            {
              $description = $this->scrub($description);	 
              $testSQL = "INSERT INTO test SET description = '".$description."'";
-             $testResult = mysql_query($testSQL);
+             $testResult = $this->connection->query($testSQL);
            }
 	}
 

@@ -1,64 +1,41 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>fileReader.php Test</title>
-		<script src="http://code.jquery.com/jquery-1.7.1.js" type="text/javascript" ></script>
-		<script>
-		$(document).ready(function(){$(".fnBlock").click(function() {$(this).toggle();});});
-		</script>
-        <style>
-           .comment { color: red; }
-		   
-        </style>
-    </head>
-    <body>
-        <?php
-        
-             require_once('../Indentation.php');
-             
-             $position = 0;
-             $braceCounter = 0;
-             
-             // See if you can open the named file
-             $fileName = 'test.js';
-             $testPath = is_file($fileName);            
-             $fileHandle = fopen($fileName, 'r');
-             
-             // Go through the file line by line.
-             while (!feof($fileHandle)) {
-               $suffix = "";
-               $prefix = "";
-                
-               $firstLine = fgets($fileHandle);
-               
-               if (substr($firstLine, 0, 2) === "//") {
-                  $prefix = '<span class="comment">';
-                  $suffix = '</span>';
-               }
-               
-               // Look for an open brace in the line.
-               $lineOut = $prefix.$firstLine.$suffix;
-               $prefix .= createIndentationHTML($lineOut, $braceCounter);
-               $position = 0;
-               while (strpos($lineOut, "{", $position) > -1) {
-                  $position = strpos($lineOut, "{", $position) + 1;
-                  $braceCounter += 1;
-				  //echo "<div class='fnBlock'>";
-               }
-               
-               // Look for a close brace in the line.
-               $position = 0;
-               while ( strpos($lineOut, "}", $position) > -1 ) {
-                  $position = strpos($lineOut, "}", $position) + 1;
-                  $braceCounter -= 1;
-				  //echo "</div>";
-               }
-               
-               echo $prefix.$firstLine.$suffix."<br />";
-             }
-             echo "The brace count is ".$braceCounter;
-                          
-        ?>
-    </body>
+	<head>
+			<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+			<title>fileReader.php Test</title>
+			<style>
+				.comment { color: red; }
+			</style>
+	</head>
+	<body>
+		<?php
+			require_once('../Packager.php');
+			require_once('../jsPackager.php');
+
+			$jsPackager = new jsPackager();
+
+			$lineComment1 = 'some code goes here // this is a line comment';
+			$lineComment2 = '// this is a line comment';
+
+			$lineFunction1 = 'var = function() {';
+			$lineFunction2 = 'function junkfunction(var1, var2) {';
+
+			$line1 = $jsPackager->packager($lineComment1, 0);
+			$line2 = $jsPackager->packager($lineComment2, 0);
+			$line3 = $jsPackager->packager($lineFunction1, 0);
+			$line4 = $jsPackager->packager($lineFunction2, 0);
+
+			echo "<p>comment 1 in:<br />$lineComment1</p>\n";
+			echo "<p>comment 1 out:<br />$line1</p>\n";
+
+			echo "<p>comment 2 in:<br />$lineComment2</p>\n";
+			echo "<p>comment 2 out:<br />$line2</p>\n";
+
+			echo "<p>function 1 in:<br />$lineFunction1</p>\n";
+			echo "<p>function 1 out:<br />$line3</p>\n";
+
+			echo "<p>function 2 in:<br />$lineFunction2</p>\n";
+			echo "<p>function 2 out:<br />$line4</p>\n";
+		?>
+	</body>
 </html>

@@ -11,16 +11,17 @@ class jsPackager implements Packager {
     }
    
     public function packager($fileLine, $braceCount) {
-      
+        
         $html = '';
+        /*
         $commentExpr = '/^.*(\/\/.*$)+/';
         $functionExpr = '/^.*(function)+(.\w)*\(.*\)( )*{$/';
         $codelineExpr = '//';
         
         
-        if (strpos($fileLine, 'function') > -1) {
-            $this->divCount = $braceCount;
-        }
+        //if (strpos($fileLine, 'function') > -1) {
+            //$this->divCount = $braceCount;
+        //}
         
         // Code for putting HTML around the code line goes here.
         
@@ -39,12 +40,13 @@ class jsPackager implements Packager {
         
         
         // Close off the nested <div> surrounding the code.
-        if ($this->divCount === $braceCount) {
-            $html .= '</div>';
-        }
+        //if ($this->divCount === $braceCount) {
+           // $html .= '</div>';
+        //}
+        
+        */
         
         
-        /*
         $commented = $this->commentParse($fileLine);
         $thenFunctioned = $this->functionParse($commented);
         
@@ -57,11 +59,13 @@ class jsPackager implements Packager {
         {
             $html = $thenFunctioned;
         }
-        */
         
+        if(substr_count($fileLine, '}') > substr_count($fileLine, '{'))
+        {
+            $html .= '</div>';
+        }
         
-        
-        
+
         return $html;
     }
     
@@ -72,12 +76,20 @@ class jsPackager implements Packager {
         if($matched === 1)
         {
             //explode($theMatches[1], $line, $theLineArray);
-            $startOfComment = strpos($line, $theMatches[0]) - 1;
+            $startOfComment = strpos($line, $theMatches[0]);
             if ($startOfComment > 0)
             {
                 $theLineArray = str_split($line, $startOfComment);
+                $functioned = $this->functionParse($theLineArray[0]);
                 $newLine = '';
-                $newLine .= $theLineArray[0];
+                if($functioned != $theLineArray[0])
+                {
+                    $newLine = $functioned;
+                }
+                else
+                {
+                    $newLine = $theLineArray[0];
+                }
                 $newLine .= '<div class="comment">';
                 $theCount = count($theLineArray);
                 for ($i = 1; $i < $theCount; $i++)
@@ -85,6 +97,10 @@ class jsPackager implements Packager {
                     $newLine .= $theLineArray[$i];
                 }
                 $newLine .= '</div>';
+                if ($functioned == $theLineArray[0])
+                {
+                    $newLine = '<div class="code-line">' . $newLine . '</div>';
+                }
             }
             else
             {
@@ -93,17 +109,19 @@ class jsPackager implements Packager {
             
             $line = $newLine;
         }        
-        //return '<div class="code-line">' . $line . '</div>';
+        
         return $line;
     }
     
     public function functionParse($line)
     {
-        $myFunctionRegex = '/(function)(?!\(\))/';        
+        //yours  '/^.*(function)+(.\w)*\(.*\)( )*{$/'  //mine  '/(function)(?!\(\))/'
+        //both fail but on different cases
+        $myFunctionRegex = '/(function)(?!\(\))/';
         $matched = preg_match($myFunctionRegex, $line, $theMatches);
         if ($matched === 1)
         {
-            $line = '<div class="functionBlock">' . $line . '</div>';
+            $line = '<div class="function-block"><div class="function-line">' . $line . '</div>';
             $this->divCount += 1;
         }
         

@@ -5,6 +5,9 @@
             <title>fileReader.php Test</title>
             <style>
                 .comment { color: red; }
+                
+                .function-block > div { margin-left:50px;}
+                .function-block > *:first-child, .function-block > *:last-child { margin: 0;}
             </style>
     </head>
     <body>
@@ -50,7 +53,7 @@
             
             
             
-            $fileName = 'test.js';
+            $fileName = 'test2.js';
             if (is_file($fileName))
             {     
                  $fileHandle = fopen($fileName, 'r');

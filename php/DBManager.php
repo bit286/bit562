@@ -5,24 +5,17 @@
 // good clarity of code.  
 class DBManager {
     
-    private $db_type;
-	private $db_host;
+    private $db_dsn;
 	private $db_username;
 	private $db_password;
-	private $db_database;
-    private $db_dsn;
 	private $connection = null; //Object is instantiated when connection is opened
-	private $db_select;
 	private $positiveTest = true;
 	private $assertOn = false;
 	
-	function __construct($db_type, $db_host, $db_username, $db_password, $db_database) {
-          $this->db_type = $db_type;
-          $this->db_host = $db_host;
+	function __construct($db_dsn, $db_username, $db_password) {
+          $this->db_dsn = $db_dsn;
           $this->db_username = $db_username;
           $this->db_password = $db_password;
-          $this->db_database = $db_database;
-          $this->db_dsn = "{$db_type}:host={$db_host};dbname={$db_database}";
 	}
 	
 	public function getDBName() {

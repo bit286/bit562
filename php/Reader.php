@@ -2,6 +2,7 @@
 
 require_once('PackagerFactory.php');
 require_once('Command.php');
+require_once('ProjectFile.php');
 
 class Reader {
    
@@ -35,9 +36,18 @@ class Reader {
    // Create a projectFiles array by making a ProjectFile object for each
    // project file and putting it in the array.
    public function retrieveProjectFiles($projectName) {
-      $this->projectName = $projectName;
-      
-      // Complete this function.
+       $this->projectName = $projectName;
+       
+       //NOTE:I believe this should work, but have not yet tested it.
+       // Retrieve table of projectfiles from database
+       $this->mgr->open();
+       $result = $this->mgr->execute("SELECT * FROM project_files WHERE project='{$projectName}'"); 
+       
+       // Loop through projects files, putting each into an object, placing that object in the $projectFiles array
+       while ($row = $result.fetch(PDO::FETCH_ASSOC)) {
+           $this->projectFiles[] = new ProjectFile($row['object_ID'], $row['source'],
+                   $$row['destination'], $row['name'], $row['description'], $row['entryDate']);
+       }
    }
    
    // Go through all project files, controlling the reading of the files and then the writing

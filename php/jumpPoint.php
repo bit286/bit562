@@ -2,13 +2,14 @@
 
    require_once('Reader.php');
    require_once('DBManager.php');
-
+   
+   $db_type = 'mysql'; //specify driver type string. dblib is used for MS SQL
    $db_host = 'localhost';
    $db_username = '';
    $db_password = '';
    $db_database = '';
 
-   $databaseManager = new DBManager($db_host, $db_username, $db_password, $db_database);
+   $databaseManager = new DBManager($db_type, $db_host, $db_username, $db_password, $db_database);
    // $databaseManager->open();
    // $databaseManager->assertToggle();
    

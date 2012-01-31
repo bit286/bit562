@@ -4,7 +4,8 @@
 // Having an object to perform the basic house cleaning of connection and execution makes for
 // good clarity of code.  
 class DBManager {
-
+    
+    private $db_type;
 	private $db_host;
 	private $db_username;
 	private $db_password;
@@ -15,12 +16,13 @@ class DBManager {
 	private $positiveTest = true;
 	private $assertOn = false;
 	
-	function __construct($db_host, $db_username, $db_password, $db_database) {
+	function __construct($db_type, $db_host, $db_username, $db_password, $db_database) {
+          $this->db_type = $db_type;
           $this->db_host = $db_host;
           $this->db_username = $db_username;
           $this->db_password = $db_password;
           $this->db_database = $db_database;
-          $this->db_dsn = "mysql:host={$db_host};dbname={$db_database}";
+          $this->db_dsn = "{$db_type}:host={$db_host};dbname={$db_database}";
 	}
 	
 	public function getDBName() {

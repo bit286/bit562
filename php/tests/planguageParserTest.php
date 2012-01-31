@@ -71,9 +71,7 @@
           
      print_r ($commandPairs);     
      
-         /*$commandSections = array_map(create_function('$a', 'return $commandParts = explode(\'::\', $a);'), explode(';;', $fullString));
-         } else {
-         $commandSections = array_map(create_function('$a', 'return $commandParts = explode(\'=\', $a);'), explode('::', $fullString));*/
+
         ?>
      
 

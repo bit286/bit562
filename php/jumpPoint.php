@@ -2,13 +2,11 @@
 
    require_once('Reader.php');
    require_once('DBManager.php');
+   require_once('db_login.php');
+   
+   $db_dsn = "mysql:host={$db_host};dbname={$db_database}";
 
-   $db_host = 'localhost';
-   $db_username = '';
-   $db_password = '';
-   $db_database = '';
-
-   $databaseManager = new DBManager($db_host, $db_username, $db_password, $db_database);
+   $databaseManager = new DBManager($db_dsn, $db_username, $db_password);
    // $databaseManager->open();
    // $databaseManager->assertToggle();
    

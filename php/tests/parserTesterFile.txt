@@ -1,0 +1,12 @@
+gibberish gibberish gibberish gibberish gibberish gibberish gibberish   
+
+
+
+
+/*+       SAMPLE::language=SQL::name=Study1::usage=First Code Sample: Show how to use declare statements::illustrations=DECLARE, SET, PRINT;;
+                        TABLE::tablename=test::database=B122_dbdesign::description=testing out string removal function::filename=test::description=test stuff::filedescription=more test::description=test more stuff       */
+   gibberish gibberish gibberish gibberish 
+                         gibberish gibberish gibberish gibberish gibberish gibberish gibberish gibberish
+/*+       TABLE::tablename=users::database=pctools::description=Description of the database        */ 
+
+gibberish gibberish gibberish gibberish gibberish

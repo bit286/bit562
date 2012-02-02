@@ -14,6 +14,8 @@ var funcCase2 = function() {
     var extraVar = new Object();
 }
 
+var = "http://www.google.com";
+
 //multi-line block
 function test2() {
 		var variable1 = 1;

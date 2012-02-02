@@ -12,7 +12,7 @@ class jsPackager implements Packager {
     public function packager($fileLine, $braceCount) {
         
         $html = '';
-        $cmExpr = '/\/\/.*$/';
+        $cmExpr = '/(?<!\:)\/\/.*$/';
         $fnExpr = '/^(.*)function(.\w)*\(.*\)( )*{$/';
 		$emExpr = '/^( )*$/';
         $codelineExpr = '';

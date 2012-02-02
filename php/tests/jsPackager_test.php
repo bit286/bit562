@@ -10,8 +10,8 @@
     </head>
     <body>
         <?php
-            require_once('Packager.php');
-            require_once('jsPackager.php');
+            require_once('../Packager.php');
+            require_once('../jsPackager.php');
 
 			$jsPackager = new jsPackager();
 
@@ -30,7 +30,7 @@
 					$braceCount -= 1;
 				}
 				$line =  $jsPackager->packager($line, $braceCount); 
-				echo "<p>$braceCount</p>";
+#				echo "<p>$braceCount</p>";
 				echo $line;
 			}
 			}

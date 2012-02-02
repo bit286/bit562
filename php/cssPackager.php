@@ -14,7 +14,6 @@ class cssPackager implements Packager {
    private $divCount = 0;
    
    function __construct() {
-      
    }
    
    public function packager($fileLine, $braceCount) {
@@ -27,7 +26,7 @@ class cssPackager implements Packager {
       
       // Code for putting HTML around the code line goes here.
       
-      
+      echo "<p>This is the best class ever!</p>";
       
       // Close off the nested <div> surrounding the code.
       

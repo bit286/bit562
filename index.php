@@ -10,6 +10,7 @@
             require_once('php/Command.php');
             require_once('php/Reader.php');
             require_once('php/DBManager.php');
+            require_once('php/cssPackager.php');
             
             $db_host = 'localhost';
             $db_username = '';
@@ -34,6 +35,10 @@
             $commandObj = new Command($sampleStringTwo, 'Structure.js', 25);
             
             $reader->addToPlanguage($commandObj);
+            $codeline = '#projectDisplay{';
+            $packer = new cssPackager();
+            $htmlLine = $packer->packager($codeline, 2);
+            echo $htmlLine;
         ?>
         <h2><?php echo $subWord; ?></h2>
         <h2><?php echo $column; ?></h2>

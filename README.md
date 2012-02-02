@@ -1,6 +1,5 @@
 Project:  BIT561
 ================
-Team:
 Date: 1/30/2012
 Project Description:
 --------------------

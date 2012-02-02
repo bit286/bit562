@@ -35,7 +35,7 @@
             $commandObj = new Command($sampleStringTwo, 'Structure.js', 25);
             
             $reader->addToPlanguage($commandObj);
-            $codeline = '#projectDisplay{';
+            $codeline = '#projectDisplay { ';
             $packer = new cssPackager();
             $htmlLine = $packer->packager($codeline, 2);
             echo $htmlLine;

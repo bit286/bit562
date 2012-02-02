@@ -7,124 +7,41 @@ class jsPackager implements Packager {
     private $divCount = 0;
 
     function __construct() {
-      
     }
    
     public function packager($fileLine, $braceCount) {
         
         $html = '';
-        /*
-        $commentExpr = '/^.*(\/\/.*$)+/';
-        $functionExpr = '/^.*(function)+(.\w)*\(.*\)( )*{$/';
-        $codelineExpr = '//';
-        
-        
-        //if (strpos($fileLine, 'function') > -1) {
-            //$this->divCount = $braceCount;
-        //}
-        
-        // Code for putting HTML around the code line goes here.
-        
-        // matches a line comment
-        $commentMatch = preg_match($commentExpr, $fileLine, $lineComment);
-        if ($commentMatch === 1) {
-            return "<span class=\"comment\">$lineComment[1]</span>";
-        }
+        $cmExpr = '/\/\/.*$/';
+        $fnExpr = '/^(.*)function(.\w)*\(.*\)( )*{$/';
+		$emExpr = '/^( )*$/';
+        $codelineExpr = '';
 
-        $functionMatch = preg_match($functionExpr, $fileLine, $lineFunction);
-        if ($functionMatch === 1) {
-            return "<span class=\"function\">$lineFunction[0]</span>";
-        }
-        
-        
-        
+		switch ($fileLine) {
+			// matches comment
+			case (preg_match($cmExpr, $fileLine, $lnCm) ? TRUE : FALSE ) :
+				$codeLine = explode("//", $fileLine);
+                isset($lnCm[0]) AND
+                    $html = "$codeLine[0]<span class='comment'>$lnCm[0]</span><br />";
+				break;
+			// matches function
+			case (preg_match($fnExpr, $fileLine, $lnFn) ? TRUE : FALSE) :
+                $this->divCount = $braceCount;
+                $html = "<div><div>$fileLine</div>";
+				break;
+			// matches empty line
+			case (preg_match($emExpr, $fileLine, $lnEm) ? TRUE : FALSE) :
+				break;
+
+			default :
+				$html = "<div class='codeLine'>$fileLine</div>";
+		}
         
         // Close off the nested <div> surrounding the code.
-        //if ($this->divCount === $braceCount) {
-           // $html .= '</div>';
-        //}
-        
-        */
-        
-        
-        $commented = $this->commentParse($fileLine);
-        $thenFunctioned = $this->functionParse($commented);
-        
-        if ($fileLine == $thenFunctioned)
-        {
-            $html = '<div class="code-line">' . $thenFunctioned . '</div>';
-            
+        if ($this->divCount > $braceCount) {
+          $this->divCount = $braceCount;
+          $html .= '</div>';
         }
-        else
-        {
-            $html = $thenFunctioned;
-        }
-        
-        if(substr_count($fileLine, '}') > substr_count($fileLine, '{'))
-        {
-            $html .= '</div>';
-        }
-        
-
-        return $html;
-    }
-    
-    public function commentParse($line)
-    {    
-        $myCommentRegex = "/(?<!\:)\/\//";
-        $matched = preg_match($myCommentRegex, $line, $theMatches);
-        if($matched === 1)
-        {
-            //explode($theMatches[1], $line, $theLineArray);
-            $startOfComment = strpos($line, $theMatches[0]);
-            if ($startOfComment > 0)
-            {
-                $theLineArray = str_split($line, $startOfComment);
-                $functioned = $this->functionParse($theLineArray[0]);
-                $newLine = '';
-                if($functioned != $theLineArray[0])
-                {
-                    $newLine = $functioned;
-                }
-                else
-                {
-                    $newLine = $theLineArray[0];
-                }
-                $newLine .= '<div class="comment">';
-                $theCount = count($theLineArray);
-                for ($i = 1; $i < $theCount; $i++)
-                {
-                    $newLine .= $theLineArray[$i];
-                }
-                $newLine .= '</div>';
-                if ($functioned == $theLineArray[0])
-                {
-                    $newLine = '<div class="code-line">' . $newLine . '</div>';
-                }
-            }
-            else
-            {
-                $newLine = '<div class="comment">' . $line . '</div>';
-            }
-            
-            $line = $newLine;
-        }        
-        
-        return $line;
-    }
-    
-    public function functionParse($line)
-    {
-        //yours  '/^.*(function)+(.\w)*\(.*\)( )*{$/'  //mine  '/(function)(?!\(\))/'
-        //both fail but on different cases
-        $myFunctionRegex = '/(function)(?!\(\))/';
-        $matched = preg_match($myFunctionRegex, $line, $theMatches);
-        if ($matched === 1)
-        {
-            $line = '<div class="function-block"><div class="function-line">' . $line . '</div>';
-            $this->divCount += 1;
-        }
-        
-        return $line;
+		return $html;
     }
 }

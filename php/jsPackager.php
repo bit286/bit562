@@ -1,6 +1,6 @@
 <?php
 
-// phpPackager puts HTML around php class name lines, comments, method calls,
+// jsPackager puts HTML around php class name lines, comments, method calls,
 // and codelines.
 class jsPackager implements Packager {
    
@@ -48,9 +48,9 @@ class jsPackager implements Packager {
     // Determines what type of javascript line was passed in
     private function lineMatch($fileLine, $braceCount) {
         $html = '';
-        $cmExpr = '/(?<!:)\/\/.*$/';
+        $cmExpr = '/(?<!:)\/\/.*\R/';
         $fnExpr = '/^(.*)?function(.\w)?\((.*)?\)( )*{/';
-        $emExpr = '/^( )*$/';
+        $emExpr = '/^( )*\R/';
         $codelineExpr = '';
 
         switch ($fileLine) {

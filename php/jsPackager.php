@@ -45,7 +45,7 @@ class jsPackager implements Packager {
         return $html;
     }
 
-    // Determines type of javascript line was passed in
+    // Determines what type of javascript line was passed in
     private function lineMatch($fileLine, $braceCount) {
         $html = '';
         $cmExpr = '/(?<!:)\/\/.*$/';

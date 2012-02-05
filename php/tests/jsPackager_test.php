@@ -1,16 +1,5 @@
-<!DOCTYPE html>
-<html>
-    <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>fileReader.php Test</title>
-        <style>
-            .comment { color: red; }
-            .mlComment { color: green; }
-            .block { border: 1px solid blue; margin: 5px; padding: 5px; }
-        </style>
-    </head>
-    <body>
-        <?php
+<?php
+            include('../../templates/testingheader.php');
             require_once('../Packager.php');
             require_once('../jsPackager.php');
 
@@ -35,6 +24,7 @@
                 echo $line;
             }
             }
+            
+            include('../../templates/footer.php');
         ?>
-    </body>
-</html>
+    

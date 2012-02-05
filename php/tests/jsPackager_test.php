@@ -6,7 +6,7 @@
         <style>
             .comment { color: red; }
             .mlComment { color: green; }
-            div { border: 1px solid blue; margin: 5px; padding: 5px; }
+            .block { border: 1px solid blue; margin: 5px; padding: 5px; }
         </style>
     </head>
     <body>

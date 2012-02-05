@@ -5,6 +5,7 @@
         <title>fileReader.php Test</title>
         <style>
             .comment { color: red; }
+            .mlComment { color: green; }
             div { border: 1px solid blue; margin: 5px; padding: 5px; }
         </style>
     </head>

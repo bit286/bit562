@@ -17,7 +17,7 @@ class jsPackager implements Packager {
         // Open div wrapper for code block
         if ($this->divCount < $braceCount) {
             $this->divCount = $braceCount;
-            $html = '<div>';
+            $html = '<div class="block">';
         }
 
         // Enables comment state
@@ -29,7 +29,7 @@ class jsPackager implements Packager {
         if ($this->commentBlock === FALSE) {
             $html .= $this->lineMatch($fileLine, $braceCount);
         } else {
-            $html .= "<span class='comment'>$fileLine</span><br />";
+            $html .= "<div class='mlComment'>$fileLine</div>";
         }
 
         // Disables comment state

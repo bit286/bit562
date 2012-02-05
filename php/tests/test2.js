@@ -16,7 +16,7 @@ last text
  
 //comment case 5 multi line -  various things within format 1
 /*
-//some comment text
+some comment text
 function something() { 
 another /* MLComment beginner here
 */

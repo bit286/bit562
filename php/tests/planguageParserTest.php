@@ -8,9 +8,9 @@
                
 <?php
 
-   
+     require_once ('../Command.php');
     
-     $searchString = '/*+       TABLE::tablename=users::database=pctools::description=Description of the database';
+     $searchString = '/*+       SAMPLE::language=SQL::name=Study1::usage=First Code Sample: Show how to use declare statements::illustrations=DECLARE, SET, PRINT;;';
  
      echo '<h3>This is the first planguage line that will be passed to us.  
          We will use this to search for the start of the comment in the file.</h3>';
@@ -18,7 +18,7 @@
      echo $searchString;
      
      
-     $file = fopen ('parserTesterFile.txt', r);
+     $file = fopen ('parserTesterFile.txt', 'r');
      $fileString = '';
          while (!feof($file)) {
             $lineString = fgets ($file);
@@ -39,8 +39,7 @@
      $planguageString = substr (substr ($fileString, 0, -(strlen($fileString) - $end)), $start);
      $planguageString = trim ($planguageString);
      
-      echo $planguageString;
-
+     
 
      
      echo '<h3>Our string after extracting the planguage block and cropping the comment markup and any leftover whitespace on the ends.</h3>';
@@ -50,7 +49,7 @@
      
      
 
-         $commandSections = explode(';;', $planguageString);
+     $commandSections = explode(';;', $planguageString);
 
 
         
@@ -58,8 +57,18 @@
      
      echo '<h3>print_r output of the array.</h3>';     
           
-     print_r ($commandSections);     
+     print_r ($commandSections);
      
+          
+     $newCommand = '';     
+     $newCommand = new Command ($commandSections[0], 'parserTesterFile.txt', $searchString);
+     
+     $command = $newCommand->getCommandName();
+     
+     echo "<p>$command</p>";
+     
+          
+     echo '<h1>That\'s All Folks!<h1>';
 
         ?>
      

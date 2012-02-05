@@ -5,7 +5,7 @@
 
             $jsPackager = new jsPackager();
 
-            $fileName = 'test2.js';
+            $fileName = 'test.js';
             if (is_file($fileName))
             {     
                 $braceCount = 0;

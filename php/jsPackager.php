@@ -11,7 +11,7 @@ class jsPackager implements Packager {
     }
    
     public function packager($fileLine, $braceCount) {
-        
+        $fileLine = htmlspecialchars($fileLine);
         $html = '';
 
         // Open div wrapper for code block

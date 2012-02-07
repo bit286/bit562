@@ -74,7 +74,7 @@ class Reader {
    // in the comment.  Comment strings are parsed and put into the planguage array.  Some
    // commands will be packaged in the planguageReader and sent to the write file as HTML.
    // The LINK command would be an example.
-   function planguageReader($readHandle, $writeHandle, $commentLine) {
+   protected function planguageReader($readHandle, $writeHandle, $commentLine) {
       $file = fopen ($readHandle, 'r');
       $fileString = '';
           while (!feof($file)) {

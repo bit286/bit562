@@ -58,7 +58,7 @@
      $commandSections = explode(';;', $planguageString);*/
      
      $newReader = new Reader($DB);
-     $commandSections = $newReader->planguageReader('parserTesterFile.txt', 'this.txt', $searchString);
+     $commands = $newReader->planguageReader('parserTesterFile.txt', 'this.txt', $searchString);
 
 
         
@@ -66,28 +66,14 @@
      
      echo '<h3>print_r output of the $comandSections array.</h3>';     
           
-     print_r ($commandSections);
+     print_r ($commands);
      
      
      
-     $commands = array();
-     
-     for($i=0; $i<count($commandSections); $i+=1) { 
-     $newCommand = new Command ($commandSections[$i], 'parserTesterFile.txt', $searchString);
-     $command = $newCommand->getCommandName();
-     echo '<h3><u>Command</u></h3>';
-     echo $command;
-     $pairs = $newCommand->getKVPairs();
-     echo '<p></p>';
-     print_r ($pairs);
-     
-      }
-     
+    
      
       
-      echo '<h3>print_r output of the $newCommand object.</h3>';
       
-     print_r ($newCommand);
     
      
      

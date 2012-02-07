@@ -93,14 +93,14 @@ class Reader {
       $planguageString = trim ($planguageString);
       
       $commandSections = explode(';;', $planguageString);
-      return $commandSections;
+      
+      for($i=0; $i<count($commandSections); $i+=1) {
+      $command = '';       
+      $command = new Command ($commandSections[$i], $readHandle, $commentLine);
+      return $command;
    }
    
-   function planguageManager($commandString, $fileLoc, $searchString) {
-     $newCommand = '';       
-     $newCommand = new Command ($commandString, $fileLoc, $searchString);
-          
-     return $newCommand;
+   
       }
    
    

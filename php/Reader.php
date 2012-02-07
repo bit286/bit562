@@ -96,8 +96,8 @@ class Reader {
       
       for($i=0; $i<count($commandSections); $i+=1) {
       $command = '';       
-      $command = new Command ($commandSections[$i], $readHandle, $commentLine);
-      return $command;
+      $this->planguage = new Command ($commandSections[$i], $readHandle, $commentLine);
+      return $this->planguage;
    }
    
    

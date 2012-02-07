@@ -30,7 +30,7 @@ class Reader {
    public function addToPlanguage(Command $commandObj) {
       $command = $commandObj->getCommandName();
       $this->planguage[$command][] = $commandObj;
-   }
+    }
    
    // Read the project file names and target file names from the database.
    // Create a projectFiles array by making a ProjectFile object for each
@@ -74,9 +74,37 @@ class Reader {
    // in the comment.  Comment strings are parsed and put into the planguage array.  Some
    // commands will be packaged in the planguageReader and sent to the write file as HTML.
    // The LINK command would be an example.
-   protected function planguageReader($readHandle, $writeHandle, $commentLine) {
-      // Complete this function.
+   function planguageReader($readHandle, $writeHandle, $commentLine) {
+      $file = fopen ($readHandle, 'r');
+      $fileString = '';
+          while (!feof($file)) {
+             $lineString = fgets ($file);
+             if ($lineString === false) continue;
+             $lineString = trim($lineString);
+             if (strlen($lineString) == 0) continue;
+             $fileString .= $lineString;
+         }
+         fclose($file);
+      
+      $start = strpos ($fileString, $commentLine);
+      $start = $start + 3;
+      $end = strpos ($fileString, '*/', $start);
+      $planguageString = substr (substr ($fileString, 0, -(strlen($fileString) - $end)), $start);
+      $planguageString = trim ($planguageString);
+      
+      $commandSections = explode(';;', $planguageString);
+      return $commandSections;
    }
+   
+   function planguageManager($commandString, $fileLoc, $searchString) {
+     $newCommand = '';       
+     $newCommand = new Command ($commandString, $fileLoc, $searchString);
+          
+     return $newCommand;
+      }
+   
+   
+   
    
 }
 

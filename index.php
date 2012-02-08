@@ -51,8 +51,8 @@
     <body>
                
         <?php
-            include('/php/Packager.php');
-            include('/php/myjsPackager.php');
+            include('php/Packager.php');
+            include('php/myjsPackager.php');
             
             $testarray = array( '   // This is a comment.',
                                  '$codeLine = explode("::", $fileLine);',

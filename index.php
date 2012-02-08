@@ -3,50 +3,116 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title></title>
+        <style>
+           .comment {
+              color: red;
+           }
+           .codeline {
+              color: blue;
+           }
+           span.bracecount2 {
+              position: relative;
+              left: 100px;
+           }
+           span.bracecount1 {
+              position: relative;
+              left: 50px;
+           }
+           span.bracecount3 {
+              position: relative;
+              left: 150px;
+           }
+           span.bracecount4 {
+              position: relative;
+              left: 100px;
+           }
+
+                    .bigcode { font-size: 36pt;
+                    font-weight: bold;
+         }
+         
+         .codeline { cursor: pointer;
+         }
+         
+         .functionDefinition { color: magenta;
+                               cursor: pointer;
+         }
+         
+         #functionBody { position: relative;
+                         display: none;
+         }
+         
+         .expandFunction { cursor: pointer;
+         }
+         
+
+        </style>
     </head>
     <body>
                
         <?php
-            require_once('php/Command.php');
-            require_once('php/Reader.php');
-            require_once('php/DBManager.php');
-            require_once('php/cssPackager.php');
+            include('/php/Packager.php');
+            include('/php/myjsPackager.php');
             
-            $db_host = 'localhost';
-            $db_username = '';
-            $db_password = '';
-            $db_database = '';
+            $testarray = array( '   // This is a comment.',
+                                 '$codeLine = explode("::", $fileLine);',
+                                 'function showAndTell() {',
+                                     '$bracecount = $bracecount + 1;',
+                                 '}',
             
-            $databaseManager = new DBManager($db_host, $db_username, $db_password, $db_database);
+                                 '/* This is a block comment.*/',
+                                 '   */',
+                                 '   /* Beginning a comment block',
+                                 '  * put the magic word function in here. ',
+                                 '  */',
+                                 'return structure;',
+                                 '    $bracecount = $bracecount + 50; // Using pixels in bracecount.',
+                                 '$S.fn.getType = function() {',);
+            
+            $packer = new myjsPackager();
+            $braceCount = 0;
+            for ($i=0; $i<count($testarray); $i+=1) {
+               if ($i == 2) {
+                  $braceCount = 1;
+               }
+               if ($i == 4) {
+                  $braceCount--;
+               }
+               echo $packer->packager($testarray[$i], $braceCount);
+               if ($i == 2) {
+                  $braceCount++;
+               }
+               if ($i == 4) {
+                  $braceCount++;
+               }
+            }
+         ?>
+       
+      <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></script>
+      <script>
+         function performTest() {
+            alert($(".codeLine").size());
+         }
+         
+         $(".codeline").click(function() {
+            $(this).toggleClass("bigcode");
+         });
+         
+         $(".functionDefinition").click(function() {
+            $(this).toggleClass("bigcode");
+         });
+         
+         $(".expandFunction").click(function() {
+            if ($(this).html() === "++") {              
+              $("#functionBody").show();
+              $(this).html("--");               
+            } else {
+              $("#functionBody").hide();
+              $(this).html("++");
+            }
+         });
+         
+      </script>
 
-            $nameStr = "Rumpelstiltskin";
-            $column = strpos($nameStr, "skin");
-            $subWord = substr($nameStr, 6, 5 );
-            
-            $sampleString = 
-               'LINK::href=structureImage.html::text=Show an image for STRUCTURE.';
-            $commandObj = new Command($sampleString, 'Structure.js', 3);
-            $reader = new Reader($databaseManager);
-            
-            $reader->addToPlanguage($commandObj);
-            
-            $sampleStringTwo = 
-               'LINK::href=carousel.html::text=A carousel.js diagram for clarification.';
-            $commandObj = new Command($sampleStringTwo, 'Structure.js', 25);
-            
-            $reader->addToPlanguage($commandObj);
-            $codeline = '#projectDisplay { ';
-            $packer = new cssPackager();
-            $htmlLine = $packer->packager($codeline, 2);
-            echo $htmlLine;
-        ?>
-        <h2><?php echo $subWord; ?></h2>
-        <h2><?php echo $column; ?></h2>
-        <h2>The End</h2>
-        <h2><?php echo $commandObj->getValue("href") ?></h2>
-        <h2><?php echo $commandObj->getValue("text") ?></h2>
-        <h2><?php echo $commandObj->matchObjectID("abcde-abcde-abcde-abcde") ?></h2>
-        <a href="php/fileReader.php">Check out the file reader</a><br /><br />
-        <a href="php/codeTest.php">Take a look at a code sample</a>
     </body>
 </html>

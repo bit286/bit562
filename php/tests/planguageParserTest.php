@@ -37,10 +37,10 @@
          echo "<li>$name</li>";
          echo'<li style="list-style-type:none"><ul>';
          foreach ($value as $name =>$value) {
-             echo "<li><u>$name</u></li>";
+             echo "<li style=\"color:#990000\"><u>$name</u></li>";
              echo'<li style="list-style-type:none"><ul>';
              foreach ($value as $name =>$value) {
-             echo "<li><b>$name</b> - $value</li>";
+             echo "<li><span style=\"color:#006600\"><b>$name</b></span> - <span style=\"color:#003399\">$value</span></li>";
          }
          echo '</ul></li>';
          }

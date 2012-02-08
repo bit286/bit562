@@ -10,3 +10,16 @@ gibberish gibberish gibberish gibberish gibberish gibberish gibberish
 /*+       TABLE::tablename=users::database=pctools::description=Description of the database        */ 
 
                  gibberish gibberish gibberish gibberish gibberish
+
+/*+TABLE::tablename=users::database=BIT276/285_database ::description=Stores information related to user accounts.;;
+FIELD::fieldname=Object_ID :: description=unique id number for an object within the database. ;;
+FIELD::fieldname=user_name:: description=unique user name that a user must choose to login.;;
+FIELD::fieldname=first_name:: description=the users first name.;;
+FIELD::fieldname=last_name:: description=the users last name.;;
+FIELD::fieldname=email:: description=a given email of the user for any contact.;;
+FIELD::fieldname=urloid:: description=unique id number for an url.;;
+FIELD::fieldname=password:: description=the password that the user has choose to login to the database.;;
+FIELD::fieldname=questionoid:: description=a unique id to a question that the user has choose to answer if they have forgotten their login password.;;
+FIELD::fieldname=security_answer::description=the answer that the user has choose for the given security question.;;
+FIELD::fieldname=accessoid::description=a unique id number to the access level type that the specific user is given.;;
+FIELD::fieldname=entrydate::description=the date that the users account has been created*/

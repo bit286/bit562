@@ -9,3 +9,10 @@ self document and expand when clicked on.
 License
 -------
 Refer to LICENSE
+
+Hosting Requirements
+------------
+
+PHP Version: 5.3.8 
+Apache Version: 2.2.21 
+

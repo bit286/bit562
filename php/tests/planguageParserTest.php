@@ -14,8 +14,14 @@
     
      
      $DB = new DBManager ('db_dsn', 'db_username', 'db_password');
+     
+//Use the different search strings below to change which planguage block is searched for.
 
-     $searchString = '/*+TABLE::tablename=users::database=BIT276/285_database ::description=Stores information related to user accounts.;;';
+     
+     //$searchString = '/*+TABLE::tablename=users::database=BIT276/285_database ::description=Stores information related to user accounts.;;';
+     //$searchString = '/*+       SAMPLE::language=SQL::name=Study1::usage=First Code Sample: Show how to use declare statements::illustrations=DECLARE, SET, PRINT;;';
+     //$searchString = '//*+       TABLE::tablename=users::database=pctools::description=Description of the database        */';
+     $searchString = '/*+LINK:: href=picture.jpg:: title=Show the picture.;;';
  
      echo '<h3>This is the first planguage line that will be passed to us.  
          We will use this to search for the start of the comment in the file.</h3>';

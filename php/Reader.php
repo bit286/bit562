@@ -77,6 +77,8 @@ class Reader {
    // commands will be packaged in the planguageReader and sent to the write file as HTML.
    // The LINK command would be an example.
    function planguageReader($readHandle, $writeHandle, $commentLine) {
+      
+      $fileString = '';
    
        //Open the file and read it one line at a time into a string.
        $file = fopen ($readHandle, 'r');
@@ -87,7 +89,7 @@ class Reader {
              if (strlen($lineString) == 0) continue;     
              $fileString .= $lineString;           
          }
-         fclose($this->file);      
+         fclose($file);      
       
       $commentLine = trim($commentLine);  
       

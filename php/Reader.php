@@ -13,17 +13,7 @@ class Reader {
    private   $packagers = array();
    protected $mgr;
    protected $braceCounter = 0;
-   protected $file;
-   protected $fileString;
-   protected $lineString;
-   protected $planguageString;
-   protected $commandSections = array();
-   protected $commandObject = array();
-   protected $command = array();
-   protected $commandID;
-   protected $commandPairs = array();
-   protected $start = 0;
-   protected $end = 0;
+   
    
    function __construct(DBManager $databaseManager) { 
       $this->mgr = $databaseManager;
@@ -89,13 +79,13 @@ class Reader {
    function planguageReader($readHandle, $writeHandle, $commentLine) {
    
        //Open the file and read it one line at a time into a string.
-       $this->file = fopen ($readHandle, 'r');
-          while (!feof($this->file)) {
-             $this->lineString = fgets ($this->file);          
-             if ($this->lineString === false) continue;        
-             $this->lineString = trim($this->lineString);      
-             if (strlen($this->lineString) == 0) continue;     
-             $this->fileString .= $this->lineString;           
+       $file = fopen ($readHandle, 'r');
+          while (!feof($file)) {
+             $lineString = fgets ($file);          
+             if ($lineString === false) continue;        
+             $lineString = trim($lineString);      
+             if (strlen($lineString) == 0) continue;     
+             $fileString .= $lineString;           
          }
          fclose($this->file);      
       
@@ -103,23 +93,23 @@ class Reader {
       
       //Extract the desired planguage string from the file string, removing the comment markups.
       //Trim off any existing whitespace from the ends of the planguage string.
-      $this->start = strpos ($this->fileString, $commentLine); 
-      $this->start = $this->start + 3;                         
-      $this->end = strpos ($this->fileString, '*/', $this->start); 
-      $this->planguageString = substr (substr ($this->fileString, 0, -(strlen($this->fileString) - $this->end)), $this->start); 
-      $this->planguageString = trim ($this->planguageString);  
+      $start = strpos ($fileString, $commentLine); 
+      $start = $start + 3;                         
+      $end = strpos ($fileString, '*/', $start); 
+      $planguageString = substr (substr ($fileString, 0, -(strlen($fileString) - $end)), $start); 
+      $planguageString = trim ($planguageString);  
       
       //Seperate the individual command sections in the planguage string into an array.
-      $this->commandSections = explode(';;', $this->planguageString);
+      $commandSections = explode(';;', $planguageString);
       
       //For each command section, break down into Command Name and Key/Value pairs and store in a jagged array.
-      for($i=0; $i<count($this->commandSections); $i+=1) {     
-      $this->commandObject = new Command ($this->commandSections[$i], $readHandle, $commentLine);  
-      $this->commandID = $this->commandObject->getCommandName(); 
-      $this->commandPairs = $this->commandObject->getKVPairs();  
-      $this->command[$this->commandID] = $this->commandPairs;  
-      $this->planguage[] = $this->command;  
-      $this->command = array();  
+      for($i=0; $i<count($commandSections); $i+=1) {     
+      $commandObject = new Command ($commandSections[$i], $readHandle, $commentLine);  
+      $commandID = $commandObject->getCommandName(); 
+      $commandPairs = $commandObject->getKVPairs();  
+      $command[$commandID] = $commandPairs;  
+      $this->planguage[] = $command;  
+      $command = array();  
    }
       //Return the completed planguage array.
       return $this->planguage;

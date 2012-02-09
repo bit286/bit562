@@ -40,15 +40,15 @@ class Reader {
    public function retrieveProjectFiles($projectName) {
        $this->projectName = $projectName;
        
-       //NOTE:I believe this should work, but have not yet tested it.
        // Retrieve table of projectfiles from database
        $this->mgr->open();
        $result = $this->mgr->execute("SELECT * FROM project_files WHERE project='{$projectName}'"); 
        
        // Loop through projects files, putting each into an object, placing that object in the $projectFiles array
-       while ($row = $result.fetch(PDO::FETCH_ASSOC)) {
+       
+       while ($row = $result->fetch(PDO::FETCH_ASSOC)) {
            $this->projectFiles[] = new ProjectFile($row['object_ID'], $row['source'],
-                   $$row['destination'], $row['name'], $row['description'], $row['entryDate']);
+                   $row['destination'], $row['name'], $row['description'], $row['entryDate']);
        }
    }
    

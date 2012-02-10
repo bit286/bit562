@@ -19,6 +19,7 @@ class Packager {
    private $packagerTestObj;
    private $tests = array();
    public $testFlags = array();
+   private $braceCount = 0;
    
    function __construct() {
       $this->packagerTestObj = new PackagerTests();

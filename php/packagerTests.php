@@ -21,7 +21,7 @@ class PackagerTests {
       $wrapper = false;
       $functionmarker = 0;
       
-      $this->tests['comment'] = function($fileLine, $bracecount) use (&$block, &$wrapper) {
+      $this->tests['comment'] = function($fileLine, &$bracecount) use (&$block, &$wrapper) {
          $fileLine = trim($fileLine);
          if ((preg_match('/^(\/\/)|^(\/\*)|^(\*\/)/', $fileLine) || $block) && !$wrapper) {
             $fileLine = '<span class="comment">'.$fileLine.'</span><br />';

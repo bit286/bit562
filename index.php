@@ -4,54 +4,48 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title></title>
         <style>
-           .comment {
-              color: red;
-           }
-           .codeline {
-              color: blue;
-           }
-           span.bracecount2 {
-              position: relative;
-              left: 100px;
-           }
-           span.bracecount1 {
-              position: relative;
-              left: 50px;
-           }
-           span.bracecount3 {
-              position: relative;
-              left: 150px;
-           }
-           span.bracecount4 {
-              position: relative;
-              left: 100px;
-           }
-
-                    .bigcode { font-size: 36pt;
-                    font-weight: bold;
-         }
-         
-         .codeline { cursor: pointer;
-         }
-         
-         .classDefinition { color: green;
-                            cursor: pointer;
-         }
-         
-         .classBody { position: relative;
-         }
-         
-         .functionDefinition { color: magenta;
-                               cursor: pointer;
-         }
-         
-         .functionBody { position: relative;
-         }
-         
-         .expandFunction { cursor: pointer;
-         }
-         
-
+            .comment {
+                color: red;
+            }
+            
+            .codeline {
+                color: blue;
+            }
+            
+            .body {
+                margin-left: 50px;
+            }
+                
+            .bigcode {
+                font-size: 36pt;
+                font-weight: bold;
+            }
+                
+            .codeline {
+                cursor: pointer;
+            }
+                
+            .classDefinition {
+                color: green;
+                cursor: pointer;
+            }
+                
+            .class .body {
+                position: relative;
+            }
+                
+            .functionDefinition {
+                color: magenta;
+                cursor: pointer;
+            }
+                
+            .function .body {
+                position: relative;
+            }
+                
+            .expandFunction {
+                cursor: pointer;
+            }
         </style>
     </head>
     <body>
@@ -95,11 +89,11 @@
          });
           
             jQuery(document).ready(function() {
-                jQuery(".functionBody").hide();
-                //toggle the componenet with class msg_body
+                jQuery(".function.body").hide();
+                //toggle the component with class msg_body
                 jQuery(".expandFunction").click(function()
                 {
-                    jQuery(this).nextAll(".functionBody").slideToggle(125);
+                    jQuery(this).nextAll(".function.body").slideToggle(125);
                 });
             });
       </script>

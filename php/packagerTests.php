@@ -24,7 +24,7 @@ class PackagerTests {
       $this->tests['comment'] = function($fileLine, $bracecount) use (&$block, &$wrapper) {
          $fileLine = trim($fileLine);
          if ((preg_match('/^(\/\/)|^(\/\*)|^(\*\/)/', $fileLine) || $block) && !$wrapper) {
-            $fileLine = '<span class="comment bracecount'.$bracecount.'">'.$fileLine.'</span><br />';
+            $fileLine = '<span class="comment">'.$fileLine.'</span><br />';
             if (strpos($fileLine, '/*') > -1) {
                $block = true;
             }
@@ -40,8 +40,7 @@ class PackagerTests {
          if (preg_match('/class/', $fileLine)
                && !$wrapper
                && !$block) {
-            $fileLine = '<span class="classDefinition bracecount'
-                  .$bracecount.'">'.$fileLine.'</span><div class="classBody">';
+            $fileLine = '<span class="classDefinition">'.$fileLine.'</span><div class="class body">';
             $bracecount++;
             $wrapper = true;
          }
@@ -52,8 +51,7 @@ class PackagerTests {
          if (preg_match('/function/', $fileLine)
                && !$wrapper
                && !$block) {
-            $fileLine = '<span class="functionDefinition bracecount'
-                  .$bracecount.'">'.$fileLine.'</span><div class="functionBody">';
+            $fileLine = '<span class="functionDefinition">'.$fileLine.'</span><div class="function body">';
             if ( $functionmarker === 0 ) {
                $fileLine = '<div class="functionDeclaration">'
                            .'<span class="expandFunction">++</span>'.$fileLine;
@@ -68,19 +66,22 @@ class PackagerTests {
       $this->tests['codeline'] = function($fileLine, &$bracecount) use (&$block, &$wrapper, &$functionmarker) {
          if (!$wrapper && !$block) {
             $fileLine = trim($fileLine);
-            if ( strpos($fileLine, '//') > -1 ) {
+            if ( strpos($fileLine, '//') > -1 && strpos($fileLine, ';') < strpos($fileLine, '//') ) {
                $parts = explode('//', $fileLine);
                $parts[1] = '<span class="comment">//'.$parts[1].'</span>';
                $fileLine = implode('', $parts);
             }
-            $fileLine = $fileLine.'</span><br />';
+            $fileLine = '<span class="codeline">'.$fileLine.'</span><br />';
             $wrapper = true;
+            if (strpos($fileLine, '{') > -1) {
+                $bracecount++;
+                $fileLine = '<div class="declaration"'.$fileLine.'<div class="body">';
+            }
             if ( $bracecount > 0 && strpos($fileLine, '}') > -1) {
-               $fileLine .= "</div></div>";
+               $fileLine = '</div>' . $fileLine . '</div>';
                $bracecount === $functionmarker ? $functionmarker = 0 : FALSE;
                $bracecount--;
             }
-            $fileLine = '<span class="codeline bracecount'.$bracecount.'">'. $fileLine;
          }
          return $fileLine;
       };

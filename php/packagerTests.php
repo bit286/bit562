@@ -19,10 +19,9 @@ class PackagerTests {
       
       $block = false;
       $wrapper = false;
-      $divcounter = 0;
       $functionmarker = 0;
       
-      $this->tests['comment'] = function($fileLine, $bracecount) use (&$block, &$wrapper, &$div) {
+      $this->tests['comment'] = function($fileLine, $bracecount) use (&$block, &$wrapper) {
          $fileLine = trim($fileLine);
          if ((preg_match('/^(\/\/)|^(\/\*)|^(\*\/)/', $fileLine) || $block) && !$wrapper) {
             $fileLine = '<span class="comment bracecount'.$bracecount.'">'.$fileLine.'</span><br />';
@@ -37,7 +36,7 @@ class PackagerTests {
          return $fileLine;
       };
       
-      $this->tests['class'] = function($fileLine, &$bracecount) use (&$block, &$wrapper, &$divcounter) {
+      $this->tests['class'] = function($fileLine, &$bracecount) use (&$block, &$wrapper) {
          if (preg_match('/class/', $fileLine)
                && !$wrapper
                && !$block) {

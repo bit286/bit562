@@ -41,7 +41,7 @@ class PackagerTests {
                && !$wrapper
                && !$block) {
             $fileLine = '<span class="classDefinition bracecount'
-                  .$bracecount.'">'.$fileLine.'</span><div id="classBody">';
+                  .$bracecount.'">'.$fileLine.'</span><div class="classBody">';
             $bracecount++;
             $wrapper = true;
          }
@@ -53,9 +53,9 @@ class PackagerTests {
                && !$wrapper
                && !$block) {
             $fileLine = '<span class="functionDefinition bracecount'
-                  .$bracecount.'">'.$fileLine.'</span><div id="functionBody">';
+                  .$bracecount.'">'.$fileLine.'</span><div class="functionBody">';
             if ( $functionmarker === 0 ) {
-               $fileLine = '<div id="functionDeclaration">'
+               $fileLine = '<div class="functionDeclaration">'
                            .'<span class="expandFunction">++</span>'.$fileLine;
                $bracecount++;
                $functionmarker = $bracecount;

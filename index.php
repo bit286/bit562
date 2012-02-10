@@ -38,15 +38,14 @@
                             cursor: pointer;
          }
          
-         #classBody { margin: 0;
+         .classBody { position: relative;
          }
          
          .functionDefinition { color: magenta;
                                cursor: pointer;
          }
          
-         #functionBody { position: relative;
-                         display: none;
+         .functionBody { position: relative;
          }
          
          .expandFunction { cursor: pointer;
@@ -78,8 +77,8 @@
 
         ?>
       <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></script>
-      <script>
-         function performTest() {
+      <script type="text/javascript">
+          function performTest() {
             alert($(".codeLine").size());
          }
          
@@ -94,17 +93,15 @@
          $(".functionDefinition").click(function() {
             $(this).toggleClass("bigcode");
          });
-         
-         $(".expandFunction").click(function() {
-            if ($(this).html() === "++") {              
-              $("#functionBody").show();
-              $(this).html("--");               
-            } else {
-              $("#functionBody").hide();
-              $(this).html("++");
-            }
-         });
-         
+          
+            jQuery(document).ready(function() {
+                jQuery(".functionBody").hide();
+                //toggle the componenet with class msg_body
+                jQuery(".expandFunction").click(function()
+                {
+                    jQuery(this).nextAll(".functionBody").slideToggle(125);
+                });
+            });
       </script>
 
     </body>

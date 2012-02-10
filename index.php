@@ -34,6 +34,13 @@
          .codeline { cursor: pointer;
          }
          
+         .classDefinition { color: green;
+                            cursor: pointer;
+         }
+         
+         #classBody { margin: 0;
+         }
+         
          .functionDefinition { color: magenta;
                                cursor: pointer;
          }
@@ -56,8 +63,10 @@
             
             $testarray = array( '   // This is a comment.',
                                  '$codeLine = explode("::", $fileLine);',
+                                 'class TesterClass {',
                                  'function showAndTell() {',
                                      '$bracecount = $bracecount + 1;',
+                                 '}',
                                  '}',
             
                                  '/* This is a block comment.*/',
@@ -76,14 +85,17 @@
                   $braceCount = 1;
                }
                if ($i == 4) {
-                  $braceCount--;
+                  $braceCount++;
+               }
+               if ($i == 6) {
+                   $braceCount--;
                }
                echo $packer->packager($testarray[$i], $braceCount);
                if ($i == 2) {
                   $braceCount++;
                }
                if ($i == 4) {
-                  $braceCount++;
+                  $braceCount--;
                }
             }
          ?>
@@ -95,6 +107,10 @@
          }
          
          $(".codeline").click(function() {
+            $(this).toggleClass("bigcode");
+         });
+         
+         $(".classDefinition").click(function() {
             $(this).toggleClass("bigcode");
          });
          

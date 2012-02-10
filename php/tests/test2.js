@@ -18,6 +18,7 @@ last text
 /*
 some comment text
 function something() { 
+}
 another /* MLComment beginner here
 */
 
@@ -34,6 +35,7 @@ var funcCase2 = function() {
     var extraVar = new Object();
 }
 
+//comment beginner inside string for scheme://
 var = "http://www.google.com";
 
 //multi-line block

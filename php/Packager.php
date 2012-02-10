@@ -1,11 +1,42 @@
 <?php
 
-// A Packager gets a fileline and the bracecounter on its way to placing
-// HTML around the fileline.  Each file type will get its own packager, and so
-// there will be a phpPackager, a jsPackager, and so on.  All of the packagers
-// will implement the Packager interface, making them polymorphic.
-interface Packager {
-   public function packager($fileLine, &$braceCounter);
+/**
+ * Description of myjsPackager
+ *
+ * @author Edwin-Lap
+ */
+
+/*+ 
+ * AUTHOR::name=Ed Anderson::created=02/02/2012;;
+ * TRACE::requirement=METADATA.PLANGUAGE::location=Packager.php::
+ *     description=Packager object for wrapping Javascript code in HTML;;
+ */
+
+include('packagerTests.php');
+
+class Packager {
+   
+   private $packagerTestObj;
+   private $tests = array();
+   public $testFlags = array();
+   
+   function __construct() {
+      $this->packagerTestObj = new PackagerTests();
+      $this->tests = $this->packagerTestObj->getTests();
+   }
+   
+   public function packager($fileLine, &$braceCount) {
+         
+      // Test for each line type in the javascript array.  Package when a test is found.
+      $this->tests['setFlags']();
+      foreach ($this->testFlags as $name) {
+         $fileLine = $this->tests[$name]($fileLine, $braceCount);
+      }
+      
+      return $fileLine;
+      
+   }
+   
 }
 
 ?>

@@ -58,33 +58,30 @@
     <body>
                
         <?php
-            include('php/Packager.php');
-            include('php/myjsPackager.php');
+            require_once('php/Packager.php');
+            require_once('php/packagerFactory.php');
             
-            $testarray = array( '   // This is a comment.',
-                                 '$codeLine = explode("::", $fileLine);',
-                                 'class TesterClass {',
-                                 'function showAndTell() {',
-                                     '$bracecount = $bracecount + 1;',
-                                 '}',
-                                 '}',
-            
-                                 '/* This is a block comment.*/',
-                                 '   */',
-                                 '   /* Beginning a comment block',
-                                 '  * put the magic word function in here. ',
-                                 '  */',
-                                 'return structure;',
-                                 '    $bracecount = $bracecount + 50; // Using pixels in bracecount.',
-                                 '$S.fn.getType = function() {',);
-            
-            $packer = new myjsPackager();
-            $braceCount = 0;
-            for ($i=0; $i<count($testarray); $i+=1) {
-               echo $packer->packager($testarray[$i], $braceCount);
+            $fileName = 'php/tests/test2.js';
+            if (is_file($fileName))
+            {   
+                $packager = packagerFactory($fileName);
+                $braceCount = 0;
+                $fileHandle = fopen($fileName, 'r');
+                // Go through the file line by line.
+                while (!feof($fileHandle)) {
+                    $line = fgets($fileHandle);
+                    if (strpos($line, "{") > -1) {
+                        $braceCount += 1;
+                    }
+                    if (strpos($line, "}") > -1) {
+                        $braceCount -= 1;
+                    }
+                    $line =  $packager->packager($line, $braceCount); 
+                    echo $line;
+                }
             }
-         ?>
-       
+
+        ?>
       <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></script>
       <script>
          function performTest() {

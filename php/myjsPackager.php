@@ -18,17 +18,14 @@ class myjsPackager implements Packager {
    
    private $packagerTestObj;
    private $tests = array();
-   private $javascript = array('comment', 'function', 'codeline');
-//   private $wrapper = false;
-//   private $block = false;
-//   private $div = false;
+   private $javascript = array('comment', 'class', 'function', 'codeline');
    
    function __construct() {
       $this->packagerTestObj = new PackagerTests();
       $this->tests = $this->packagerTestObj->getTests();
    }
    
-   public function packager($fileLine, $braceCount) {
+   public function packager($fileLine, &$braceCount) {
          
       // Test for each line type in the javascript array.  Package when a test is found.
       $this->tests['setFlags']();

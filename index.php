@@ -81,22 +81,7 @@
             $packer = new myjsPackager();
             $braceCount = 0;
             for ($i=0; $i<count($testarray); $i+=1) {
-               if ($i == 2) {
-                  $braceCount = 1;
-               }
-               if ($i == 4) {
-                  $braceCount++;
-               }
-               if ($i == 6) {
-                   $braceCount--;
-               }
                echo $packer->packager($testarray[$i], $braceCount);
-               if ($i == 2) {
-                  $braceCount++;
-               }
-               if ($i == 4) {
-                  $braceCount--;
-               }
             }
          ?>
        

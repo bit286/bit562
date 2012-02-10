@@ -5,7 +5,7 @@
 // there will be a phpPackager, a jsPackager, and so on.  All of the packagers
 // will implement the Packager interface, making them polymorphic.
 interface Packager {
-   public function packager($fileLine, $braceCounter);
+   public function packager($fileLine, &$braceCounter);
 }
 
 ?>

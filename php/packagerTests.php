@@ -86,6 +86,34 @@ class PackagerTests {
          return $fileLine;
       };
       
+      // Mike and shawn's code for CSS packager testing
+      // Looking for selectors.
+      $this->tests['selector'] = function($fileLine, $bracecount) use (&$block, &$wrapper, &$div){
+          if (!$wrapper && !$block) {
+            $fileLine = trim($fileLine);
+            if (( strpos($fileLine, '{') > -1 ) ||  (strpos($fileLine, '}') > -1))  {
+               $fileLine = '<span class="selector">'.$fileLine.'</span>';
+            }
+              $wrapper = true;
+          }
+          return $fileLine;
+      };
+      
+      // testing for css rules
+      
+      $this->tests['rule'] = function($fileLine, $bracecount) use (&$block, &$wrapper, &$div){
+          if (!$wrapper || !$block) {
+            $fileLine = trim($fileLine);
+            if ( strpos($fileLine, ';') > -1 ) {
+               $fileLine = '<span class="rule">'.$fileLine.'</span>';
+            }
+               $wrapper = true;
+          }
+          return $fileLine.'<br />';
+      };
+      
+      // Closing of Mike and Shawns testing packager.
+      
       $this->tests['setFlags'] = function() use (&$wrapper) {
          $wrapper = false;
          $block = false;

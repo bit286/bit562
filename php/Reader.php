@@ -52,23 +52,38 @@ class Reader {
        }
    }
    
-   // Go through all project files, controlling the reading of the files and then the writing
-   // of the HTML version of the file to the documentation folder.  
-   public function readAndWriteProject(){
-      // Complete this function.
-      
-      return false;
-   }
-   
-   // Handle one file at a time given the file name and the target HTML name.
-   // Read a single file, one line at a time, and convert the single lines to
-   // HTML one at a time.  
-   protected function readAndWriteFile($inputFilename, $outputFilename) {
-      
-      $filePackager = packagerFactory($inputFileName);
-      
-      // Complete this function. 
-   }
+    // Go through all project files, controlling the reading of the files and then the writing
+    // of the HTML version of the file to the documentation folder.  
+    public function readAndWriteProject(){
+
+        for ($i = 0; $i < count($this->projectFiles); $i++) {
+            $this->readAndWriteFile($this->projectFiles[$i]->getSource(), $this->projectFiles[$i]->getDestination());
+        }
+    }
+
+    // Handle one file at a time given the file name and the target HTML name.
+    // Read a single file, one line at a time, and convert the single lines to
+    // HTML one at a time.  
+    protected function readAndWriteFile($inputFilename, $outputFilename) {
+
+        $filePackager = packagerFactory($inputFilename);
+        $fileReader = fopen($inputFilename, 'r');
+        $fileWriter = fopen($outputFilename, 'w');
+        
+        while (!feof($fileReader)) {
+            $fileLine = fgets($fileReader);
+            if (strpos($fileLine, '/*+') !== false) {
+                $planguage = $this->planguageReader($fileReader, $fileWriter, $fileLine);
+                for ($i = 0; $i < count($planguage); $i++) {
+                    fwrite($fileWriter, $planguage.'\n');
+                }
+            }
+            else {
+                $html = $filePackager->packager($fileLine, $braceCount);
+                fwrite($fileWriter, $html.'\n');
+            }
+        }
+    }
    
    // When the beginning of a planguage comment is present in a file line,
    // pass the line to the planguageReader.  The planguageReader handles an entire planguage
@@ -79,6 +94,7 @@ class Reader {
    function planguageReader($readHandle, $writeHandle, $commentLine) {
       
       $fileString = '';
+      $planguage = array();
    
        //Open the file and read it one line at a time into a string.
        $file = fopen ($readHandle, 'r');
@@ -111,10 +127,11 @@ class Reader {
       $commandPairs = $commandObject->getKVPairs();  
       $command[$commandID] = $commandPairs;  
       $this->planguage[] = $command;  
+      $planguage[] = $command;
       $command = array();  
    }
       //Return the completed planguage array.
-      return $this->planguage;
+      return $planguage;
    
       }
    

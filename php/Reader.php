@@ -73,16 +73,15 @@ class Reader {
         while (!feof($fileReader)) {
             $fileLine = fgets($fileReader);
             if (strpos($fileLine, '/*+') !== false) {
-                $planguage = $this->planguageReader($fileReader, $fileWriter, $fileLine);
-                for ($i = 0; $i < count($planguage); $i++) {
-                    fwrite($fileWriter, $planguage.'\n');
-                }
+                $this->planguageReader($fileReader, $fileWriter, $fileLine);
             }
             else {
                 $html = $filePackager->packager($fileLine, $braceCount);
                 fwrite($fileWriter, $html.'\n');
             }
         }
+        fclose($fileReader);
+        fclose($fileWriter);
     }
    
    // When the beginning of a planguage comment is present in a file line,

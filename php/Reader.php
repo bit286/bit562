@@ -93,7 +93,6 @@ class Reader {
    function planguageReader($readHandle, $writeHandle, $commentLine) {
       
       $fileString = '';
-      $planguage = array();
    
        //Open the file and read it one line at a time into a string.
        $file = fopen ($readHandle, 'r');
@@ -122,15 +121,10 @@ class Reader {
       //For each command section, break down into Command Name and Key/Value pairs and store in a jagged array.
       for($i=0; $i<count($commandSections); $i+=1) {     
       $commandObject = new Command ($commandSections[$i], $readHandle, $commentLine);  
-      $commandID = $commandObject->getCommandName(); 
-      $commandPairs = $commandObject->getKVPairs();  
-      $command[$commandID] = $commandPairs;  
-      $this->planguage[] = $command;  
-      $planguage[] = $command;
-      $command = array();  
+      $this->addToPlanguage($commandObject);     
    }
       //Return the completed planguage array.
-      return $planguage;
+      return $this->planguage;
    
       }
    

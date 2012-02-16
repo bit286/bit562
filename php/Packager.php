@@ -18,12 +18,18 @@ class Packager {
    
    private $packagerTestObj;
    private $tests = array();
-   public $testFlags = array();
+   private $testFlags = array();
    private $braceCount = 0;
    
    function __construct() {
       $this->packagerTestObj = new PackagerTests();
       $this->tests = $this->packagerTestObj->getTests();
+   }
+   
+   function __construct($arr) {
+      $this->packagerTestObj = new PackagerTests();
+      $this->tests = $this->packagerTestObj->getTests();
+      $this->testFlags = $arr;
    }
    
    public function packager($fileLine, &$braceCount) {

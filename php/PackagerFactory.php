@@ -12,24 +12,24 @@ function packagerFactory($codeFileName) {
     switch($extension)
     {
         case "html":
-            $packager->testFlags = array("comment", "codeline");
+            $packager = new Packager(array("comment", "codeline"));
             break;
         case "js":
-            $packager->testFlags = array("comment", "class", "function", "codeline");
+            $packager = new Packager(array("comment", "class", "function", "codeline"));
             break;
         case "php":
-            $packager->testFlags = array("comment", "class", "function", "codeline");
+            $packager = new Packager(array("comment", "class", "function", "codeline"));
             break;
         case "sql":
             //I know its possible to  define functions in most SQL packages, should they be tested for?
-            $packager->testFlags = array("comment", "codeline");
+            $packager = new Packager(array("comment", "codeline"));
             break;
         case "css":
-            $packager->testFlags = array("comment", "codeline");
+            $packager = new Packager(array("comment", "codeline"));
             break;
             
         default:
-            $packager->testFlags = array();
+            $packager = new Packager(array());
             break;
     }
 

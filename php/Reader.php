@@ -70,6 +70,12 @@ class Reader {
         $fileReader = fopen($inputFilename, 'r');
         $fileWriter = fopen($outputFilename, 'w');
         
+        fwrite($fileWriter, '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"\n
+            "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">\n\n
+            <html xmlns="http://www.w3.org/1999/xhtml">\n\n <head>\n
+            <link rel="stylesheet" type="text/css" href="css/doc_style.css" />
+            <title>'.pathinfo($inputFilename, PATHINFO_FILENAME).'</title>\n </head>\n\n<body>');
+        
         while (!feof($fileReader)) {
             $fileLine = fgets($fileReader);
             if (strpos($fileLine, '/*+') !== false) {
@@ -80,6 +86,8 @@ class Reader {
                 fwrite($fileWriter, $html.'\n');
             }
         }
+        
+        fwrite($fileWriter, '</body>\n\n</html>');
         fclose($fileReader);
         fclose($fileWriter);
     }

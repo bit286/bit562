@@ -55,8 +55,9 @@ class Reader {
     // Go through all project files, controlling the reading of the files and then the writing
     // of the HTML version of the file to the documentation folder.  
     public function readAndWriteProject(){
-
-        for ($i = 0; $i < count($this->projectFiles); $i++) {
+        
+        $numProjFiles = count($this->projectFiles);
+        for ($i = 0; $i < $numProjFiles; $i++) {
             $this->readAndWriteFile($this->projectFiles[$i]->getSource(), $this->projectFiles[$i]->getDestination());
         }
     }

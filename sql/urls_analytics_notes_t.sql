@@ -1,24 +1,22 @@
-
 /*
 
-Author:       Tim & ?
+Author:       Tim Finnell
 Date:         Thu Feb  9 02:06:16 PST 2012
-Last Updated: Thu Feb 16 02:23:36 PST 2012
+Last Updated: Fri Feb 17 03:38:30 PST 2012
 
 Create Script for URLs, Analytics, and Notes
 
-IN PROGRESS
-
 */
 
---DROP TABLE urls
+IF OBJECT_ID('urls') IS NOT NULL
+    DROP TABLE urls
 
 CREATE TABLE urls
 (object_ID  CHAR(23)        NOT NULL PRIMARY KEY,
 useroid     CHAR(23)        NOT NULL,
 url         VARCHAR(255)    NOT NULL,
 description VARCHAR(255)    NULL,
-entrydate   DATETIME        NOT NULL
+entrydate   DATETIME        NOT NULL,
 FOREIGN KEY (useroid) REFERENCES users(object_ID))
 
 /*+
@@ -32,11 +30,14 @@ FIELD::fieldname=entrydate::description=the date that the user has uploaded the 
 
 --DROP TABLE notes
 
+IF OBJECT_ID('notes') IS NOT NULL
+    DROP TABLE notes
+
 CREATE TABLE notes
 (object_ID  CHAR(23)        NOT NULL PRIMARY KEY,
 useroid     CHAR(23)        NOT NULL,
 note        VARCHAR(MAX)    NOT NULL,
-entrydate   DATETIME        NOT NULL
+entrydate   DATETIME        NOT NULL,
 FOREIGN KEY (useroid) REFERENCES users(object_ID))
 
 /*+
@@ -49,16 +50,18 @@ FIELD::fieldname=entrydate::description=the date that the user has uploaded the 
 
 --DROP TABLE analytics
 
-CREATE TABLE analytics -- this early and i'm blanking on what datatype should be used for the measurement_number
+IF OBJECT_ID('analytics') IS NOT NULL
+    DROP TABLE analytics
+
+CREATE TABLE analytics
 (object_ID          CHAR(23)        NOT NULL PRIMARY KEY,
 useroid             CHAR(23)        NOT NULL,
 measure             CHAR(23)        NOT NULL,
 measurement_text    VARCHAR(50)     NULL,
---measurement_number  ??????????      NULL,
+measurement_number  INT             NULL,
 description         VARCHAR(MAX)    NULL,
-entrydate           DATETIME        NOT NULL
+entrydate           DATETIME        NOT NULL,
 FOREIGN KEY (useroid) REFERENCES users(object_ID)
-FOREIGN KEY (measure) REFERENCES measure(object_ID))
 
 /*+
 TABLE::tablename=notes::database=BIT276/285_database::description=stores user metrics in text or number form.;;

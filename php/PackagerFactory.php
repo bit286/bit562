@@ -4,8 +4,6 @@ require_once('Packager.php');
 
 function packagerFactory($codeFileName) {
    
-    $packager = new Packager();
-   
     //getting extension
     $extension = substr($codeFileName, strrpos($codeFileName, ".") + 1);
    

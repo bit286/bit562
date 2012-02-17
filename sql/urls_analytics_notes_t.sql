@@ -56,7 +56,7 @@ IF OBJECT_ID('analytics') IS NOT NULL
 CREATE TABLE analytics
 (object_ID          CHAR(23)        NOT NULL PRIMARY KEY,
 useroid             CHAR(23)        NOT NULL,
-measure             CHAR(23)        NOT NULL,
+measure             VARCHAR(50)     NOT NULL,
 measurement_text    VARCHAR(50)     NULL,
 measurement_number  INT             NULL,
 description         VARCHAR(MAX)    NULL,
@@ -67,7 +67,7 @@ FOREIGN KEY (useroid) REFERENCES users(object_ID)
 TABLE::tablename=notes::database=BIT276/285_database::description=stores user metrics in text or number form.;;
 FIELD::fieldname=object_ID :: description=unique id number for an object within the database. ;;
 FIELD::fieldname=useroid :: description=a unique id for a user in the database. ;;
-FIELD::fieldname=measure:: description=this is a foreign key that represents what is being measured.;;
+FIELD::fieldname=measure:: description=this string tells what is being measured.;;
 FIELD::fieldname=measure_text:: description=this field is used if the measurement was a text measurement.;;
 FIELD::fieldname=measure_number:: description=this field is used if the measurement was a number measurement.;;
 FIELD::fieldname=entrydate::description=the date the measure was done.

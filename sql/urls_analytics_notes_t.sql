@@ -15,7 +15,7 @@ CREATE TABLE urls
 (object_ID  CHAR(23)        NOT NULL PRIMARY KEY,
 useroid     CHAR(23)        NOT NULL,
 url         VARCHAR(255)    NOT NULL,
-description VARCHAR(255)    NULL,
+description VARCHAR(1000)   NULL,
 entrydate   DATETIME        NOT NULL,
 FOREIGN KEY (useroid) REFERENCES users(object_ID))
 
@@ -27,8 +27,6 @@ FIELD::fieldname=url::description=the URL that the user has put into the databas
 FIELD::fieldname=description::description=the description of the URL provided.;;
 FIELD::fieldname=entrydate::description=the date that the user has uploaded the URL into the database.
 */
-
---DROP TABLE notes
 
 IF OBJECT_ID('notes') IS NOT NULL
     DROP TABLE notes
@@ -48,8 +46,6 @@ FIELD::fieldname=note:: description=any notes that the user may store for future
 FIELD::fieldname=entrydate::description=the date that the user has uploaded the note into the database.
 */
 
---DROP TABLE analytics
-
 IF OBJECT_ID('analytics') IS NOT NULL
     DROP TABLE analytics
 
@@ -61,7 +57,7 @@ measurement_text    VARCHAR(50)     NULL,
 measurement_number  INT             NULL,
 description         VARCHAR(MAX)    NULL,
 entrydate           DATETIME        NOT NULL,
-FOREIGN KEY (useroid) REFERENCES users(object_ID)
+FOREIGN KEY (useroid) REFERENCES users(object_ID))
 
 /*+
 TABLE::tablename=notes::database=BIT276/285_database::description=stores user metrics in text or number form.;;

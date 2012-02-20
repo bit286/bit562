@@ -101,31 +101,23 @@ class Reader {
    // The LINK command would be an example.
    function planguageReader($readHandle, $writeHandle, $commentLine) {
       
-      $fileString = '';
-   
+ 
        //Open the file and read it one line at a time into a string.
-       $file = fopen ($readHandle, 'r');
-          while (!feof($file)) {
-             $lineString = fgets ($file);          
-             if ($lineString === false) continue;        
-             $lineString = trim($lineString);      
-             if (strlen($lineString) == 0) continue;     
-             $fileString .= $lineString;           
-         }
-         fclose($file);      
+       
+      $planguageString = file_get_contents($readHandle);
+      $planguageString = substr($planguageString, strpos ($planguageString, $commentLine) + 3);
+      $planguageString = substr($planguageString, 0,
+                $planguageString - (strlen($planguageString)-strpos($planguageString,'*/')));                               
+              
+             
       
-      $commentLine = trim($commentLine);  
       
-      //Extract the desired planguage string from the file string, removing the comment markups.
-      //Trim off any existing whitespace from the ends of the planguage string.
-      $start = strpos ($fileString, $commentLine); 
-      $start = $start + 3;                         
-      $end = strpos ($fileString, '*/', $start); 
-      $planguageString = substr (substr ($fileString, 0, -(strlen($fileString) - $end)), $start); 
-      $planguageString = trim ($planguageString);  
       
-      //Seperate the individual command sections in the planguage string into an array.
+      //Seperate the individual command sections in the planguage string into an array
+      //and trim the whitespace from all strings.
+             
       $commandSections = explode(';;', $planguageString);
+      $commandSections = array_map('trim', $commandSections);
       
       //For each command section, break down into Command Name and Key/Value pairs and store in a jagged array.
       for($i=0; $i<count($commandSections); $i+=1) {     

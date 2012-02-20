@@ -102,7 +102,7 @@ class Reader {
    function planguageReader($readHandle, $writeHandle, $commentLine) {
       
  
-       //Open the file and read it one line at a time into a string.
+       //Extract desired planguage block from file.
        
       $planguageString = file_get_contents($readHandle);
       $planguageString = substr($planguageString, strpos ($planguageString, $commentLine) + 3);

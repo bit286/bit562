@@ -58,7 +58,7 @@ PRIMARY KEY (object_ID),
 FOREIGN KEY (useroid) REFERENCES users(object_ID));
 
 /*+
-TABLE::tablename=notes::database=BIT276/285_database::description=stores user metrics in text or number form.;;
+TABLE::tablename=analytics::database=BIT276/285_database::description=stores user metrics in text or number form.;;
 FIELD::fieldname=object_ID :: description=unique id number for an object within the database. ;;
 FIELD::fieldname=useroid :: description=a unique id for a user in the database. ;;
 FIELD::fieldname=measure:: description=this string tells what is being measured.;;

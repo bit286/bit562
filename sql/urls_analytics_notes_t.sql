@@ -4,7 +4,7 @@ Author:       Tim Finnell
 Date:         Thu Feb  9 02:06:16 PST 2012
 Last Updated: Fri Feb 17 03:38:30 PST 2012
 
-Create Script for URLs, Analytics, and Notes
+TSQL Create Script for URLs, Analytics, and Notes
 
 */
 
@@ -60,7 +60,7 @@ entrydate           DATETIME        NOT NULL,
 FOREIGN KEY (useroid) REFERENCES users(object_ID))
 
 /*+
-TABLE::tablename=notes::database=BIT276/285_database::description=stores user metrics in text or number form.;;
+TABLE::tablename=analytics::database=BIT276/285_database::description=stores user metrics in text or number form.;;
 FIELD::fieldname=object_ID :: description=unique id number for an object within the database. ;;
 FIELD::fieldname=useroid :: description=a unique id for a user in the database. ;;
 FIELD::fieldname=measure:: description=this string tells what is being measured.;;

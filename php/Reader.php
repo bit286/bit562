@@ -99,7 +99,7 @@ class Reader {
    // in the comment.  Comment strings are parsed and put into the planguage array.  Some
    // commands will be packaged in the planguageReader and sent to the write file as HTML.
    // The LINK command would be an example.
-   function planguageReader($readHandle, $writeHandle, $commentLine) {
+   protected function planguageReader($readHandle, $writeHandle, $commentLine) {
       
  
        //Extract desired planguage block from file.
@@ -107,7 +107,7 @@ class Reader {
       $planguageString = file_get_contents($readHandle);
       $planguageString = substr($planguageString, strpos ($planguageString, $commentLine) + 3);
       $planguageString = substr($planguageString, 0,
-                $planguageString - (strlen($planguageString)-strpos($planguageString,'*/')));                               
+              $planguageString - (strlen($planguageString)-strpos($planguageString,'*/')));                               
               
              
       

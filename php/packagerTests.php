@@ -112,6 +112,33 @@ class PackagerTests {
           return $fileLine.'<br />';
       };
       
+      // testing for css atributes
+      
+      $this->tests['cssatributes'] = function($fileLine, $bracecount) use (&$block, &$wrapper, &$div){
+          if (!$wrapper || !$block) {
+            $fileLine = trim($fileLine);
+            if ( strpos($fileLine, '.') > -1 ) {
+               $fileLine = '<span class="cssatributes">'.$fileLine.'</span>';
+            }
+               $wrapper = true;
+          }
+          return $fileLine;
+      };
+      
+      // testing for css individual
+      
+      $this->tests['cssindividual'] = function($fileLine, $bracecount) use (&$block, &$wrapper, &$div){
+          if (!$wrapper || !$block) {
+            $fileLine = trim($fileLine);
+            if ( strpos($fileLine, '#') > -1 ) {
+               $fileLine = '<span class="cssindividual">'.$fileLine.'</span>';
+            }
+               $wrapper = true;
+          }
+          return $fileLine;
+      };
+      
+      
       // Closing of Mike and Shawns testing packager.
       
       $this->tests['setFlags'] = function() use (&$wrapper) {

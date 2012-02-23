@@ -6,6 +6,71 @@
        A large complex css file to test our css testing rules on.
 */
 
+ .comment {
+                color: red;
+            }
+            
+            .codeline {
+                color: blue;
+            }
+            
+            .body {
+                margin-left: 50px;
+            }
+                
+            .bigcode {
+                font-size: 36pt;
+                font-weight: bold;
+            }
+                
+            .codeline {
+                cursor: pointer;
+            }
+                
+            .classDefinition {
+                color: green;
+                cursor: pointer;
+            }
+                
+            .class .body {
+                position: relative;
+            }
+                
+            .functionDefinition {
+                color: magenta;
+                cursor: pointer;
+            }
+                
+            .function .body {
+                position: relative;
+            }
+                
+            .expandFunction {
+                cursor: pointer;
+            }
+            .selector {
+                color: deeppink;
+            }
+            .rule {
+                color: teal;
+            }
+            .cssatributes {
+                color: yellowgreen;
+            }
+            
+.comment {
+    color: red;
+}
+.mlComment { 
+    color: green; 
+}
+.block {
+    border: 1px solid blue; margin: 5px; padding: 5px;
+}
+
+.classNameTest {
+    font-family: "New Century Schoolbook", serif;
+}
 
 #art-main, table
 {

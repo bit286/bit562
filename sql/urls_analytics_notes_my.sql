@@ -12,7 +12,7 @@ CREATE TABLE urls
 (object_ID  CHAR(23)        NOT NULL,
 useroid     CHAR(23)        NOT NULL,
 url         VARCHAR(255)    NOT NULL,
-description VARCHAR(1000)    NULL,
+description VARCHAR(1000)   NULL,
 entrydate   DATETIME        NOT NULL,
 PRIMARY KEY (object_ID),
 FOREIGN KEY (useroid) REFERENCES users(object_ID));

@@ -7,7 +7,7 @@
             
             
             require_once('php/Packager.php');
-            require_once('php/packagerFactory.php');
+            require_once('php/PackagerFactory.php');
             //Testing Code
             $fileName = 'php/tests/test2.js';
             if (is_file($fileName))

@@ -10,7 +10,7 @@
             
             
             require_once('php/Packager.php');
-            require_once('php/packagerFactory.php');
+            require_once('php/PackagerFactory.php');
             //Testing Code
             $fileName = 'php/tests/phpTestFile.php';
             if (is_file($fileName))

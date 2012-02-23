@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html>
     <head>
+        <link rel="stylesheet" href="/css/system.css" type="text/css" />
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title></title>
         <style>
@@ -45,6 +46,18 @@
                 
             .expandFunction {
                 cursor: pointer;
+            }
+            .selector {
+                color: deeppink;
+            }
+            .rule {
+                color: teal;
+            }
+            .cssatributes {
+                color: yellowgreen;
+            }
+            .cssindividual {
+                color: #3395E1;
             }
         </style>
     </head>

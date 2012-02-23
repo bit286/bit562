@@ -1,35 +1,56 @@
 <?php
 
-   require_once('Reader.php');
-   require_once('DBManager.php');
-   require_once('db_login.php');
-   
-   $db_dsn = "mysql:host={$db_host};dbname={$db_database}";
+	// testDBManager.php is an exercise page for the DBManager.php object.
+	include('db_login.php');
+	include('DBManager.php');
+	
+	$essay = new DBManager($db_host, $db_username, $db_password, $db_database);
+	$essay->open();
+	$essay->assertToggle();
+	
+	$tableName = $_REQUEST['tableName'];
+	
+	// Make sure the user is logged in and valid. Authentication cannot occur when working with newuser accounts.
+	if ( !($tableName == 'authors' 
+		 || $tableName == 'alternativeqs' 
+		 || $tableName == 'analytics'
+		 || $tableName == 'sitefeedback'
+		 || $tableName == 'pages' 
+		 || $tableName == 'frames'
+		 || $tableName == 'essays'
+		 || $tableName == 'eQuestions'
+		 || $tableName == 'eAnswers'
+		 || $tableName == 'memberships' ) ) {
+		if ( $essay->failAuthenticate() ) {
+			
+			// Pack the authentication failure as XML.
+			header('Content-Type: text/xml');
+			echo '<?xml version="1.0" ?>';	
+			$XML = "<row tableName=\"authentic\"><field name=\"success\">"."@false@"."</field></row>";
+			echo "\n<XMLroot>".$XML."</XMLroot>";
+			exit();
+		}
+		else {
+			// Authentication passed.  Go on to lookup data.
+		}
+	}
+	
+	include('tableMapManager.php');	
+	include('DataPipeFactory.php');
+	
+	$mapManager = new tableMapManager($essay);
+	
+	$dataPipe = dataPipeFactory($mapManager, $essay);
+	
+	$result = $dataPipe->execute();
+	
+	// Pack the data as XML.
+	header('Content-Type: text/xml');
+	echo '<?xml version="1.0" ?>';	
 
-   $databaseManager = new DBManager($db_dsn, $db_username, $db_password);
-   // $databaseManager->open();
-   // $databaseManager->assertToggle();
-   
-   $reader = new Reader($databaseManager);
-   $reader->retrieveProjectFiles('BIT561');
-   $result = $reader->readAndWriteProject();
-   
-   if ($result) {
-      $result = '@true@';
-   } else {
-      $result = '@false@';
-   }
-   
+	$XML = $dataPipe->resultToXML($result);
+	echo "\n<XMLroot>".$XML."</XMLroot>";
+
+	$essay->testDescription($XML);
+	
 ?>
-
-
-<html>
-   <head>
-      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-      <title></title>
-   </head>
-   <body>
-      <h2>The jumpPoint run was successful.</h2>
-      The result is <?php echo $result; ?>.
-   </body>
-</html>

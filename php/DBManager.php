@@ -44,7 +44,7 @@ class DBManager {
             return $result;
           }
           catch (Exception $e ) {
-            $this->testDescription("Execute failed: ".$this->scrub($sql));
+            $this->test("Execute failed: ".$this->scrub($sql));
             return $result;
           }
           catch (PDOException $e) {

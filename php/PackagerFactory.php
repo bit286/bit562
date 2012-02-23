@@ -23,7 +23,7 @@ function packagerFactory($codeFileName) {
             $packager = new Packager(array("comment", "codeline"));
             break;
         case "css":
-            $packager = new Packager(array("comment", "selector", "rule"));
+            $packager = new Packager(array("comment", "selector", "rule","cssatributes","cssindividual"));
             break;
             
         default:

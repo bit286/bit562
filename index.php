@@ -1,6 +1,6 @@
 <html>
 <head>
-<title>Vision Statement</title>
+<title>Vision Statement and Test Menu</title>
 <style type="text/css">ol{margin:0;padding:0}p{margin:0}.c1{padding-left:0pt;direction:ltr;margin-left:18pt}.c6{max-width:468pt;background-color:#ffffff;padding:72pt 72pt 72pt 72pt}.c4{list-style-type:decimal;margin:0;padding:0}.c0{height:11pt;direction:ltr}.c3{font-weight:bold}.c10{text-align:center}.c5{font-size:18pt}.c2{direction:ltr}.c9{text-decoration:underline}.c8{color:#ff0000}.c7{font-size:14pt}.title{padding-top:24pt;line-height:1.15;text-align:left;color:#000000;font-size:36pt;font-family:Verdana;font-weight:bold;padding-bottom:6pt}.subtitle{padding-top:18pt;line-height:1.15;text-align:left;color:#666666;font-style:italic;font-size:24pt;font-family:Georgia;padding-bottom:4pt}body{color:#000000;font-size:11pt;font-family:Verdana}h1{padding-top:12pt;line-height:1.15;text-align:left;color:#000000;font-size:16pt;font-family:Arial;font-weight:bold;padding-bottom:3pt}h2{padding-top:12pt;line-height:1.15;text-align:left;color:#000000;font-style:italic;font-size:14pt;font-family:Arial;font-weight:bold;padding-bottom:3pt}h3{padding-top:12pt;line-height:1.15;text-align:left;color:#000000;font-size:13pt;font-family:Arial;font-weight:bold;padding-bottom:3pt}h4{padding-top:12pt;line-height:1.15;text-align:left;color:#000000;font-size:14pt;font-family:Verdana;font-weight:bold;padding-bottom:3pt}h5{padding-top:12pt;line-height:1.15;text-align:left;color:#000000;font-style:italic;font-size:13pt;font-family:Verdana;font-weight:bold;padding-bottom:3pt}h6{padding-top:12pt;line-height:1.15;text-align:left;color:#000000;font-size:11pt;font-family:Verdana;font-weight:bold;padding-bottom:3pt}</style>
 
 </head>
@@ -15,6 +15,7 @@
 <ol>
 <li><a title="" href="jsTest.php" style="font-family: wp_bogus_font">RUN</a><span style="font-family: wp_bogus_font">&nbsp;.JS file test</span></li>
 <li><a title="" href="cssTest.php" style="font-family: wp_bogus_font">RUN</a><span style="font-family: wp_bogus_font"> .CSS file test</span></li>
+<li><a title="" href="phpTest.php" style="font-family: wp_bogus_font">RUN</a><span style="font-family: wp_bogus_font"> .PHP file test</span></li>
 
 </ol>
 <p align="left"><font face="wp_bogus_font"><br />

@@ -1,17 +1,12 @@
-/*+
---syntax:
-    COMMAND::name=value::name=value:: ...name=value;;
-*/
-
 USE BIT561;
 
 DROP TABLE IF EXISTS backlogs;
 CREATE TABLE backlogs
-(objectID       CHAR(23)      NOT NULL PRIMARY KEY,
-project         VARCHAR(50)   NOT NULL,
-taskname        VARCHAR(255)  NOT NULL,
-taskdescription VARCHAR(3000) NOT NULL,
-role            VARCHAR(50)   NOT NULL);
+(object_ID        CHAR(23)       NOT NULL PRIMARY KEY
+,project          VARCHAR(50)    NOT NULL
+,taskname         VARCHAR(255)   NOT NULL
+,taskdescription  VARCHAR(3000)  NOT NULL
+,role             VARCHAR(50)    NOT NULL);
 
 /*+   
     TABLE::tablename=BackLog::database=BIT_276::description=information about BackLog.;;
@@ -25,14 +20,13 @@ role            VARCHAR(50)   NOT NULL);
 
 DROP TABLE IF EXISTS projectfiles;
 CREATE TABLE projectfiles
-(object_ID       CHAR(23)      NOT NULL,
-project          VARCHAR(50)   NOT NULL,
-source           VARCHAR(1000) NOT NULL,
-destination      VARCHAR(1000) NOT NULL,
-name             VARCHAR(255)  NOT NULL,
-description      VARCHAR(5000) NULL,
-entryDate        TIMESTAMP     NOT NULL,
-PRIMARY KEY (object_ID));
+(object_ID        CHAR(23)       NOT NULL PRIMARY KEY
+,project          VARCHAR(50)    NOT NULL
+,source           VARCHAR(1000)  NOT NULL
+,destination      VARCHAR(1000)  NOT NULL
+,name             VARCHAR(255)   NOT NULL
+,description      VARCHAR(5000)  NULL
+,entryDate        TIMESTAMP      NOT NULL);
 
 /*+   
     TABLE::tablename=Project_Files::database=BIT_276::description=information about ProjectFiles;;
@@ -48,11 +42,10 @@ PRIMARY KEY (object_ID));
 
 DROP TABLE IF EXISTS tests;
 CREATE TABLE tests
-(test_ID          INT            NOT NULL AUTO_INCREMENT,
-description       VARCHAR(3000)  NOT NULL,
-success           BOOLEAN        NOT NULL,
-entryDate         TIMESTAMP      NOT NULL,
-PRIMARY KEY (test_ID));
+(test_ID          INT            NOT NULL AUTO_INCREMENT PRIMARY KEY
+,description      VARCHAR(3000)  NOT NULL
+,success          BOOLEAN        NOT NULL
+,entryDate        TIMESTAMP      NOT NULL);
 
 /*+   
     TABLE::tablename=Test::database=BIT_276::description=information about Test;;
@@ -65,14 +58,13 @@ PRIMARY KEY (test_ID));
 
 DROP TABLE IF EXISTS sprint_time_cost;
 CREATE TABLE sprint_time_cost
-(object_ID         CHAR(23)       NOT NULL,
-estimatedtime      DATETIME       NOT NULL,
-actualtime         DATETIME       NOT NULL,
-estimatedcost      DECIMAL(19,4)  NOT NULL,
-actualcost         DECIMAL(19,4)  NOT NULL,
-status             DECIMAL(19,4)  NOT NULL,
-entrydate          TIMESTAMP      NOT NULL,
-PRIMARY KEY (object_ID));
+(object_ID        CHAR(23)       NOT NULL PRIMARY KEY
+,estimatedtime    DATETIME       NOT NULL
+,actualtime       DATETIME       NOT NULL
+,estimatedcost    DECIMAL(19,4)  NOT NULL
+,actualcost       DECIMAL(19,4)  NOT NULL
+,status           DECIMAL(19,4)  NOT NULL
+,entrydate        TIMESTAMP      NOT NULL);
     
   /*+   
     TABLE::tablename=Sprint_Time_Cost::database=BIT_276::description=information about Sprint time and cost;;

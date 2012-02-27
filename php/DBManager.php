@@ -11,6 +11,7 @@ class DBManager {
 	private $connection = null; //Object is instantiated when connection is opened
 	private $positiveTest = true;
 	private $assertOn = false;
+        private $db_database;
 	
 	function __construct($db_dsn, $db_username, $db_password) {
           $this->db_dsn = $db_dsn;
@@ -19,7 +20,10 @@ class DBManager {
 	}
 	
 	public function getDBName() {
-          return $this->db_database;
+          $dsnParts = explode (';', $this->db_dsn);
+          $dbName = explode ('=', $dsnParts[1]);
+          $this->db_database = $dbName[1];
+            return $this->db_database;
 	}
 	
 	// Given that the four relevant pieces of information were created when the DBManager was created,

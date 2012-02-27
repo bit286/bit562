@@ -4,7 +4,7 @@
 	include('db_login.php');
 	include('DBManager.php');
 	
-	$essay = new DBManager($db_host, $db_username, $db_password, $db_database);
+	$essay = new DBManager($db_dsn, $db_username, $db_password);
 	$essay->open();
 	$essay->assertToggle();
 	

@@ -24,10 +24,12 @@ class Command {
       $this->object_ID = "";
       
       $commandPieces = explode("::", $kvString);
+      $commandPieces = array_map('trim', $commandPieces);
       $this->commandName = $commandPieces[0];
    
       for($i=1; $i<count($commandPieces); $i+=1) {
          $nameValuePair = explode("=", $commandPieces[$i]);
+         $nameValuePair = array_map('trim', $nameValuePair);
          $this->kvPairs[$nameValuePair[0]] = $nameValuePair[1];
       }
       

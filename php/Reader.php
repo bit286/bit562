@@ -13,7 +13,7 @@ class Reader {
    private   $packagers = array();
    protected $mgr;
    protected $braceCounter = 0;
-   
+   protected $links = array();
    
    function __construct(DBManager $databaseManager) { 
       $this->mgr = $databaseManager;
@@ -99,7 +99,7 @@ class Reader {
    // in the comment.  Comment strings are parsed and put into the planguage array.  Some
    // commands will be packaged in the planguageReader and sent to the write file as HTML.
    // The LINK command would be an example.
-   protected function planguageReader($readHandle, $writeHandle, $commentLine) {
+   function planguageReader($readHandle, $writeHandle, $commentLine) {
       
  
        //Extract desired planguage block from file.
@@ -121,15 +121,23 @@ class Reader {
       
       //For each command section, break down into Command Name and Key/Value pairs and store in a jagged array.
       for($i=0; $i<count($commandSections); $i+=1) {     
-      $commandObject = new Command ($commandSections[$i], $readHandle, $commentLine);  
+      $commandObject = new Command ($commandSections[$i], $readHandle, $commentLine);
+      if ($commandObject->getCommandName()==='LINK') {          
+          $pairs = $commandObject->getKVPairs();
+          $this->linkBuilder($pairs);      
+      } else {
       $this->addToPlanguage($commandObject);     
-   }
-      //Return the completed planguage array.
-      return $this->planguage;
+   }     
+     
    
       }
+     
+   }
    
-   
+    protected function linkBuilder($pairs) {
+        $linkHtml = '<a href="' .$pairs['href']. '" title="' .$pairs['title']. '">link</a>';
+          $this->links[] = $linkHtml;   
+    }
    
    
 }

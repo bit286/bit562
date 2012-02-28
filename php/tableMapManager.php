@@ -9,36 +9,39 @@
  * assumes the database connection passed in through dbName has been opened.
  *********************************************************************/
 
-include('tableMap.php');
+//include('tableMap.php');
 
-class tableMapManager {
+class TableMapManager {
 	
-    private $db = $dbName;
+   private $db;
+
+   function __construct($dbName) {
+     $this->db = $dbName;
+   }
 	
-	function __construct($dbName) {
-        $this->db = $dbName;
-	}
-	
-	// Given a table name and a query type, retrieve matching records from 
-    // tableMaps and put them as tableMap objects into an array.  Return the array.
-	public function findMatchingMaps( $tableName, $queryType ) {
-    
-		$shortMap = array();
-        
-        // Find the tablemap records for this tablename and query type.
-        $sql = 'select ';
-        $sql = "tableName, browserFormName, dbColumnName, queryType, dataType ";
-        $sql .= "from tablemaps ";
-        $sql .= "where tableName = '".$tableName."' and queryType = '".$queryType."' ";
-        $sql .= "order by tableName, queryType, seqNum";
-        $result = $this->db->execute($sql);
-        
-		while ($row = $result->fetch(PDO::FETCH_ASSOC)) {
-			$shortMap[] = new tableMap($row['tableName'], $row['browserFormName'], 
-									$row['dbColumnName'], $row['queryType'], $row['dataType']);
-		}
-		return $shortMap;
-	}
+   // Given a table name and a query type, retrieve matching records from 
+   // tableMaps and put them as tableMap objects into an array.  Return the array.
+   public function findMatchingMaps( $tableName, $queryType ) {
+
+      $shortMap = array();
+
+      // Find the tablemap records for this tablename and query type.
+      $sql = 'select ';
+      $sql .= "tableName, browserFormName, dbColumnName, queryType, dataType ";
+      $sql .= "from tablemaps ";
+      $sql .= "where tableName = '".$tableName."' and queryType = '".$queryType."' ";
+      $sql .= "order by tableName, queryType, seqNum";
+      $result = $this->db->execute($sql);
+
+      while ($row = $result->fetch(PDO::FETCH_ASSOC)) {
+            $shortMap[] = new tableMap($row['tableName'], 
+                                       $row['browserFormName'], 
+                                       $row['dbColumnName'], 
+                                       $row['queryType'], 
+                                       $row['dataType']);
+      }
+      return $shortMap;
+   }
 	
 }
 

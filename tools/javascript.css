@@ -1,0 +1,12 @@
+	#resultsList li.pass { color : green; }
+	#resultsList li.fail { color : red; }
+	
+	#resultsOfTests { position : absolute;
+				     top : 130px;
+					 left : 800px;
+					 width : 400px;
+					 height : 600px;
+					 z-index : 5;
+					 background-color : #FFFFFF;
+					 padding : 10px;
+					 visibility : hidden; }

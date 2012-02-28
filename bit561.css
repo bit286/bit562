@@ -1,0 +1,127 @@
+/* Cascade style sheet for BIT561 -- a project supporting professional IT development. */
+
+#leftside {
+    position: absolute;
+    left: 0px;
+    top: 0px;
+    width: 125px;
+    height: 1275px;
+}
+
+#bgframe { 
+    position: absolute;
+    left: 126px;
+    top: 75px;
+    width: 900px;
+    height: 1200px;
+    background-color: #F2E8CA;
+}
+
+#rightside {
+    position: absolute;
+    left: 1026px;
+    top: 0px;
+    width: 125px;
+    height: 1275px;
+}
+
+#instructions {
+    position: relative;
+    left: 10px;
+    top: 10px;
+    width: 180px;
+    height: 1180px;
+    background-color: #EBE7DA;
+}
+
+#main {
+    position: absolute;
+    left: 200px;
+    top: 10px;
+    width: 690px;
+    height: 1180px;
+    padding: 10px;
+    background-color: #FFFFFF;
+}
+
+#topside {
+    position: absolute;
+    left: 126px;
+    top: 0px;
+    width: 900px;
+    height: 70px;
+    padding: 10px;
+    background-color: #000000;
+    z-index: 5;
+}
+
+h2 {
+    color: #FFFFFF;
+}
+
+fieldset { border: #FFFFFF solid 2px; 
+		 }
+				
+fieldset.hot { background-color:#FFA953; }
+
+span.asterisk { font-weight: 900;
+				color: red; 
+			  }
+			
+.undertitle	{ color:##5E1F00;
+			  font-weight:100 
+			}
+			  
+.fields { color:##5E1F00; 
+		  font-weight:900
+		}	
+		  
+input { border-bottom: black solid 1px;
+		border-right: black solid 1px;
+		border-top: gray solid 1px; 
+		border-left: gray solid 1px;
+	  }
+	  
+input.radio { border: black solid 1px; 
+			}
+			
+input.checkbox { border: #FFFFFF solid 2px;
+			   }
+			   
+input.submit { border: #000000 solid 1px;
+			 }
+
+input.level { border: #FFFFFF solid 2px; 
+			}
+
+textarea { border-bottom: black solid 1px;
+		border-right: black solid 1px;
+		border-top: gray solid 1px; 
+		border-left: gray solid 1px;
+	  }
+            
+select#country  { font-size:14px;
+				  width: 240px;
+				  border-bottom: black solid 2px;
+				  border-right: black solid 2px; 
+				}
+
+.wideSelect { 
+    width: 355px; 
+	border-color : #CC712B; 
+}
+
+.controlColor { 
+    background-color : black;
+    color : white;
+}
+
+#helpComments {
+    position: absolute;
+    width: 165px;
+    left: 145px;
+    top: 200px;
+    z-index: 10;
+}
+   
+

@@ -2,7 +2,7 @@
 
 // DataPipeFactory.php returns a datapipe object that matches the query asked for.
 include('baseDataPipe.php');
-include('ProjectFilesDataPipe.php');
+include('ProjectFileDataPipe.php');
 
 
 // Any query doing basic CRUD will fall through to the default and use the BaseDataPipe.

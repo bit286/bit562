@@ -14,8 +14,8 @@ class ProjectFilesDataPipe extends baseDataPipe {
     protected $project;
 
     function __construct($tableMapManager, $dataManager) {
-    parent::__construct($tableMapManager, $dataManager);
-    $this->project = $_REQUEST['project'];
+        parent::__construct($tableMapManager, $dataManager);
+        $this->project = $_REQUEST['project'];
     }
 
     function where() {
@@ -23,5 +23,3 @@ class ProjectFilesDataPipe extends baseDataPipe {
     }
 
 }
-
-?>

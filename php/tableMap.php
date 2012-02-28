@@ -32,7 +32,7 @@
  ********************************************************************/
 class tableMap {
 
-    private values = array();
+    private $values = array();
 
 	function __construct($tableName, 
                                  $browserFormName, 

@@ -31,24 +31,26 @@
  * 
  ********************************************************************/
 class tableMap {
-   
-   protected $values = array();
 
-   function __construct($tableName, 
-                        $browserFormName, 
-                        $dbColumnName, 
-                        $queryType, 
-                        $dataType) {
-      $this->values['table']= $tableName;
-      $this->values['browser'] = $browserFormName;
-      $this->values['dbCol'] = $dbColumnName;
-      $this->values['query']= $queryType;
-      $this->values['dataType'] = $dataType;
-   }
+    private $values = array();
 
-   public function get($element) {
-     return $this->values[$element];
-   }
+	function __construct($tableName, 
+                                 $browserFormName, 
+                                 $dbColumnName, 
+                                 $queryType, 
+                                 $dataType) {
+                                 
+		$this->values['table']= $tableName;
+		$this->values['browser'] = $browserFormName;
+		$this->values['dbCol'] = $dbColumnName;
+		$this->values['query']= $queryType;
+		$this->values['dataType'] = $dataType;
+        
+	}
+
+    public function get($element) {
+        return $this->values[$element];
+    }
 
 }
 

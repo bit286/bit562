@@ -19,7 +19,7 @@ $U.fn.getThis = function() {
 $U.fn.setUpUsers = function() {
    
    // Put all javascript variable declarations at the top of the function.
-   var projectfiles = {
+   var users = {
       pipe : "users",
       tableName : "users",
       queryType : "select",
@@ -28,7 +28,7 @@ $U.fn.setUpUsers = function() {
    usernames = [];
    
    // Load the data into structure, a jagged associative array.
-   post(projectfiles);
+   post(users);
 
    usernames = $S.getType("users");
    

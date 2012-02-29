@@ -16,6 +16,8 @@
 <li><a title="" href="jsTest.php" style="font-family: wp_bogus_font">RUN</a><span style="font-family: wp_bogus_font">&nbsp;.JS file test</span></li>
 <li><a title="" href="cssTest.php" style="font-family: wp_bogus_font">RUN</a><span style="font-family: wp_bogus_font"> .CSS file test</span></li>
 <li><a title="" href="phpTest.php" style="font-family: wp_bogus_font">RUN</a><span style="font-family: wp_bogus_font"> .PHP file test</span></li>
+<li><a title="" href="forms/projectfiles.html" style="font-family: wp_bogus_font">RUN</a><span style="font-family: wp_bogus_font"> projectfiles form</span></li>
+<li><a title="" href="forms/users.html" style="font-family: wp_bogus_font">RUN</a><span style="font-family: wp_bogus_font"> users form</span></li>
 
 </ol>
 <p align="left"><font face="wp_bogus_font"><br />

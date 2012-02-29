@@ -3,23 +3,23 @@
 /**********************************************************
  *  Post for this data pipe with:
  *     {
-            "pipe" : "projectfiles",
+            "pipe" : "users",
  *          "queryType" : "select",
- *          "tableName" : "projectfiles",
+ *          "tableName" : "users",
  *          "project" : "BIT561"
  *      }
  **********************************************************/
-class ProjectFilesDataPipe extends baseDataPipe {
+class UsersDataPipe extends baseDataPipe {
 
-    protected $project;
+    protected $user;
     
     function __construct($tableMapManager, $dataManager) {
 		parent::__construct($tableMapManager, $dataManager);
-		$this->project = $_REQUEST['project'];       
+		$this->user = $_REQUEST['userName'];       
     }
     
     function where() {
-        return "WHERE project = '".$this->project."'";
+        return "WHERE userName = '".$this->user."'";
     }
     
 }

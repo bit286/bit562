@@ -3,7 +3,7 @@
 // DataPipeFactory.php returns a datapipe object that matches the query asked for.
 include('baseDataPipe.php');
 include('ProjectFileDataPipe.php');
-
+include ('UsersDataPipe.php');
 
 // Any query doing basic CRUD will fall through to the default and use the BaseDataPipe.
 // These queries do one table and one record at a time.
@@ -16,7 +16,11 @@ function dataPipeFactory($mapManager, $dataManager) {
 	
 		case "projectfiles" :
 			$dataPipe = new ProjectFilesDataPipe($mapManager, $dataManager);
-			break;			
+			break;	
+                
+                case "users" :
+			$dataPipe = new UsersDataPipe($mapManager, $dataManager);
+			break;
 			
 
 		default:

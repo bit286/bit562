@@ -2,63 +2,56 @@
 
 (function() {
    
-function PROJECTFILESCONTROL() {
+function USERSCONTROL() {
    
 }  
 
-$PF = new PROJECTFILESCONTROL();
-$PF.fn = PROJECTFILESCONTROL.prototype;
+$U = new USERSCONTROL();
+$U.fn = USERSCONTROL.prototype;
 
-$PF.fn.init = function() {   
+$U.fn.init = function() {   
 };
    
-$PF.fn.getThis = function() {
+$U.fn.getThis = function() {
   return this; 
 };
 
-$PF.fn.setUpProjectFiles = function() {
+$U.fn.setUpUsers = function() {
    
    // Put all javascript variable declarations at the top of the function.
    var projectfiles = {
-      pipe : "projectfiles",
-      tableName : "projectfiles",
+      pipe : "users",
+      tableName : "users",
       queryType : "select",
       project : "BIT561"
    },
-   filenames = [];
+   usernames = [];
    
    // Load the data into structure, a jagged associative array.
    post(projectfiles);
 
-   filenames = $S.getType("projectfiles");
+   usernames = $S.getType("users");
    
-   // Set up the category selector.  Assumes the data objects have a category member.
-   if ( filenames.length > 0 ) {
-        $F.fillCategorySelector("projectfiles", "selectFileCategory");
-   } 
+  
    
    // Display the first data value or a clear screen.
-   if ( filenames.length > 0 ) {
-        $F.present("projectfiles", filenames[0]);
+   if ( usernames.length > 0 ) {
+        $U.present("users", usernames[0]);
    } else {
-        $F.clearform("projectfiles");
+        $U.clearform("users");
    }
    
    // Establish the carousel and set its events.
-   $C.setC(filenames);
-   $C.setSelect("fileselect", $C.getC(), "projectfiles", "name");
-   $C.makeEventHandlers("filecontrol", "projectfiles", $PF.bailout );
+   $C.setC(usernames);
+   $C.setSelect("userselect", $C.getC(), "users", "name");
+   $C.makeEventHandlers("userscontrol", "users", $U.bailout );
    
-   // Put an event on the category selector.
-   $("#selectFileCategory")
-        .change(function(e) {
-            $F.categorySelector(this, "fileselect", "projectfiles");
-        });
+  
    
 };
 
 // Do nothing on bailout at the moment.
-$PF.fn.bailout = function() {
+$U.fn.bailout = function() {
 };
    
 })();
@@ -81,38 +74,26 @@ $(document).ready( function() {
 		$("#helpComments").css("top", topStr);
 		switch ($(this).attr("id")) {
 			
-			case "source":
-				message = "Type in the location of the source code file being converted into HTML. ";
-				message += "Put in the complete location: drive, path, filename, and extension.";
+			case "userName":
+				message = "<br /><br />Enter your desired user name. ";
 			   	break;
 			   
-			case "destination":
-				message = "Enter the location of the HTML file created by the autodoc conversion. ";
-                message += "Put in the complete location: drive, path, filename, and extension.";
+			case "firstName":
+				message = "<br /><br />Enter your first name.";
 				break;
 				
-			case "project":
-				message = "Enter the name of the project files to be processed with the autodoc ";
-                message += "command.";
+			case "lastName":
+				message = "<br /><br />Enter your last name";
 				break;
 				
-			case "name":
-				message = "Name is a short, one line description of the file being converted.  ";
-                message += "Names are used in indexes and drop down selectors as a quick way ";
-                message += "to indicate which file is being chosen.";
+			case "email":
+				message = "<br /><br />Enter your email address";
 				break;
                 
-            case "description": 
-                message = "A longer description of the contents of a project source code file. ";
-                message += "The description can be used in a document describing all project ";
-                message += "work.";
-                break;
-                
-            case "category":
-                message = "Creating categories such a php, css, etc., makes it easier to find ";
-                message += "particular files in projects with a large number of files.";
-                break;
-				
+                        case "password": 
+                            message = "Enter your password";
+                            break;                
+            			
 			default:
 				message = "";
 				break;

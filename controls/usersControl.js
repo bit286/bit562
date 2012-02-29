@@ -22,7 +22,7 @@ $U.fn.setUpUsers = function() {
    var users = {
       pipe : "users",
       tableName : "users",
-      queryType : "select",
+      queryType : "insert",
       project : "BIT561"
    },
    usernames = [];

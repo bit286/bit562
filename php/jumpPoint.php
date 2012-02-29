@@ -1,56 +1,37 @@
 <?php
 
-	// testDBManager.php is an exercise page for the DBManager.php object.
-	include('db_login.php');
-	include('DBManager.php');
-	
-	$essay = new DBManager($db_dsn, $db_username, $db_password);
-	$essay->open();
-	$essay->assertToggle();
-	
-	$tableName = $_REQUEST['tableName'];
-	
-	// Make sure the user is logged in and valid. Authentication cannot occur when working with newuser accounts.
-	if ( !($tableName == 'authors' 
-		 || $tableName == 'alternativeqs' 
-		 || $tableName == 'analytics'
-		 || $tableName == 'sitefeedback'
-		 || $tableName == 'pages' 
-		 || $tableName == 'frames'
-		 || $tableName == 'essays'
-		 || $tableName == 'eQuestions'
-		 || $tableName == 'eAnswers'
-		 || $tableName == 'memberships' ) ) {
-		if ( $essay->failAuthenticate() ) {
-			
-			// Pack the authentication failure as XML.
-			header('Content-Type: text/xml');
-			echo '<?xml version="1.0" ?>';	
-			$XML = "<row tableName=\"authentic\"><field name=\"success\">"."@false@"."</field></row>";
-			echo "\n<XMLroot>".$XML."</XMLroot>";
-			exit();
-		}
-		else {
-			// Authentication passed.  Go on to lookup data.
-		}
-	}
-	
-	include('tableMapManager.php');	
-	include('DataPipeFactory.php');
-	
-	$mapManager = new tableMapManager($essay);
-	
-	$dataPipe = dataPipeFactory($mapManager, $essay);
-	
-	$result = $dataPipe->execute();
-	
-	// Pack the data as XML.
-	header('Content-Type: text/xml');
-	echo '<?xml version="1.0" ?>';	
+   require_once('DBManager.php');
+   require_once('db_login.php');
+   require_once('tableMapManager.php');
+   require_once('tableMap.php');
+   require_once('DataPipeFactory.php');
+   
+   // $_REQUEST['tableName'] = 'projectfiles';
+   // $_REQUEST['pipe'] = 'projectfiles';
+   // $_REQUEST['project'] = 'BIT561';
+   // $_REQUEST['queryType'] = 'select';
+   // $_REQUEST['authoroid'] = 'xxxxx-xxxxx-xxxxx-xxxxx';
+   
+   $db_dsn = "mysql:host={$db_host};dbname={$db_database}";
 
-	$XML = $dataPipe->resultToXML($result);
-	echo "\n<XMLroot>".$XML."</XMLroot>";
-
-	$essay->testDescription($XML);
-	
+   $databaseManager = new DBManager($db_dsn, $db_username, $db_password);
+   $databaseManager->open();
+   $databaseManager->test('This is the first check to see if the database works.');
+   
+   $tableMap = new TableMap('quotes', 'quote', 'quote', 'select', 'alpha');
+   $browserName = $tableMap->get('browser');
+   
+   $tableMapManager = new TableMapManager($databaseManager);
+   $dataPipe = dataPipeFactory($tableMapManager, $databaseManager);
+   
+   $result = $dataPipe->execute();
+   
+   // Pack the data as XML.
+   header('Content-Type: text/xml');
+   echo '<?xml version="1.0" ?>';
+   
+   $XML = $dataPipe->resultToXML($result);
+   echo '<XMLroot>'.$XML.'</XMLroot>';
+      
 ?>
+

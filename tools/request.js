@@ -139,22 +139,22 @@ HTTP._getResponse = function(request)
 
 // Short form of a standard synchronous post.
 function post( obj ) {
-	HTTP.post("/bit561/php/jumpPoint.php", obj, $S.XMLtoStructure, $S, false);
+	HTTP.post("../php/jumpPoint.php", obj, $S.XMLtoStructure, $S, false);
 };	
 
 // Handle the login page.
 function startLogin( obj ) {
-	HTTP.post("/bit561/php/jumpStart.php", obj, $S.XMLtoStructure, $S, false);
+	HTTP.post("../php/jumpStart.php", obj, $S.XMLtoStructure, $S, false);
 };
 
 // Return the marker.
 function marker( obj ) {
-	HTTP.post("/bit561/php/setAuthor.php", obj, $S.XMLtoStructure, $S, false);
+	HTTP.post("../php/setAuthor.php", obj, $S.XMLtoStructure, $S, false);
 };
 
 // Handle the addition of users to the database.
 function users( obj ) {
-	HTTP.post("/bit561/php/addUsers.php", obj, $S.XMLtoStructure, $S, false);
+	HTTP.post("../php/addUsers.php", obj, $S.XMLtoStructure, $S, false);
 };
 
 // Short form of an analytics submission.
@@ -165,6 +165,6 @@ function analytics( command, description ) {
 				"command" : command };
 	if ( typeof description != "undefined" )
 		obj.description = description;
-	HTTP.post("/php/jumpPoint.php", obj, $S.XMLtoStructure, $S, true);
+	HTTP.post("../php/jumpPoint.php", obj, $S.XMLtoStructure, $S, true);
 };
 

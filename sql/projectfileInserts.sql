@@ -1,4 +1,4 @@
-﻿insert into PROJECTFILES (Object_ID,Project,Source,Destination,Name,Description,Category)
+﻿insert into projectfiles (object_ID,Project,Source,Destination,Name,Description,Category)
 Values
 ( 'qwert-qwert-qwezz-qaswe', 'BIT561',
  'c://xampp/htdocs/BIT561/php/reader.php',

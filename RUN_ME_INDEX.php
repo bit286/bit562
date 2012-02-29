@@ -18,7 +18,7 @@
 <li><a title="" href="phpTest.php" style="font-family: wp_bogus_font">RUN</a><span style="font-family: wp_bogus_font"> .PHP file test</span></li>
 <li><a title="" href="forms/projectfiles.html" style="font-family: wp_bogus_font">RUN</a><span style="font-family: wp_bogus_font"> projectfiles form</span></li>
 <li><a title="" href="forms/users.html" style="font-family: wp_bogus_font">RUN</a><span style="font-family: wp_bogus_font"> users form</span></li>
-
+<li><a title="" href="doc/" style="font-family: wp_bogus_font">Open </a><span style="font-family: wp_bogus_font">Project Docs Folder</span></li>
 </ol>
 <p align="left"><font face="wp_bogus_font"><br />
 </font></p>

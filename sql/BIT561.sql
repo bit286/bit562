@@ -123,15 +123,3 @@ CREATE TABLE test (
       FIELD::fieldname=entryDate;;
          description=The date and time of record creation or update.;;
 */
-
-DROP TABLE IF EXISTS `users`;
-
-CREATE TABLE users (
-    object_ID   INT NOT NULL AUTO_INCREMENT,
-    PRIMARY KEY (object_ID),
-    userName    VARCHAR(100),
-    firstName   VARCHAR(100),
-    lastName    VARCHAR(100),
-    email       VARCHAR(100),
-    password    varchar(20)
-);

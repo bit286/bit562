@@ -41,7 +41,7 @@ $PF.fn.setUpProjectFiles = function() {
    if ( filenames.length > 0 ) {
         $F.present("projectfiles", filenames[0]);
    } else {
-        $F.clearform("projectfiles");
+        $F.clearForm("projectfiles");
    }
    
    // Establish the carousel and set its events.

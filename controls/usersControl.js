@@ -25,28 +25,28 @@
       queryType : "insert",
       project : "BIT561"
     },
-        usernames = [];
+    usernames = [];
 
     // Load the data into structure, a jagged associative array.
     post(users);
 
     usernames = $S.getType("users");
 
-
+    if ( usernames.length > 0 ) {
+      $U.fillCategorySelector("")
+    }
 
     // Display the first data value or a clear screen.
     if ( usernames.length > 0 ) {
       $U.present("users", usernames[0]);
     } else {
-      $U.clearForm("users");
+//      $U.clearForm("users");
     }
 
     // Establish the carousel and set its events.
     $C.setC(usernames);
     $C.setSelect("userselect", $C.getC(), "users", "name");
     $C.makeEventHandlers("userscontrol", "users", $U.bailout );
-
-
 
   };
 

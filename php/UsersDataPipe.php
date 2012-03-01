@@ -12,16 +12,15 @@
 class UsersDataPipe extends baseDataPipe {
 
     protected $user;
-    
+
     function __construct($tableMapManager, $dataManager) {
-		parent::__construct($tableMapManager, $dataManager);
-		$this->user = $_REQUEST['userName'];       
+        parent::__construct($tableMapManager, $dataManager);
+        $this->user = $_REQUEST['users'];       
     }
-    
+
     function where() {
         return "WHERE userName = '".$this->user."'";
     }
-    
+
 }
 
-?>

@@ -33,12 +33,12 @@
     usernames = $S.getType("users");
 
     if ( usernames.length > 0 ) {
-      $U.fillCategorySelector("")
+      $F.fillCategorySelector("")
     }
 
     // Display the first data value or a clear screen.
     if ( usernames.length > 0 ) {
-      $U.present("users", usernames[0]);
+      $F.present("users", usernames[0]);
     } else {
 //      $U.clearForm("users");
     }

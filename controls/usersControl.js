@@ -22,31 +22,31 @@
     var users = {
       pipe : "users",
       tableName : "users",
-      queryType : "insert",
-      project : "BIT561"
+      queryType : "select",
+      email: "%"
     },
     usernames = [];
 
     // Load the data into structure, a jagged associative array.
     post(users);
 
-    usernames = $S.getType("users");
+    usernames = $S.getType("userName");
 
     if ( usernames.length > 0 ) {
-      $F.fillCategorySelector("")
+      $F.fillCategorySelector("userselect")
     }
 
     // Display the first data value or a clear screen.
     if ( usernames.length > 0 ) {
       $F.present("users", usernames[0]);
     } else {
-//      $U.clearForm("users");
+      $F.clearForm("users");
     }
 
     // Establish the carousel and set its events.
     $C.setC(usernames);
-    $C.setSelect("userselect", $C.getC(), "users", "name");
-    $C.makeEventHandlers("userscontrol", "users", $U.bailout );
+    $C.setSelect("userselect", $C.getC(), "userscontrol", "userName");
+    $C.makeEventHandlers("userscontrol", "usersform", $U.bailout );
 
   };
 

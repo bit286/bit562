@@ -17,7 +17,7 @@
 </div>
 
 <div id="topside">
-    <h2 align="center" id="pagetitle">Project Files</h2>
+    <h2 align="center" id="pagetitle">Users</h2>
 </div>
 
 <div id="helpComments">
@@ -39,8 +39,10 @@
         </table><br />
 
         <form id="userscontrol" class="dataControl">
-            <select class="wideSelect" id="userselect">
-            </select><br /><br />
+            <select id="userselect" class="wideSelect">
+              <option value="No Category Selected">No Category Selected</option>
+            </select>
+            <br /><br />
             <img src="../images/prevArrow.jpg" 
                     title="Look at the previous user in the dropdown list." />
             <img src="../images/SaveData.jpg" 
@@ -56,7 +58,7 @@
         </form>
 
         <form name="users" id="users">
-        <fieldset id="username" class="required">
+        <fieldset id="userName" class="required">
             <table border="0" cellspacing="9" cellpadding="0">
                 <tr>
                     <td class="fields">User Name

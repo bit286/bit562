@@ -1,0 +1,51 @@
+INSERT INTO users (object_ID, userName, firstName, lastName, email, password)
+VALUES
+(
+    'testa-testa-testa-testa',
+    'tfinnell',
+    'Tim',
+    'Finnell',
+    'tim.finnell+bit561@gmail.com',
+    '123'),
+(
+    'testb-testb-testb-testb',
+    'rdeckard',
+    'Rick',
+    'Deckard',
+    'rick.deckard+bit561@gmail.com',
+    '123'),
+(
+    'testc-testc-testc-testc',
+    'rbatty',
+    'Roy',
+    'Batty',
+    'roy.batty+bit561@gmail.com',
+    '123'),
+(
+    'testd-testd-testd-testd',
+    'rachael',
+    'Rachael',
+    'Tyrell',
+    'rachael.tryell+bit561@gmail.com',
+    '123'),
+(
+    'teste-teste-teste-teste',
+    'tlewis',
+    'Taffy',
+    'Lewis',
+    'taffy.lewis+bit561@gmail.com',
+    '123'),
+(
+    'testf-testf-testf-testf',
+    'lkowalski',
+    'Leon',
+    'Kowalski',
+    'leon.kowalsi+bit561@gmail.com',
+    '123'),
+(
+    'testg-testg-testg-testg',
+    'Hannibal Chew',
+    'Leon',
+    'Kowalski',
+    'leon.kowalsi+bit561@gmail.com',
+    '123');

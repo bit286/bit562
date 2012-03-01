@@ -38,7 +38,7 @@ $U.fn.setUpUsers = function() {
    if ( usernames.length > 0 ) {
         $U.present("users", usernames[0]);
    } else {
-        $U.clearform("users");
+        $U.clearForm("users");
    }
    
    // Establish the carousel and set its events.

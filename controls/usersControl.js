@@ -36,9 +36,9 @@ $U.fn.setUpUsers = function() {
    
    // Display the first data value or a clear screen.
    if ( usernames.length > 0 ) {
-        $U.present("users", usernames[0]);
+        $F.present("users", usernames[0]);
    } else {
-        $U.clearform("users");
+        $F.clearform("users");
    }
    
    // Establish the carousel and set its events.

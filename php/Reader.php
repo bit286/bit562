@@ -67,6 +67,7 @@ class Reader {
     // HTML one at a time.  
     protected function readAndWriteFile($inputFilename, $outputFilename) {
 
+        $this->location = 0;
         $filePackager = packagerFactory($inputFilename);
         $fileReader = fopen($inputFilename, 'r');
         $fileWriter = fopen($outputFilename, 'w');
@@ -79,8 +80,9 @@ class Reader {
         
         while (!feof($fileReader)) {
             $fileLine = fgets($fileReader);
+            $this->location++;
             if (strpos($fileLine, '/*+') !== false) {
-                $this->planguageReader($fileReader, $fileWriter, $fileLine);
+                $this->planguageReader($fileReader, $fileWriter, $inputFilename, $fileLine);
             }
             else {
                 $html = $filePackager->packager($fileLine, $braceCount);
@@ -99,19 +101,18 @@ class Reader {
    // in the comment.  Comment strings are parsed and put into the planguage array.  Some
    // commands will be packaged in the planguageReader and sent to the write file as HTML.
    // The LINK command would be an example.
-   function planguageReader($readHandle, $writeHandle, $commentLine) {
+   function planguageReader($readHandle, $writeHandle, $filePath, $commentLine) {
       
  
        //Extract desired planguage block from file.
-       
-      $planguageString = file_get_contents($readHandle);
-      $planguageString = substr($planguageString, strpos ($planguageString, $commentLine) + 3);
-      $planguageString = substr($planguageString, 0,
-              $planguageString - (strlen($planguageString)-strpos($planguageString,'*/')));                               
-              
-             
-      
-      
+      $planguageString = $commentLine;
+      $planguageLocation = $this->location;
+      while (strpos($planguageString, '*/') === false) {
+          $planguageString .= fgets($readHandle);
+          $this->location++;
+      }
+      $planguageString = trim($planguageString);
+      $planguageString = trim($planguageString, '*/+');
       
       //Seperate the individual command sections in the planguage string into an array
       //and trim the whitespace from all strings.
@@ -120,15 +121,15 @@ class Reader {
       $commandSections = array_map('trim', $commandSections);
       
       //For each command section, break down into Command Name and Key/Value pairs and store in a jagged array.
-      for($i=0; $i<count($commandSections); $i+=1) {     
-      $commandObject = new Command ($commandSections[$i], $readHandle, $commentLine);
+      for($i=0; $i<count($commandSections); $i+=1) {
+      $commandObject = new Command ($commandSections[$i], $filePath, $planguageLocation);
       if ($commandObject->getCommandName()==='LINK') {          
           $pairs = $commandObject->getKVPairs();
           $this->linkBuilder($pairs);      
       } else {
       $this->addToPlanguage($commandObject);     
    }     
-     
+      $planguageLocation++;
    
       }
      

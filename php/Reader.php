@@ -5,57 +5,56 @@ require_once('Command.php');
 require_once('ProjectFile.php');
 
 class Reader {
-   
-   protected $planguage = array();
-   private   $projectFiles = array();
-   private   $projectName;
-   private   $location = 0;
-   private   $packagers = array();
-   protected $mgr;
-   protected $braceCounter = 0;
-   protected $links = array();
-   
-   function __construct(DBManager $databaseManager) { 
-      $this->mgr = $databaseManager;
-   }
-   
-   
-   public function getCommandType($commandType) {
-      return $this->planguage[$commandType];
-   }
-   
-   public function getProjectFiles() {
-      return $this->projectFiles;
-   }
-   
-   // Place a new command object in the planguage data structure.
-   public function addToPlanguage(Command $commandObj) {
-      $command = $commandObj->getCommandName();
-      $this->planguage[$command][] = $commandObj;
+
+    protected $planguage = array();
+    private $projectFiles = array();
+    private $projectName;
+    private $location = 0;
+    private $packagers = array();
+    protected $mgr;
+    protected $braceCounter = 0;
+    protected $links = array();
+
+    function __construct(DBManager $databaseManager) {
+        $this->mgr = $databaseManager;
     }
-   
-   // Read the project file names and target file names from the database.
-   // Create a projectFiles array by making a ProjectFile object for each
-   // project file and putting it in the array.
-   public function retrieveProjectFiles($projectName) {
-       $this->projectName = $projectName;
-       
-       // Retrieve table of projectfiles from database
-       $this->mgr->open();
-       $result = $this->mgr->execute("SELECT * FROM project_files WHERE project='{$projectName}'"); 
-       
-       // Loop through projects files, putting each into an object, placing that object in the $projectFiles array
-       
-       while ($row = $result->fetch(PDO::FETCH_ASSOC)) {
-           $this->projectFiles[] = new ProjectFile($row['object_ID'], $row['source'],
-                   $row['destination'], $row['name'], $row['description'], $row['entryDate']);
-       }
-   }
-   
+
+    public function getCommandType($commandType) {
+        return $this->planguage[$commandType];
+    }
+
+    public function getProjectFiles() {
+        return $this->projectFiles;
+    }
+
+    // Place a new command object in the planguage data structure.
+    public function addToPlanguage(Command $commandObj) {
+        $command = $commandObj->getCommandName();
+        $this->planguage[$command][] = $commandObj;
+    }
+
+    // Read the project file names and target file names from the database.
+    // Create a projectFiles array by making a ProjectFile object for each
+    // project file and putting it in the array.
+    public function retrieveProjectFiles($projectName) {
+        $this->projectName = $projectName;
+
+        // Retrieve table of projectfiles from database
+        $this->mgr->open();
+        $result = $this->mgr->execute("SELECT * FROM project_files WHERE project='{$projectName}'");
+
+        // Loop through projects files, putting each into an object, placing that object in the $projectFiles array
+
+        while ($row = $result->fetch(PDO::FETCH_ASSOC)) {
+            $this->projectFiles[] = new ProjectFile($row['object_ID'], $row['source'],
+                            $row['destination'], $row['name'], $row['description'], $row['entryDate']);
+        }
+    }
+
     // Go through all project files, controlling the reading of the files and then the writing
     // of the HTML version of the file to the documentation folder.  
-    public function readAndWriteProject(){
-        
+    public function readAndWriteProject() {
+
         $numProjFiles = count($this->projectFiles);
         for ($i = 0; $i < $numProjFiles; $i++) {
             $this->readAndWriteFile($this->projectFiles[$i]->getSource(), $this->projectFiles[$i]->getDestination());
@@ -71,13 +70,13 @@ class Reader {
         $filePackager = packagerFactory($inputFilename);
         $fileReader = fopen($inputFilename, 'r');
         $fileWriter = fopen($outputFilename, 'w');
-        
+
         fwrite($fileWriter, '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"\n
             "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">\n\n
             <html xmlns="http://www.w3.org/1999/xhtml">\n\n <head>\n
             <link rel="stylesheet" type="text/css" href="css/doc_style.css" />
-            <title>'.pathinfo($inputFilename, PATHINFO_FILENAME).'</title>\n </head>\n\n<body>');
-        
+            <title>' . pathinfo($inputFilename, PATHINFO_FILENAME) . '</title>\n </head>\n\n<body>');
+
         while (!feof($fileReader)) {
             $fileLine = fgets($fileReader);
             $this->location++;
@@ -86,55 +85,54 @@ class Reader {
             }
             else {
                 $html = $filePackager->packager($fileLine, $braceCount);
-                fwrite($fileWriter, $html.'\n');
+                fwrite($fileWriter, $html . '\n');
             }
         }
-        
+
         fwrite($fileWriter, '</body>\n\n</html>');
         fclose($fileReader);
         fclose($fileWriter);
     }
-   
-   // When the beginning of a planguage comment is present in a file line,
-   // pass the line to the planguageReader.  The planguageReader handles an entire planguage
-   // comment, regardless of comment length and regardless of the number of commands
-   // in the comment.  Comment strings are parsed and put into the planguage array.  Some
-   // commands will be packaged in the planguageReader and sent to the write file as HTML.
-   // The LINK command would be an example.
-   function planguageReader($readHandle, $writeHandle, $filePath, $commentLine) {
-      
- 
-       //Extract desired planguage block from file.
-      $planguageString = $commentLine;
-      $planguageLocation = $this->location;
-      while (strpos($planguageString, '*/') === false) {
-          $planguageString .= fgets($readHandle);
-          $this->location++;
-      }
-      $planguageString = trim($planguageString);
-      $planguageString = trim($planguageString, '*/+');
-      
-      //Seperate the individual command sections in the planguage string into an array
-      //and trim the whitespace from all strings.
-             
-      $commandSections = explode(';;', $planguageString);
-      $commandSections = array_map('trim', $commandSections);
-      
-      //For each command section, break down into Command Name and Key/Value pairs and store in a jagged array.
-      for($i=0; $i<count($commandSections); $i+=1) {
-      $commandObject = new Command ($commandSections[$i], $filePath, $planguageLocation);
-      if ($commandObject->getCommandName()==='LINK') {          
-          $pairs = $commandObject->getKVPairs();
-          $this->linkBuilder($pairs);      
-      } else {
-      $this->addToPlanguage($commandObject);     
-   }     
-      $planguageLocation++;
-   
-      }
-     
-   }
-   
+
+    // When the beginning of a planguage comment is present in a file line,
+    // pass the line to the planguageReader.  The planguageReader handles an entire planguage
+    // comment, regardless of comment length and regardless of the number of commands
+    // in the comment.  Comment strings are parsed and put into the planguage array.  Some
+    // commands will be packaged in the planguageReader and sent to the write file as HTML.
+    // The LINK command would be an example.
+    function planguageReader($readHandle, $writeHandle, $filePath, $commentLine) {
+
+
+        //Extract desired planguage block from file.
+        $planguageString = $commentLine;
+        $planguageLocation = $this->location;
+        while (strpos($planguageString, '*/') === false) {
+            $planguageString .= fgets($readHandle);
+            $this->location++;
+        }
+        $planguageString = trim($planguageString);
+        $planguageString = trim($planguageString, '*/+');
+
+        //Seperate the individual command sections in the planguage string into an array
+        //and trim the whitespace from all strings.
+
+        $commandSections = explode(';;', $planguageString);
+        $commandSections = array_map('trim', $commandSections);
+
+        //For each command section, break down into Command Name and Key/Value pairs and store in a jagged array.
+        for ($i = 0; $i < count($commandSections); $i+=1) {
+            $commandObject = new Command($commandSections[$i], $filePath, $planguageLocation);
+            if ($commandObject->getCommandName() === 'LINK') {
+                $pairs = $commandObject->getKVPairs();
+                $this->linkBuilder($pairs);
+            }
+            else {
+                $this->addToPlanguage($commandObject);
+            }
+            $planguageLocation++;
+        }
+    }
+
     function planguageReporter() {
         $html = "<!DOCTYPE html>\n<html>\n<head>\n<title>Planguage Report</title>\n</head>\n<body>\n";
         $html = "<h1>Planguage Report</h1>\n";
@@ -159,18 +157,14 @@ class Reader {
             $html .= "</table>\n";
         }
         $html .= "</body>\n</html>";
-        $filehandle = fopen('/Users/logan/Documents/docs/planguage.html', 'w');
-        fwrite($filehandle, $html);
         return $html;
     }
-   
-   
+
     protected function linkBuilder($pairs) {
-        $linkHtml = '<a href="' .$pairs['href']. '" title="' .$pairs['title']. '">link</a>';
-          $this->links[] = $linkHtml;   
+        $linkHtml = '<a href="' . $pairs['href'] . '" title="' . $pairs['title'] . '">link</a>';
+        $this->links[] = $linkHtml;
     }
-   
-   
+
 }
 
 ?>

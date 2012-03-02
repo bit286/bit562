@@ -135,7 +135,7 @@ class Reader {
 
     function planguageReporter() {
         $html = "<!DOCTYPE html>\n<html>\n<head>\n<title>Planguage Report</title>\n</head>\n<body>\n";
-        $html = "<h1>Planguage Report</h1>\n";
+        $html .= "<h1>Planguage Report</h1>\n";
         foreach ($this->planguage as $commandType => $commandObjects) {
             //Create table header
             $html .= "<table>\n<tr><th>$commandType</th></tr>\n<tr>";

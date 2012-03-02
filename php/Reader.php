@@ -135,6 +135,36 @@ class Reader {
      
    }
    
+    function planguageReporter() {
+        $html = "<!DOCTYPE html>\n<html>\n<head>\n<title>Planguage Report</title>\n</head>\n<body>\n";
+        $html = "<h1>Planguage Report</h1>\n";
+        foreach ($this->planguage as $commandType => $commandObjects) {
+            //Create table header
+            $html .= "<table>\n<tr><th>$commandType</th></tr>\n<tr>";
+            //Create column headers
+            foreach ($commandObjects[0]->getKVPairs() as $column => $value) {
+                $html .= "<th>$column</th>";
+            }
+            $html .= "</tr>\n";
+
+            //Create a row for each use of the given planguage command
+            foreach ($commandObjects as $commandObject) {
+                $html .= '<tr>';
+                $commandPieces = $commandObject->getKVPairs();
+                foreach ($commandPieces as $commandPiece) {
+                    $html .= "<td>$commandPiece</td>";
+                }
+                $html .= "</tr>\n";
+            }
+            $html .= "</table>\n";
+        }
+        $html .= "</body>\n</html>";
+        $filehandle = fopen('/Users/logan/Documents/docs/planguage.html', 'w');
+        fwrite($filehandle, $html);
+        return $html;
+    }
+   
+   
     protected function linkBuilder($pairs) {
         $linkHtml = '<a href="' .$pairs['href']. '" title="' .$pairs['title']. '">link</a>';
           $this->links[] = $linkHtml;   

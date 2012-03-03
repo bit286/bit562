@@ -38,8 +38,7 @@
 
     // Display the first data value or a clear screen.
     if ( usernames.length > 0 ) {
-      $F.present("users", usernames[0]);
-    } else {
+      
       $F.clearForm("users");
     }
 
@@ -49,7 +48,9 @@
     $C.makeEventHandlers("userscontrol", "users", $U.bailout );
 
   };
-
+ 
+   
+		
   // Do nothing on bailout at the moment.
   $U.fn.bailout = function() {
   };

@@ -30,10 +30,10 @@
     // Load the data into structure, a jagged associative array.
     post(users);
 
-    usernames = $S.getType("userName");
+    usernames = $S.getType("users");
 
     if ( usernames.length > 0 ) {
-      $F.fillCategorySelector("userselect")
+      $F.fillCategorySelector("users")
     }
 
     // Display the first data value or a clear screen.
@@ -45,8 +45,8 @@
 
     // Establish the carousel and set its events.
     $C.setC(usernames);
-    $C.setSelect("userselect", $C.getC(), "userscontrol", "userName");
-    $C.makeEventHandlers("userscontrol", "usersform", $U.bailout );
+    $C.setSelect("userselect", $C.getC(), "users", "userName");
+    $C.makeEventHandlers("userscontrol", "users", $U.bailout );
 
   };
 

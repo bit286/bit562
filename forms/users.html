@@ -38,11 +38,12 @@
             </tr>
         </table><br />
 
-        <form id="userscontrol" class="dataControl">
+        
             <select id="userselect" class="wideSelect">
-              <option value="No Category Selected">No Category Selected</option>
+              <option value="No User Selected">No User Selected</option>
             </select>
             <br /><br />
+			<form id="userscontrol" class="dataControl">
             <img src="../images/prevArrow.jpg" 
                     title="Look at the previous user in the dropdown list." />
             <img src="../images/SaveData.jpg" 
@@ -58,7 +59,21 @@
         </form>
 
         <form name="users" id="users">
-        <fieldset id="userName" class="required">
+        <fieldset id="object_ID" class="required">
+            <table border="0" cellspacing="9" cellpadding="0">
+                <tr>
+                    <td class="fields">object_ID
+                            <span class="asterisk">&nbsp;*</span></td>
+                </tr>
+                <tr>
+                    <td><input type="text" class="formdata object_ID" size="84" value="" /></td>
+                </tr>
+                <tr>
+                    <td class="undertitle">Enter object_ID</td>
+                </tr>
+            </table>
+        </fieldset>
+		<fieldset id="userName" class="required">
             <table border="0" cellspacing="9" cellpadding="0">
                 <tr>
                     <td class="fields">User Name

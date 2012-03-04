@@ -38,6 +38,7 @@ class PackagerTests {
       
       $this->tests['class'] = function($fileLine, &$bracecount) use (&$block, &$wrapper) {
          if (preg_match('/class/', $fileLine)
+               && strpos($fileLine, 'class') === 0
                && !$wrapper
                && !$block) {
             $fileLine = '<span class="classDefinition">'.$fileLine.'</span><div class="class body">';
@@ -75,7 +76,7 @@ class PackagerTests {
             $wrapper = true;
             if (strpos($fileLine, '{') > -1) {
                 $bracecount++;
-                $fileLine = '<div class="declaration"'.$fileLine.'<div class="body">';
+                $fileLine = '<div class="declaration">'.$fileLine.'<div class="body">';
             }
             if ( $bracecount > 0 && strpos($fileLine, '}') > -1) {
                $fileLine = '</div>' . $fileLine . '</div>';

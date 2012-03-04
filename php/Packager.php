@@ -38,6 +38,13 @@ class Packager {
       return $fileLine;
       
    }
+
+   // Function added by Michael Olmstead. Created 02/29/2012.
+   // A zero count indicates that file type to be packaged
+   // is not recognized by the ProjectFactory.
+   public function getTestFlagsCount() {
+      return count($this->testFlags);
+   }
    
 }
 

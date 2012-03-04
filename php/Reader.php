@@ -14,6 +14,7 @@ class Reader {
     protected $mgr;
     protected $braceCounter = 0;
     protected $links = array();
+    private $results = array();
 
     function __construct(DBManager $databaseManager) {
         $this->mgr = $databaseManager;
@@ -43,6 +44,12 @@ class Reader {
         $this->mgr->open();
         $result = $this->mgr->execute("SELECT * FROM project_files WHERE project='{$projectName}'");
 
+       if (!$result) {
+           $this->results[] = array('success'=>FALSE
+               ,'description'=>"There are no ".$this->projectName." files to document in the project_files table");
+           return $this->results;
+       } // Return when the result set is empty.
+
         // Loop through projects files, putting each into an object, placing that object in the $projectFiles array
 
         while ($row = $result->fetch(PDO::FETCH_ASSOC)) {
@@ -59,6 +66,7 @@ class Reader {
         for ($i = 0; $i < $numProjFiles; $i++) {
             $this->readAndWriteFile($this->projectFiles[$i]->getSource(), $this->projectFiles[$i]->getDestination());
         }
+        return $this->results;
     }
 
     // Handle one file at a time given the file name and the target HTML name.
@@ -67,15 +75,39 @@ class Reader {
     protected function readAndWriteFile($inputFilename, $outputFilename) {
 
         $this->location = 0;
+
+        if (!is_file($inputFilename)){
+            $this->results[] = array('success'=>FALSE
+               ,'description'=>"Input file does not exist: ".$inputFilename);
+            return;
+        }
+
         $filePackager = packagerFactory($inputFilename);
+
+        if ( $filePackager->getTestFlagsCount() == 0 ){
+            $this->results[] = array('success'=>FALSE
+               ,'description'=>"Input file type not recognized: ".$inputFilename);
+            return;
+        }
+        
+        $lastSlashPos = strrpos($outputFilename, '/');
+        if (!$lastSlashPos){ $lastSlashPos = strrpos($outputFilename, '\\'); }
+        $outputFilePath = substr($outputFilename,0,$lastSlashPos);
+        
+        if (!is_dir($outputFilePath)){
+            $this->results[] = array('success'=>FALSE
+               ,'description'=>"Output document path does not exist: ".$outputFilename);
+            return;
+        }
+
         $fileReader = fopen($inputFilename, 'r');
         $fileWriter = fopen($outputFilename, 'w');
 
-        fwrite($fileWriter, '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"\n
-            "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">\n\n
-            <html xmlns="http://www.w3.org/1999/xhtml">\n\n <head>\n
-            <link rel="stylesheet" type="text/css" href="css/doc_style.css" />
-            <title>' . pathinfo($inputFilename, PATHINFO_FILENAME) . '</title>\n </head>\n\n<body>');
+        fwrite($fileWriter, '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"'."\n".
+            '"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">'."\n\n".
+            '<html xmlns="http://www.w3.org/1999/xhtml">'."\n\n".'<head>'."\n".
+            '<link rel="stylesheet" type="text/css" href="../css/doc_style.css" />'."\n".
+            '<title>' . pathinfo($inputFilename, PATHINFO_FILENAME) . '</title>'."\n".'</head>'."\n\n".'<body>'."\n");
 
         while (!feof($fileReader)) {
             $fileLine = fgets($fileReader);
@@ -84,14 +116,22 @@ class Reader {
                 $this->planguageReader($fileReader, $fileWriter, $inputFilename, $fileLine);
             }
             else {
+                if (strpos($fileLine,'<') === 0) { $fileLine = '&lt;'.substr($fileLine,1); }
                 $html = $filePackager->packager($fileLine, $braceCount);
-                fwrite($fileWriter, $html . '\n');
+                fwrite($fileWriter, $html . "\n");
             }
         }
 
-        fwrite($fileWriter, '</body>\n\n</html>');
+        // Get Javascript.
+        fwrite($fileWriter, "\n".
+        '<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></script>'."\n".
+        '<script type="text/javascript" language="javascript" src="../javascript/doc_style.js"></script>'."\n\n");
+
+        fwrite($fileWriter, '</body>'."\n\n".'</html>');
         fclose($fileReader);
         fclose($fileWriter);
+        $this->results[] = array('success'=>TRUE
+               ,'description'=>"Output document was successfully created: ".$outputFilename);
     }
 
     // When the beginning of a planguage comment is present in a file line,

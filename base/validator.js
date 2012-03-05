@@ -134,6 +134,49 @@ validator.types.isDigits = {
 	
 };
 
+//Make sure a value is a series of letters. Also allows spaces
+
+validator.types.isLetters = {
+	
+	validate: function (value, rule){
+		return !/^[a-zA-Z()]+$/.test(value);
+	},
+	
+	instructions: function() {
+		return "the value can only be letters A-Z";
+	}
+	
+	
+}
+
+//Make sure a value follows a phone number pattern
+
+validator.types.isPhoneNumber = {
+	
+	validate: function (value, rules){
+		return !/^(\()?(\d{3})([\)-\. ])?(\d{3})([-\. ])?(\d{4})$/.test(value);
+		
+	}
+	
+	instructions: function() {
+		return "the value must follow the pattern (xxx) xxx-xxxx";
+	}
+	
+}
+
+//Make sure a value follows a email pattern
+
+validator.types.isEmail = {
+	
+	validate: function (value, rules){
+		return !/^([a-zA-Z0-9_.-])+@([a-zA-Z0-9_.-])+\.([a-zA-Z])+([a-zA-Z])+/.test(value);
+	}
+	
+	instructions: function(){
+		return "Email Invalid. Must follow x@xxx.xxx";
+	}
+}
+
 // Make sure a value is a string of digits and a particular length.
 validator.types.isDigitsAndLength = {
 	

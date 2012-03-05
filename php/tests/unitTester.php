@@ -7,11 +7,14 @@
 // The array is multidimensional as follows. array[testClassName][methodName] = $result
 // Results are TRUE for test success and FALSE for test failure.
 
+
 //Conventions: (must = required, should = recommended)
-// Test classes must inherit baseTest 
-// Test class should must be the same as the class it is testing + "UT"
+
+// "include()"s within test class files must be relative to the entry point. (UTJumpPoint.php is currently located in "tests")
+// Test classes must inherit baseTest
+// Test class must be the same as the class it is testing + "UT"
 // Test class Files must be the class name + ".php"
-// The only public methods of Test classes are tests.  Utility methods can be defined but must be private or protected.
+// The only public methods of Test classes must be tests.  Utility methods can be defined but must be private or protected.
 
 
 

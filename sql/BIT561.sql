@@ -39,7 +39,7 @@ CREATE TABLE tablemaps (
 
 DROP TABLE IF EXISTS `masterid`;
 
-CREATE TABLE masterid (
+CREATE TABLE masterID (
     object_ID                         char(23) not null,
        primary key (object_ID),
     tableName                         varchar(25) not null,

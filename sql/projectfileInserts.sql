@@ -46,7 +46,7 @@ Values
  generated HTML within the autodoc system.',
  'css' );
 
-insert into masterid ( object_ID, tableName, authoroid )
+insert into masterID ( object_ID, tableName, authoroid )
 values
 ( 'qwert-qwert-qwezz-qaswe', 'projectfiles', 'bitxx-bitxx-bitxx-bitxx' ),
 ( 'rtuie-iewoq-ckiet-citoe', 'projectfiles', 'bitxx-bitxx-bitxx-bitxx' ),

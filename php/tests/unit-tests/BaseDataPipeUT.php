@@ -1,9 +1,11 @@
 <?php
 /*
- * This file contains Unit tests for baseDataPipe.php
+ * This file contains Unit tests for BaseDataPipe
  * author: Chris Griffing
  */
 
+//includes are relative to entry point in the parent folder 
+ 
 include_once('../BaseDataPipe.php');
 include_once('baseTest.php');
 
@@ -33,8 +35,6 @@ class BaseDataPipeUT extends BaseTest {
     
     
 }
-//$theBaseDataPipe = new baseDataPipe();
-
 
 
 ?>

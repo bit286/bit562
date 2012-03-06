@@ -2,8 +2,8 @@
 // Define the connection parameters for the essay database.
 
 	$db_host = 'localhost';
-	$db_username = 'grcoachingdb';
-	$db_password = 'rgq7zm3';
-	$db_database = 'grcoaching_sql1';
+	$db_username = 'bit561';
+	$db_password = 'bit561';
+	$db_database = 'bit561';
 	
 ?>

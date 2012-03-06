@@ -131,5 +131,6 @@ CREATE TABLE users (
     firstName   VARCHAR(40) NOT NULL,
     lastName    VARCHAR(40) NOT NULL,
     email       VARCHAR(40) NOT NULL,
-    password    VARCHAR(40) NOT NULL
+    password    VARCHAR(40) NOT NULL,
+    entryDate   TIMESTAMP   NOT NULL
 );

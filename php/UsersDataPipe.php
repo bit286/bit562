@@ -15,11 +15,11 @@ class UsersDataPipe extends baseDataPipe {
 
     function __construct($tableMapManager, $dataManager) {
         parent::__construct($tableMapManager, $dataManager);
-        $this->user = $_REQUEST['users'];       
+        $this->user = $_REQUEST['email'];       
     }
 
     function where() {
-        return "WHERE userName = '".$this->user."'";
+        return "WHERE email LIKE '".$this->user."'";
     }
 
 }

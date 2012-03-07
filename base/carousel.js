@@ -201,8 +201,8 @@ $C.fn.saveInsertFollowUp = function ( response ) {
 			this.getThis().setC([]);
 			$C.push(newObj);			
 		}
-		$('img[src*=SaveData]').attr('src', '../images/SaveDataFlash.JPG');
-		setTimeout(function(){ $('img[src*=SaveData]').attr('src', '../images/SaveData.JPG');}, 800);
+		$('img[src*=SaveData]').attr('src', '../images/SaveDataFlash.jpg');
+		setTimeout(function(){ $('img[src*=SaveData]').attr('src', '../images/SaveData.jpg');}, 800);
 		this.selectAdd(newObj);
 	}
 	else {
@@ -279,8 +279,8 @@ $C.fn.removeFromCarousel = function ( dataObj ) {
 $C.fn.removeFollowUp = function( response ) {
 	var success = $S.XMLtoStructure ( response );
 	if ( success.result == "@true@" ) {
-		$('img[src*=DeleteData]').attr('src', '../images/DeleteDataFlash.JPG');
-		setTimeout(function(){ $('img[src*=DeleteData]').attr('src', '../images/DeleteData.JPG');}, 800);
+		$('img[src*=DeleteData]').attr('src', '../images/DeleteDataFlash.jpg');
+		setTimeout(function(){ $('img[src*=DeleteData]').attr('src', '../images/DeleteData.jpg');}, 800);
 	}
 	else {
 		alert("The attempted data delete failed.");
@@ -293,10 +293,10 @@ $C.fn.saveUpdateFollowUp = function( response ) {
 	if ( success.result == "@true@" ) {
 		var variables = $S.getType("variables");
 		$S.replace($S.getVar("$C.save"));
-		$('img[src*=SaveData]').attr('src', '../images/SaveDataFlash.JPG');
+		$('img[src*=SaveData]').attr('src', '../images/SaveDataFlash.jpg');
 		setTimeout(function(){
 			$('img[src*=SaveData]')
-				.attr('src', '../images/SaveData.JPG');}, 800);
+				.attr('src', '../images/SaveData.jpg');}, 800);
 	}
 	else {
 		alert("The attempted data save failed.");
@@ -486,7 +486,7 @@ $C.fn.search = function( formName, controlID, searchDisplay ) {
 	$('#cancelButton').css("display", "inline");
 	$S.setVar("onScreenBeforeSearch", $F.extract(formName));
 	$('#'+formName +' .search').css('color', 'red');
-	$('#'+ controlID + ' .searchImage').get(0).src = "/images/SearchOn.JPG";
+	$('#'+ controlID + ' .searchImage').get(0).src = "/images/SearchOn.jpg";
 	$F.clearForm(formName);
 	$('#'+ controlID + ' .searchImage').unbind('click').click( function(e) {
 	    $C.fn.submitSearch(formName, controlID, searchDisplay);
@@ -505,7 +505,7 @@ $C.fn.submitSearch = function ( formName, controlID, searchDisplay ) {
 	$S.clearType(formName + "Search");
 	post(searchObj);
 	$('#'+formName +' .search').css('color', 'black');
-	$('#'+ controlID + ' .searchImage').get(0).src = "/images/SearchOff.JPG";
+	$('#'+ controlID + ' .searchImage').get(0).src = "/images/SearchOff.jpg";
 	$('#'+ controlID + ' .searchImage').unbind('click').click( function(e) {
 	    $C.fn.search(formName, controlID, searchDisplay);
 	});

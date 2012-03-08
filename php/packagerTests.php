@@ -19,7 +19,7 @@ class PackagerTests {
       
       $block = false;
       $wrapper = false;
-      $functionmarker = 0;
+      $functionmarker = -1; // Zero is a legitimate value. Changed not set value to -1.
       
       $this->tests['comment'] = function($fileLine, &$bracecount) use (&$block, &$wrapper) {
          $fileLine = trim($fileLine);
@@ -50,15 +50,21 @@ class PackagerTests {
       
       $this->tests['function'] = function($fileLine, &$bracecount) use (&$block, &$wrapper, &$functionmarker) {
          if (preg_match('/function/', $fileLine)
+               && !(strpos(str_replace(' ','',$fileLine),'(function') === 0) // '(function' cannot begin a line.
+               && !(strpos($fileLine, 'function') > strpos($fileLine, '//')) // 'function' cannot be in a comment.
                && !$wrapper
                && !$block) {
-            $fileLine = '<span class="functionDefinition">'.$fileLine.'</span><div class="function body">';
-            if ( $functionmarker === 0 ) {
-               $fileLine = '<div class="functionDeclaration">'
-                           .'<span class="expandFunction">++</span>'.$fileLine;
-               $bracecount++;
-               $functionmarker = $bracecount;
+            $fileLine = '<span class="functionDefinition">'.$fileLine;
+            if ( $functionmarker === -1 ) {
+                $fileLine = '<span class="expandFunction">++</span>'.$fileLine
+                       .'</span><div class="collapse function body">';
+                $functionmarker = $bracecount;
+            } else {
+                 // Do not minimize nested functions. Remove expandFunction.
+                $fileLine = $fileLine.'</span><div class="function body">';
             }
+            $fileLine = '<div class="functionDeclaration">'.$fileLine;
+            $bracecount++;
             $wrapper = true;
          }
          return $fileLine;
@@ -78,10 +84,12 @@ class PackagerTests {
                 $bracecount++;
                 $fileLine = '<div class="declaration">'.$fileLine.'<div class="body">';
             }
-            if ( $bracecount > 0 && strpos($fileLine, '}') > -1) {
+            if ( strpos($fileLine, '}') > -1) {
+               $bracecount -= 1;
                $fileLine = '</div>' . $fileLine . '</div>';
-               $bracecount === $functionmarker ? $functionmarker = 0 : FALSE;
-               $bracecount--;
+            }
+            if ( $functionmarker === $bracecount ) {
+                $functionmarker = -1;
             }
          }
          return $fileLine;
@@ -89,11 +97,11 @@ class PackagerTests {
       
       // Mike and shawn's code for CSS packager testing
       // Looking for selectors.
-      $this->tests['selector'] = function($fileLine, $bracecount) use (&$block, &$wrapper, &$div){
+      $this->tests['selector'] = function($fileLine, &$bracecount) use (&$block, &$wrapper, &$div){
           if (!$wrapper && !$block) {
             $fileLine = trim($fileLine);
             if (( strpos($fileLine, '{') > -1 ) ||  (strpos($fileLine, '}') > -1))  {
-               $fileLine = '<span class="selector">'.$fileLine.'</span>';
+               $fileLine = '<span class="selector">'.$fileLine.'</span><br />';
             }
               $wrapper = true;
           }
@@ -102,20 +110,20 @@ class PackagerTests {
       
       // testing for css rules
       
-      $this->tests['rule'] = function($fileLine, $bracecount) use (&$block, &$wrapper, &$div){
+      $this->tests['rule'] = function($fileLine, &$bracecount) use (&$block, &$wrapper, &$div){
           if (!$wrapper || !$block) {
             $fileLine = trim($fileLine);
             if ( strpos($fileLine, ';') > -1 ) {
-               $fileLine = '<span class="rule">'.$fileLine.'</span>';
+               $fileLine = '<span class="rule">'.$fileLine.'</span><br />';
             }
                $wrapper = true;
           }
-          return $fileLine.'<br />';
+          return $fileLine; //.'<br />'; Adds extra line for comments.
       };
       
       // testing for css atributes
       
-      $this->tests['cssatributes'] = function($fileLine, $bracecount) use (&$block, &$wrapper, &$div){
+      $this->tests['cssatributes'] = function($fileLine, &$bracecount) use (&$block, &$wrapper, &$div){
           if (!$wrapper || !$block) {
             $fileLine = trim($fileLine);
             if ( strpos($fileLine, '.') > -1 ) {
@@ -128,7 +136,7 @@ class PackagerTests {
       
       // testing for css individual
       
-      $this->tests['cssindividual'] = function($fileLine, $bracecount) use (&$block, &$wrapper, &$div){
+      $this->tests['cssindividual'] = function($fileLine, &$bracecount) use (&$block, &$wrapper, &$div){
           if (!$wrapper || !$block) {
             $fileLine = trim($fileLine);
             if ( strpos($fileLine, '#') > -1 ) {

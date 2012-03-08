@@ -156,7 +156,7 @@ validator.types.isPhoneNumber = {
 	validate: function (value, rules){
 		return !/^(\()?(\d{3})([\)-\. ])?(\d{3})([-\. ])?(\d{4})$/.test(value);
 		
-	}
+	},
 	
 	instructions: function() {
 		return "the value must follow the pattern (xxx) xxx-xxxx";
@@ -170,7 +170,7 @@ validator.types.isEmail = {
 	
 	validate: function (value, rules){
 		return !/^([a-zA-Z0-9_.-])+@([a-zA-Z0-9_.-])+\.([a-zA-Z])+([a-zA-Z])+/.test(value);
-	}
+	},
 	
 	instructions: function(){
 		return "Email Invalid. Must follow x@xxx.xxx";

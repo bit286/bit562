@@ -6,7 +6,7 @@
         Auto-document stylesheet.
 */
 
-    .comment { color: red; }
+    .comment { color: green; }
     .codeline { color: blue; }
     .body { margin-left: 50px; }
     .bigcode { font-size: 36pt; font-weight: bold; }
@@ -16,16 +16,17 @@
     .functionDefinition { color: magenta; cursor: pointer; }
     .function .body { position: relative; }
     .expandFunction { cursor: pointer; }
-    .selector { color: deeppink; }
-    .rule { color: teal; }
-    .cssatributes { color: yellowgreen; }
+    .selector { color: blue; }
+    .rule { 
+       position: absolute;
+       left: 40px;
+       color: black; 
+    }
+    .cssatributes { color: blue; }
     .cssindividual { color: #3395E1; }
 
     /* Colors from style.css that override some of the above colors. */
-    .comment { color: brown; }
     .mlComment { color: green; }
     .block { border: 1px solid blue; margin: 5px; padding: 5px; }
-    .selector { color: rosybrown; }
-    .rule { color: gold; }
     .codeline { color: blueviolet; }
 

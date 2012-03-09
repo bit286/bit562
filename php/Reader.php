@@ -42,7 +42,7 @@ class Reader {
 
         // Retrieve table of projectfiles from database
         $this->mgr->open();
-        $result = $this->mgr->execute("SELECT * FROM project_files WHERE project='{$projectName}'");
+        $result = $this->mgr->execute("SELECT * FROM projectfiles WHERE project='".$projectName."'");
 
        if (!$result) {
            $this->results[] = array('success'=>FALSE
@@ -91,7 +91,9 @@ class Reader {
         }
         
         $lastSlashPos = strrpos($outputFilename, '/');
-        if (!$lastSlashPos){ $lastSlashPos = strrpos($outputFilename, '\\'); }
+        if (!$lastSlashPos){ 
+           $lastSlashPos = strrpos($outputFilename, '\\'); 
+        }
         $outputFilePath = substr($outputFilename,0,$lastSlashPos);
         
         if (!is_dir($outputFilePath)){
@@ -124,7 +126,7 @@ class Reader {
 
         // Get Javascript.
         fwrite($fileWriter, "\n".
-        '<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></script>'."\n".
+        '<script type="text/javascript" src="../tools/jquery-1.5.2.min.js"></script>'."\n".
         '<script type="text/javascript" language="javascript" src="../javascript/doc_style.js"></script>'."\n\n");
 
         fwrite($fileWriter, '</body>'."\n\n".'</html>');

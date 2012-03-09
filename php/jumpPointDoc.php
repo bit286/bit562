@@ -7,7 +7,7 @@
    $db_dsn = "mysql:host={$db_host};dbname={$db_database}";
 
    $databaseManager = new DBManager($db_dsn, $db_username, $db_password);
-   // $databaseManager->open();
+   $databaseManager->open();
    // $databaseManager->assertToggle();
    
    $reader = new Reader($databaseManager);

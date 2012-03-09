@@ -6,13 +6,24 @@
  *       Auto-document javascript.
  */
 
-    function performTest() { alert($(".codeLine").size()); }
+    function performTest() { 
+       alert($(".codeLine").size()); 
+    }
          
-    $(".codeline").click(function() { $(this).toggleClass("bigcode"); });
+    $(".codeline, .comment, .selector, .rule")
+      .click(function() { 
+         $(this).toggleClass("bigcode"); 
+      });
          
-    $(".classDefinition").click(function() { $(this).toggleClass("bigcode"); });
+    $(".classDefinition")
+      .click(function() { 
+         $(this).toggleClass("bigcode"); 
+      });
          
-    $(".functionDefinition").click(function() { $(this).toggleClass("bigcode"); });
+    $(".functionDefinition")
+      .click(function() { 
+         $(this).toggleClass("bigcode"); 
+      });
           
     jQuery(document).ready(function() {
         jQuery(".function.body").hide();

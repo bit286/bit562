@@ -19,7 +19,6 @@ class PackagerTests {
       
       $block = false;
       $wrapper = false;
-      $functionmarker = 0;
       
       $this->tests['comment'] = function($fileLine, &$bracecount) use (&$block, &$wrapper) {
          $fileLine = trim($fileLine);
@@ -48,23 +47,28 @@ class PackagerTests {
          return $fileLine;
       };
       
-      $this->tests['function'] = function($fileLine, &$bracecount) use (&$block, &$wrapper, &$functionmarker) {
+      $this->tests['function'] = function($fileLine, &$bracecount) use (&$block, &$wrapper) {
          if (preg_match('/function/', $fileLine)
                && !$wrapper
                && !$block) {
-            $fileLine = '<span class="functionDefinition">'.$fileLine.'</span><div class="function body">';
-            if ( $functionmarker === 0 ) {
+            $fileLine = trim($fileLine);
+            if ( (strpos($fileLine, "function") === 0 && $bracecount === 0)
+                 || $bracecount === 1) {
+               $fileLine = '<span class="functionDefinition">'
+                  .$fileLine.'</span><div class="function body"><br />';
                $fileLine = '<div class="functionDeclaration">'
-                           .'<span class="expandFunction">++</span>'.$fileLine;
-               $bracecount++;
-               $functionmarker = $bracecount;
+                              .'<span class="expandFunction">++</span>'.$fileLine;
+            } else {
+               $fileLine = '<span class="codeline">'.$fileLine.'</span><div class="function body"><br />';
+
             }
+            $bracecount++;
             $wrapper = true;
          }
          return $fileLine;
       };
       
-      $this->tests['codeline'] = function($fileLine, &$bracecount) use (&$block, &$wrapper, &$functionmarker) {
+      $this->tests['codeline'] = function($fileLine, &$bracecount) use (&$block, &$wrapper) {
          if (!$wrapper && !$block) {
             $fileLine = trim($fileLine);
             if ( strpos($fileLine, '//') > -1 && strpos($fileLine, ';') < strpos($fileLine, '//') ) {
@@ -76,12 +80,14 @@ class PackagerTests {
             $wrapper = true;
             if (strpos($fileLine, '{') > -1) {
                 $bracecount++;
-                $fileLine = '<div class="declaration">'.$fileLine.'<div class="body">';
+                $fileLine = $fileLine.'<div class="body">';
             }
             if ( $bracecount > 0 && strpos($fileLine, '}') > -1) {
-               $fileLine = '</div>' . $fileLine . '</div>';
-               $bracecount === $functionmarker ? $functionmarker = 0 : FALSE;
+               $fileLine = '</div>' . $fileLine;
                $bracecount--;
+               if ($bracecount <= 1) {
+                  $fileLine .= '</div>';
+               }
             }
          }
          return $fileLine;

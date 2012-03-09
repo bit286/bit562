@@ -101,13 +101,13 @@ class BaseDataPipe {
 
          case "delete":
             $sql = $this->delete();
-            $masterSql = "delete from masterid where object_ID = '".$this->object_ID."'";
+            $masterSql = "delete from masterID where object_ID = '".$this->object_ID."'";
             break;
 
          case "update":
             $sql = $this->update();
             $this->db->test('Execute update: '.$sql);
-            $masterSql = "update masterid set entryDate = '".date('Y-m-d H:i:s').
+            $masterSql = "update masterID set entryDate = '".date('Y-m-d H:i:s').
                           "' where object_ID = '".$this->object_ID."'";
             break;
       }

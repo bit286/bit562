@@ -1,0 +1,61 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+<link rel="stylesheet" type="text/css" href="../css/doc_style.css" />
+<title>jumpPointDoc</title>
+</head>
+
+<body>
+<span class="codeline">&lt;?php</span><br />
+<span class="codeline"></span><br />
+<span class="codeline">require_once('Reader.php');</span><br />
+<span class="codeline">require_once('DBManager.php');</span><br />
+<span class="codeline">require_once('db_login.php');</span><br />
+<span class="codeline"></span><br />
+</div><span class="codeline">$db_dsn = "mysql:host={$db_host};dbname={$db_database}";</span><br /><div class="body"></div>
+<span class="codeline"></span><br />
+<span class="codeline">$databaseManager = new DBManager($db_dsn, $db_username, $db_password);</span><br />
+<span class="codeline">$databaseManager->open();</span><br />
+<span class="comment">// $databaseManager->assertToggle();</span><br />
+<span class="codeline"></span><br />
+<span class="codeline">$reader = new Reader($databaseManager);</span><br />
+<span class="codeline">$reader->retrieveProjectFiles('BIT561');</span><br />
+<span class="codeline">$results = $reader->readAndWriteProject();</span><br />
+<span class="codeline"></span><br />
+<span class="codeline"></span><br />
+<span class="codeline">if (count($results) >= 1) {</span><br /><div class="body">
+<span class="codeline">$databaseManager->assertToggle();</span><br />
+<span class="codeline">$numResults = count($results);</span><br />
+<span class="codeline">for ($i = 0; $i < $numResults; $i++) {</span><br /><div class="body">
+<span class="codeline">$databaseManager->assert($results[$i]['success'],$results[$i]['description']);</span><br />
+</div><span class="codeline">}</span><br /></div>
+<span class="codeline">$result = '@true@';</span><br />
+</div><span class="codeline">} else {</span><br /><div class="body"></div>
+<span class="codeline">$result = '@false@';</span><br />
+</div><span class="codeline">}</span><br /></div>
+<span class="codeline"></span><br />
+<span class="codeline">?></span><br />
+<span class="codeline"></span><br />
+<span class="codeline"></span><br />
+<span class="codeline">&lt;html></span><br />
+<span class="codeline"><head></span><br />
+<span class="codeline"><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"></span><br />
+<span class="codeline"><title></title></span><br />
+<span class="codeline"></head></span><br />
+<span class="codeline"><body></span><br />
+<span class="codeline"><h2>The jumpPoint run was successful.</h2></span><br />
+<span class="codeline"><p>The result is <?php echo $result; ?>.</p></span><br />
+<span class="codeline"><p>Please see the results in the <b>bit561</b> database <b>test</b> table.</p></span><br />
+<span class="codeline"></body></span><br />
+<span class="codeline">&lt;/html></span><br />
+<span class="codeline"></span><br />
+
+<script type="text/javascript" src="../tools/jquery-1.5.2.min.js"></script>
+<script type="text/javascript" language="javascript" src="../javascript/doc_style.js"></script>
+
+</body>
+
+</html>

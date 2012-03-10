@@ -1,3 +1,11 @@
+<?php
+session_start();
+
+if ($_SESSION['loggedIn'] != true)
+  header('location:forms/login.php');
+
+?>
+
 <html>
 <head>
 <title>BIT 285 Class Project: BIT561 Vision Statement and Test Menu</title>

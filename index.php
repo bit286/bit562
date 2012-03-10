@@ -21,6 +21,9 @@
 <li><a title="" href="forms/users.html" style="font-family: wp_bogus_font">RUN</a><span style="font-family: wp_bogus_font"> users form</span></li>
 <li><a title="" href="doc/" style="font-family: wp_bogus_font">Open </a><span style="font-family: wp_bogus_font">Project Output Docs Folder</span></li>
 <li><a title="" href="GoogleDocsBackup/" style="font-family: wp_bogus_font">Open </a><span style="font-family: wp_bogus_font">Project Google Docs Backup Folder</span></li>
+<li><a title="" href="https://github.com/tfinnell/bit561" style="font-family: wp_bogus_font">Open </a><span style="font-family: wp_bogus_font">GITHUB.COM Project Download</span></li>
+<li><a title="" href="http://www.nexusgen.com/cpanel" style="font-family: wp_bogus_font">Open </a><span style="font-family: wp_bogus_font">NexISgen.com CPANEL login to manage the public web site.</span></li>
+
 </ol>
 <p align="left"><font face="wp_bogus_font"><br />
 </font></p>

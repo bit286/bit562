@@ -3,7 +3,6 @@
 require_once('PackagerFactory.php');
 require_once('Command.php');
 require_once('ProjectFile.php');
-require_once('Brace.php');
 
 class Reader {
 

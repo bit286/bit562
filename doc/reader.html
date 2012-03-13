@@ -183,6 +183,23 @@
 <span class="codeline">$this->links[] = $linkHtml;</span><br />
 </div><span class="codeline">}</span><br /></div>
 <span class="codeline"></span><br />
+<div class="functionDeclaration"><span class="expandFunction">++</span><span class="functionDefinition">public function writeProjectFilesIndexPage() {</span><div class="function body"><br />
+<span class="codeline">$outputFilename = $this->projectFiles[0]->getDestination();</span><br />
+<span class="codeline">$lastSlashPos = strrpos($outputFilename, '/');</span><br />
+</div><span class="codeline">if (!$lastSlashPos){ $lastSlashPos = strrpos($outputFilename, '\\'); }</span><br /><div class="body">
+<span class="codeline">$outputFilePath = substr($outputFilename,0,$lastSlashPos);</span><br />
+<span class="codeline">$outputIndexFilePath = $outputFilePath . '/index.html';</span><br />
+<span class="codeline"></span><br />
+<span class="codeline">$indexHtml = fopen($outputIndexFilePath, 'w');</span><br />
+<span class="codeline"></span><br />
+<span class="codeline">fwrite($indexHtml, '<ul id="project-files">');</span><br />
+<span class="codeline">foreach ($this->projectFiles as $projectFile) {</span><br /><div class="body">
+<span class="codeline">$tempString = '';</span><br />
+<span class="codeline">fwrite($indexHtml, '<li><a href="' . $projectFile->getDestination() . '"></a>' . $projectFile->getName() .'</li>');</span><br />
+</div><span class="codeline">}</span><br />
+<span class="codeline">fwrite($indexHtml, '</ul>');</span><br />
+<span class="codeline">fclose($indexHtml);</span><br />
+</div><span class="codeline">}</span><br /></div>
 </div><span class="codeline">}</span><br /></div>
 <span class="codeline"></span><br />
 <span class="codeline">?></span><br />

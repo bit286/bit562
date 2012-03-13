@@ -207,6 +207,23 @@ class Reader {
         $this->links[] = $linkHtml;
     }
 
+    public function writeProjectFilesIndexPage() {
+        $outputFilename = $this->projectFiles[0]->getDestination();
+        $lastSlashPos = strrpos($outputFilename, '/');
+        if (!$lastSlashPos){ $lastSlashPos = strrpos($outputFilename, '\\'); }
+        $outputFilePath = substr($outputFilename,0,$lastSlashPos);
+        $outputIndexFilePath = $outputFilePath . '/index.html';
+        
+        $indexHtml = fopen($outputIndexFilePath, 'w');
+        
+        fwrite($indexHtml, '<ul id="project-files">');
+        foreach ($this->projectFiles as $projectFile) {
+            $tempString = '';
+            fwrite($indexHtml, '<li><a href="' . $projectFile->getDestination() . '"></a>' . $projectFile->getName() .'</li>');
+        }
+        fwrite($indexHtml, '</ul>');
+        fclose($indexHtml);
+    }
 }
 
 ?>

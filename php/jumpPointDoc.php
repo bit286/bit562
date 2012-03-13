@@ -26,6 +26,13 @@
        $result = '@false@';
    }
    
+    $projectFiles = $reader->getProjectFiles();
+    $outputFilename = $projectFiles[0]->getDestination();
+    $lastSlashPos = strrpos($outputFilename, '/');
+    if (!$lastSlashPos){ $lastSlashPos = strrpos($outputFilename, '\\'); }
+    $outputFilePath = substr($outputFilename,0,$lastSlashPos);
+    $outputIndexFilePath = $outputFilePath . '/index.html';
+    $reader->writeProjectFilesIndexPage();
 ?>
 
 
@@ -37,6 +44,6 @@
    <body>
       <h2>The jumpPoint run was successful.</h2>
       <p>The result is <?php echo $result; ?>.</p>
-      <p>Please see the results in the <b>bit561</b> database <b>test</b> table.</p>
+      <p>Please see the results on this index page: <a href="<?php echo $outputIndexFilePath ?>"><?php echo $outputIndexFilePath ?></a></p>
    </body>
 </html>

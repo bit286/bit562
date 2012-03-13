@@ -107,6 +107,7 @@ class PackagerTests {
 					}
             }
             $bracecount++;
+            $nestingCount = $bracecount - 1;
             $wrapper = true;
          }
          return $fileLine;
@@ -145,8 +146,13 @@ class PackagerTests {
             if ( $bracecount > 0 && strpos($fileLine, '>}') > 0) {
                $fileLine = '</div>' . $fileLine;
                $bracecount--;
-               if ($bracecount <= 1) {
-                  $fileLine .= '</div>';
+               // A function's closing brace is identified when the brace count
+               // equals the nesting count of that function. A zero nesting count
+               // means that the function is not nested.
+               // A function can be nested in a class and in other functions.
+               if ($bracecount === $nestingCount) {
+                   $nestingCount--;
+                   $fileLine .= '</div>';
                }
             }
          }

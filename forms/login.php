@@ -44,7 +44,7 @@
       Password:<br />
       <input type="password" name="password" />
       <br /><br />
-      <input type="submit" id="subbut" value="Submit" />
+      <input type="submit" id="submit" value="Submit" />
     </form>
         
       </div>

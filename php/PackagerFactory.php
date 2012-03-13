@@ -6,6 +6,7 @@ function packagerFactory($codeFileName) {
    
     //getting extension
     $extension = substr($codeFileName, strrpos($codeFileName, ".") + 1);
+	 
    
     switch($extension)
     {
@@ -19,11 +20,10 @@ function packagerFactory($codeFileName) {
             $packager = new Packager(array("comment", "class", "function", "codeline"));
             break;
         case "sql":
-            //I know its possible to  define functions in most SQL packages, should they be tested for?
             $packager = new Packager(array("comment", "codeline"));
             break;
         case "css":
-            $packager = new Packager(array("comment", "selector", "rule","cssatributes","cssindividual"));
+            $packager = new Packager(array("comment", "selector", "rule"));
             break;
             
         default:

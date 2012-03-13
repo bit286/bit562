@@ -1,33 +1,52 @@
 <?php
 
-/**
- * Description of packagerTests
+/***********************************************************************
+ * The AUTODOC application requires that each line of source code be
+ * packaged in HTML for browser display.  PackagerTests examines the 
+ * code line to see what kind of line it is and puts the appropriate
+ * HTML line around the line.
  *
- * @author Edwin-Lap
- */
+ * Which tests get executed for each file type (.js, .php, .css, .sql)
+ * is determined in the PackagerFactory.
+ *
+ * PackagerTests creates an associative array of anonymous functions.  
+ * Each function in the packager test array is called for each line
+ * of code.  If the codeline already has HTML around it, the line is
+ * identified as wrapped.  If extended comments are encountered, the
+ * $block flag is set to indicate that the program is in the middle
+ * of a comment block.
+ *
+ * Putting code int an array using anonymous functions is called the 
+ * Strategy Pattern by Stoyan Stefanov ("Javascript Patterns", p. 155).
+ * This class is modeled after "validator.js," which uses the same
+ * pattern and follows Stefanov.  See BIT561/base/validator.js.
+ * 
+ **********************************************************************/
 
-/*+ 
- * AUTHOR::name=Ed Anderson::created=02/02/2012;;
- * TRACE::requirement=METADATA.PLANGUAGE::location=myjsPacakger.php::
- *     description=Packager object for wrapping Javascript code in HTML;;
- */
 class PackagerTests {
    
    private $tests = array();
    
    function __construct() {
       
+		// These are closure variables used within the anonymous functions 
+		// created for the tests.
       $block = false;
       $wrapper = false;
-      
+    
+		// comment
       $this->tests['comment'] = function($fileLine, &$bracecount) use (&$block, &$wrapper) {
          $fileLine = trim($fileLine);
-         if ((preg_match('/^(\/\/)|^(\/\*)|^(\*\/)/', $fileLine) || $block) && !$wrapper) {
+			
+			// ^(\/\/) matches // at the line beginning.
+			// ^(\/\*) matches /* at the line beginning.
+			// $(\*\/) matches */ at line end.
+         if ((preg_match('/^(\/\/)|^(\/\*)|$(\*\/)/', $fileLine) || $block) && !$wrapper) {
             $fileLine = '<span class="comment">'.$fileLine.'</span><br />';
-            if (strpos($fileLine, '/*') > -1) {
+            if (strpos($fileLine, '>/*') > 0) {
                $block = true;
             }
-            if (strpos($fileLine, '*/') > -1) {
+            if (strrpos($fileLine, '*/<') > 0) {
                $block = false;
             }
             $wrapper = true;
@@ -35,32 +54,57 @@ class PackagerTests {
          return $fileLine;
       };
       
+		// class
       $this->tests['class'] = function($fileLine, &$bracecount) use (&$block, &$wrapper) {
          if (preg_match('/class/', $fileLine)
                && strpos($fileLine, 'class') === 0
                && !$wrapper
                && !$block) {
-            $fileLine = '<span class="classDefinition">'.$fileLine.'</span><div class="class body">';
+            $fileLine = '<span class="classDefinition">'
+					.$fileLine.'</span><div class="class body">';
             $bracecount++;
             $wrapper = true;
          }
          return $fileLine;
       };
       
+		// function
       $this->tests['function'] = function($fileLine, &$bracecount) use (&$block, &$wrapper) {
          if (preg_match('/function/', $fileLine)
                && !$wrapper
                && !$block) {
             $fileLine = trim($fileLine);
+				
+				// Some lines include the word "function" but do not end in "{".
+				if (preg_match('/function/', $fileLine) &&
+						substr($fileLine, -1) !== "{" ) {
+						$fileLine = '<span class="codeline">'.$fileLine.'</span><br />';
+						$wrapper = true;
+						return $fileLine;
+				}
+							
+				
+				// If we have a simple javascript function, the keyword "function" will be in
+				// column 0 after trimming and the bracecount will be 0.  All other collapsible
+				// lines containing "function" occur when the bracecount is 1.
             if ( (strpos($fileLine, "function") === 0 && $bracecount === 0)
                  || $bracecount === 1) {
                $fileLine = '<span class="functionDefinition">'
                   .$fileLine.'</span><div class="function body"><br />';
                $fileLine = '<div class="functionDeclaration">'
-                              .'<span class="expandFunction">++</span>'.$fileLine;
+                              .'<span class="expandFunction">++&nbsp;&nbsp;&nbsp;</span>'.$fileLine;
             } else {
-               $fileLine = '<span class="codeline">'.$fileLine.'</span><div class="function body"><br />';
-
+				
+					// If the "(function() {" format is encountered in Javascript, don't treat 
+					// as requiring indentation.  Other function uses establish a new statement
+					// block and require indentation (class="function body").
+					if (strpos($fileLine, "(") === 0) {
+						$fileLine = '<span class="codeline">'
+							.$fileLine.'</span><div class="function"><br />';
+					} else {	
+						$fileLine = '<span class="codeline">'
+							.$fileLine.'</span><div class="class body"><br />';
+					}
             }
             $bracecount++;
             $wrapper = true;
@@ -68,21 +112,37 @@ class PackagerTests {
          return $fileLine;
       };
       
+		//codeline
       $this->tests['codeline'] = function($fileLine, &$bracecount) use (&$block, &$wrapper) {
          if (!$wrapper && !$block) {
+			
+				// Prep the codeline for display in html. Remove < and >.
             $fileLine = trim($fileLine);
-            if ( strpos($fileLine, '//') > -1 && strpos($fileLine, ';') < strpos($fileLine, '//') ) {
+				$pieces = explode('<', $fileLine);
+				$fileLine = implode('&lt;', $pieces);
+				$pieces = explode('>', $fileLine);
+				$fileLine = implode('&gt;', $pieces);
+				
+				// Handle comments at the end of code line, 
+				//        e.g., "bracecount++;   // increment the counter."
+            if ( strpos($fileLine, '//') > -1 
+				&& strpos($fileLine, ';') < strpos($fileLine, '//') ) {
                $parts = explode('//', $fileLine);
                $parts[1] = '<span class="comment">//'.$parts[1].'</span>';
                $fileLine = implode('', $parts);
             }
+				
             $fileLine = '<span class="codeline">'.$fileLine.'</span><br />';
             $wrapper = true;
-            if (strpos($fileLine, '{') > -1) {
+				
+				// If there was an open brace ({) at the end of the fileLine...
+            if (strrpos($fileLine, "{<") > 0) {
                 $bracecount++;
                 $fileLine = $fileLine.'<div class="body">';
             }
-            if ( $bracecount > 0 && strpos($fileLine, '}') > -1) {
+				
+				// If there was a close brace (}) at the beginning of the fileLine...
+            if ( $bracecount > 0 && strpos($fileLine, '>}') > 0) {
                $fileLine = '</div>' . $fileLine;
                $bracecount--;
                if ($bracecount <= 1) {
@@ -93,72 +153,52 @@ class PackagerTests {
          return $fileLine;
       };
       
+		// selector
       // Mike and shawn's code for CSS packager testing
-      // Looking for selectors.
-      $this->tests['selector'] = function($fileLine, $bracecount) use (&$block, &$wrapper, &$div){
+      // Looking for CSS selectors.
+      $this->tests['selector'] = function($fileLine, $bracecount) use (&$block, &$wrapper){
           if (!$wrapper && !$block) {
             $fileLine = trim($fileLine);
-            if (( strpos($fileLine, '{') > -1 ) ||  (strpos($fileLine, '}') > -1))  {
-               $fileLine = '<span class="selector">'.$fileLine.'</span>';
+            if (strpos($fileLine, '{') || strpos($fileLine, '}') === 0)  {
+               $fileLine = '<span class="selector">'.$fileLine.'</span><br />';
             }
-              $wrapper = true;
+				if (strpos($fileLine, '}')) {
+               $fileLine = '<span class="closeSelector">'.$fileLine.'</span><br />';
+				}
+            $wrapper = true;
           }
           return $fileLine;
       };
       
-      // testing for css rules
-      
-      $this->tests['rule'] = function($fileLine, $bracecount) use (&$block, &$wrapper, &$div){
+		// rule
+      // Testing for css rules      
+      $this->tests['rule'] = function($fileLine, $bracecount) use (&$block, &$wrapper){
           if (!$wrapper || !$block) {
             $fileLine = trim($fileLine);
-            if ( strpos($fileLine, ';') > -1 ) {
-               $fileLine = '<span class="rule">'.$fileLine.'</span>';
+            if (strpos($fileLine, ';')) {
+               $fileLine = '<span class="rule">'.$fileLine.'</span><br />';
             }
-               $wrapper = true;
-          }
-          return $fileLine.'<br />';
-      };
-      
-      // testing for css atributes
-      
-      $this->tests['cssatributes'] = function($fileLine, $bracecount) use (&$block, &$wrapper, &$div){
-          if (!$wrapper || !$block) {
-            $fileLine = trim($fileLine);
-            if ( strpos($fileLine, '.') > -1 ) {
-               $fileLine = '<span class="cssatributes">'.$fileLine.'</span>';
-            }
-               $wrapper = true;
+            $wrapper = true;
           }
           return $fileLine;
       };
-      
-      // testing for css individual
-      
-      $this->tests['cssindividual'] = function($fileLine, $bracecount) use (&$block, &$wrapper, &$div){
-          if (!$wrapper || !$block) {
-            $fileLine = trim($fileLine);
-            if ( strpos($fileLine, '#') > -1 ) {
-               $fileLine = '<span class="cssindividual">'.$fileLine.'</span>';
-            }
-               $wrapper = true;
-          }
-          return $fileLine;
-      };
-      
-      
       // Closing of Mike and Shawns testing packager.
-      
-      $this->tests['setFlags'] = function() use (&$wrapper) {
+     
+	   // These last two functions are present to gain access to the closure variables.
+      $this->tests['setFlags'] = function() use (&$wrapper, &$block) {
          $wrapper = false;
          $block = false;
       };
+		
+		$this->tests['setWrapper'] = function() use (&$wrapper) {
+			$wrapper = false;
+		};
       
    }
    
    public function getTests() {
       return $this->tests;
-   }
-   
+   }   
 
 }
 

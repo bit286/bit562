@@ -6,57 +6,76 @@
         Auto-document stylesheet.
 */
 
-    .comment {
-        color: green;
-    }
-    .codeline {
-        color: blue;
-    }
-    .body {
-        margin-left: 50px;
-    }
-    .bigcode {
-        font-size: 36pt; font-weight: bold;
-    }
-    .codeline {
-        cursor: pointer;
-    }
-    .classDefinition {
-        color: green; cursor: pointer;
-    }
-    .class .body {
-        position: relative;
-    }
-    .functionDefinition {
-        color: magenta; cursor: pointer;
-    }
-    .function .body {
-        position: relative; }
-    .expandFunction { cursor: pointer;
-    }
-    .selector {
-        color: blue;
-    }
-    .rule { 
-       position: absolute;
-       left: 40px;
-       color: black; 
-    }
-    .cssatributes {
-        color: blue;
-    }
-    .cssindividual {
-        color: #3395E1;
-    }
+.comment { 
+	color: green; 
+}
 
-    /* Colors from style.css that override some of the above colors. */
-    .mlComment {
-        color: green;
-    }
-    .block {
-        border: 1px solid blue; margin: 5px; padding: 5px;
-    }
-    .codeline {
-        color: blueviolet;
-    }
+.codeline { 
+	color: blue; 
+	cursor: pointer;
+}
+
+.body { 
+	margin-left: 30px; 
+}
+	
+.bigcode { 
+	font-size: 24pt; 
+	font-weight: bold; 
+}
+
+.classDefinition {
+	color: black; 
+	cursor: pointer; 
+}
+
+.class .body { 
+	position: relative; 
+}
+
+.functionDefinition { 
+	color: magenta; 
+	cursor: pointer; 
+}
+
+.function .body { 
+	position: relative; 
+}
+.expandFunction { 
+	cursor: pointer; 
+}
+
+.selector { 
+	color: blue; 
+}
+
+.closeSelector {
+	position: relative;
+	color: black;
+}
+
+.rule { 
+	 position: relative;
+	 left: 40px;
+	 color: black; 
+}
+
+.cssatributes { 
+	color: blue; 
+}
+
+.cssindividual { 
+	color: #3395E1; 
+}
+
+/* Colors from style.css that override some of the above colors. */
+.mlComment { 
+	color: green; 
+}
+
+.block { 
+	border: 1px solid blue; 
+	margin: 5px; 
+	padding: 5px; 
+}
 

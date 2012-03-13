@@ -3,6 +3,7 @@
 require_once('PackagerFactory.php');
 require_once('Command.php');
 require_once('ProjectFile.php');
+require_once('Brace.php');
 
 class Reader {
 
@@ -15,9 +16,11 @@ class Reader {
     protected $braceCounter = 0;
     protected $links = array();
     private $results = array();
+	 private $br;
 
     function __construct(DBManager $databaseManager) {
         $this->mgr = $databaseManager;
+		  $this->br = new Brace($databaseManager);
     }
 
     public function getCommandType($commandType) {
@@ -77,16 +80,16 @@ class Reader {
         $this->location = 0;
 
         if (!is_file($inputFilename)){
-            $this->results[] = array('success'=>FALSE
-               ,'description'=>"Input file does not exist: ".$inputFilename);
+            $this->results[] = array('success'=>FALSE,
+               'description'=>"Input file does not exist: ".$inputFilename);
             return;
         }
 
         $filePackager = packagerFactory($inputFilename);
 
-        if ( $filePackager->getTestFlagsCount() == 0 ){
-            $this->results[] = array('success'=>FALSE
-               ,'description'=>"Input file type not recognized: ".$inputFilename);
+        if ( $filePackager->getTestFlagsCount() === 0 ){
+            $this->results[] = array('success'=>FALSE,
+               'description'=>"Input file type not recognized: ".$inputFilename);
             return;
         }
         
@@ -97,8 +100,8 @@ class Reader {
         $outputFilePath = substr($outputFilename,0,$lastSlashPos);
         
         if (!is_dir($outputFilePath)){
-            $this->results[] = array('success'=>FALSE
-               ,'description'=>"Output document path does not exist: ".$outputFilename);
+            $this->results[] = array('success'=>FALSE,
+               'description'=>"Output document path does not exist: ".$outputFilename);
             return;
         }
 
@@ -113,14 +116,17 @@ class Reader {
 
         while (!feof($fileReader)) {
             $fileLine = fgets($fileReader);
-            $this->location++;
-            if (strpos($fileLine, '/*+') !== false) {
-                $this->planguageReader($fileReader, $fileWriter, $inputFilename, $fileLine);
+				$fileLine = trim($fileLine);
+            $this->location += 1;
+            if (strpos($fileLine, '/*+') === 0) {
+               $this->planguageReader($fileReader, $fileWriter, $inputFilename, $fileLine);
             }
             else {
-                if (strpos($fileLine,'<') === 0) { $fileLine = '&lt;'.substr($fileLine,1); }
-                $html = $filePackager->packager($fileLine, $braceCount);
-                fwrite($fileWriter, $html . "\n");
+               if (strpos($fileLine,'<') === 0) { 
+						$fileLine = '&lt;'.substr($fileLine,1); 
+					}
+               $html = $filePackager->packager($fileLine, $braceCount);
+               fwrite($fileWriter, $html . "\n");
             }
         }
 
@@ -132,8 +138,9 @@ class Reader {
         fwrite($fileWriter, '</body>'."\n\n".'</html>');
         fclose($fileReader);
         fclose($fileWriter);
-        $this->results[] = array('success'=>TRUE
-               ,'description'=>"Output document was successfully created: ".$outputFilename);
+
+        $this->results[] = array('success'=>TRUE,
+               'description'=>"Output document was successfully created: ".$outputFilename);
     }
 
     // When the beginning of a planguage comment is present in a file line,
@@ -155,9 +162,8 @@ class Reader {
         $planguageString = trim($planguageString);
         $planguageString = trim($planguageString, '*/+');
 
-        //Seperate the individual command sections in the planguage string into an array
+        //Separate the individual command sections in the planguage string into an array
         //and trim the whitespace from all strings.
-
         $commandSections = explode(';;', $planguageString);
         $commandSections = array_map('trim', $commandSections);
 
@@ -203,27 +209,10 @@ class Reader {
     }
 
     protected function linkBuilder($pairs) {
-        $linkHtml = '<a href="' . $pairs['href'] . '" title="' . $pairs['title'] . '">link</a>';
-        $this->links[] = $linkHtml;
+//        $linkHtml = '<a href="' . $pairs['href'] . '" title="' . $pairs['title'] . '">link</a>';
+//        $this->links[] = $linkHtml;
     }
 
-    public function writeProjectFilesIndexPage() {
-        $outputFilename = $this->projectFiles[0]->getDestination();
-        $lastSlashPos = strrpos($outputFilename, '/');
-        if (!$lastSlashPos){ $lastSlashPos = strrpos($outputFilename, '\\'); }
-        $outputFilePath = substr($outputFilename,0,$lastSlashPos);
-        $outputIndexFilePath = $outputFilePath . '/index.html';
-        
-        $indexHtml = fopen($outputIndexFilePath, 'w');
-        
-        fwrite($indexHtml, '<ul id="project-files">');
-        foreach ($this->projectFiles as $projectFile) {
-            $tempString = '';
-            fwrite($indexHtml, '<li><a href="' . $projectFile->getDestination() . '"></a>' . $projectFile->getName() .'</li>');
-        }
-        fwrite($indexHtml, '</ul>');
-        fclose($indexHtml);
-    }
 }
 
 ?>

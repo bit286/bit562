@@ -213,7 +213,35 @@ class Reader {
 //        $linkHtml = '<a href="' . $pairs['href'] . '" title="' . $pairs['title'] . '">link</a>';
 //        $this->links[] = $linkHtml;
     }
-
+    
+    public function writeProjectFilesIndexPage() {
+        $outputFilename = $this->projectFiles[0]->getDestination();
+        $lastSlashPos = strrpos($outputFilename, '/');
+        if (!$lastSlashPos){ $lastSlashPos = strrpos($outputFilename, '\\'); }
+        $outputFilePath = substr($outputFilename,0,$lastSlashPos);
+        
+        
+        $outputIndexFilePath = $outputFilePath . '/index.html';
+        
+        $indexHtml = fopen($outputIndexFilePath, 'w');
+        
+        // including link to sorttable.js relative to the index file
+        fwrite($indexHtml, '<script src="../javascript/sorttable.js" type"text/javascript"></script>');
+        
+        fwrite($indexHtml, '<table id="project-files" class="sortable">');
+        fwrite($indexHtml, '<tr><th>File</th><th>Extension</th><th>Destination</th><th>Source</th><th>File Size</th></tr>');
+        foreach ($this->projectFiles as $projectFile) {
+            $lastSlashPos = strrpos($projectFile->getSource(), '/');
+            $inputFileNameAndExtension = substr($projectFile->getSource(), $lastSlashPos, strlen($projectFile->getSource()) - 1);
+            $lastPeriodPos = strrpos($inputFileNameAndExtension, '.');
+            $inputFileNameMinusExtension = substr($inputFileNameAndExtension, 0, $lastPeriodPos);
+            $inputFileExtension = substr($inputFileNameAndExtension, $lastPeriodPos, strlen($inputFileNameAndExtension));
+            fwrite($indexHtml, '<tr><td><a href="' . $projectFile->getDestination() . '">' . $inputFileNameMinusExtension .'</a></td><td>' . $inputFileExtension . '</td><td>' . $projectFile->getDestination() . '</td><td>' . $projectFile->getSource() . '</td><td>' . (filesize($projectFile->getSource()) / 1024) . 'kb</td></tr>');
+        }
+        fwrite($indexHtml, '</table>');
+        fclose($indexHtml);
+    }
+    
 }
 
 ?>

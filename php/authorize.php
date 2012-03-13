@@ -14,7 +14,8 @@ if ($result == 1) {
 		$_SESSION['username'] = $username;
 		$_SESSION['password'] = $password;
 		$_SESSION['loggedIn'] = true;
-		header("Location:../index.php");
+                header("Location:../index.php");
+
 } else {
 		echo 'Login Failed';
 }

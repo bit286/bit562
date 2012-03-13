@@ -7,7 +7,7 @@
 
 		function __construct($username, $password) {
 			$this->username = $username;
-			$this->password = $passwword;
+			$this->password = $password;
 		}
 
 		function authenticate () {

@@ -220,7 +220,7 @@ class Reader {
         fwrite($indexHtml, '<ul id="project-files">');
         foreach ($this->projectFiles as $projectFile) {
             $tempString = '';
-            fwrite($indexHtml, '<li><a href="' . $projectFile->getDestination() . '"></a>' . $projectFile->getName() .'</li>');
+            fwrite($indexHtml, '<li><a href="' . $projectFile->getDestination() . '">' . $projectFile->getName() .'</a></li>');
         }
         fwrite($indexHtml, '</ul>');
         fclose($indexHtml);

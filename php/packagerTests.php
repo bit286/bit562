@@ -19,6 +19,7 @@ class PackagerTests {
       
       $block = false;
       $wrapper = false;
+      $nestingCount = -1;
       
       $this->tests['comment'] = function($fileLine, &$bracecount) use (&$block, &$wrapper) {
          $fileLine = trim($fileLine);
@@ -47,7 +48,7 @@ class PackagerTests {
          return $fileLine;
       };
       
-      $this->tests['function'] = function($fileLine, &$bracecount) use (&$block, &$wrapper) {
+      $this->tests['function'] = function($fileLine, &$bracecount) use (&$block, &$wrapper, &$nestingCount) {
          if (preg_match('/function/', $fileLine)
                && !$wrapper
                && !$block) {
@@ -63,12 +64,13 @@ class PackagerTests {
 
             }
             $bracecount++;
+            $nestingCount = $bracecount - 1;
             $wrapper = true;
          }
          return $fileLine;
       };
       
-      $this->tests['codeline'] = function($fileLine, &$bracecount) use (&$block, &$wrapper) {
+      $this->tests['codeline'] = function($fileLine, &$bracecount) use (&$block, &$wrapper, &$nestingCount) {
          if (!$wrapper && !$block) {
             $fileLine = trim($fileLine);
             if ( strpos($fileLine, '//') > -1 && strpos($fileLine, ';') < strpos($fileLine, '//') ) {
@@ -85,8 +87,13 @@ class PackagerTests {
             if ( $bracecount > 0 && strpos($fileLine, '}') > -1) {
                $fileLine = '</div>' . $fileLine;
                $bracecount--;
-               if ($bracecount <= 1) {
-                  $fileLine .= '</div>';
+               // A function's closing brace is identified when the brace count
+               // equals the nesting count of that function. A zero nesting count
+               // means that the function is not nested.
+               // A function can be nested in a class and in other functions.
+               if ($bracecount === $nestingCount) {
+                   $nestingCount--;
+                   $fileLine .= '</div>';
                }
             }
          }

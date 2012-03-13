@@ -83,13 +83,15 @@ $(document).ready( function() {
 			
 			case "source":
 				message = "Type in the location of the source code file being converted into HTML. ";
-				message += "Put in the complete location: drive, path, filename, and extension.";
-			   	break;
+				message += "If running this on local xampp server put in the complete location: drive, path, filename, and extension.";
+			   	message += "If running this on a public linux server put in the relitive paths from jumpPoint.php to your source file. Sample: jumpPoint.php";
+                                break;
 			   
 			case "destination":
 				message = "Enter the location of the HTML file created by the autodoc conversion. ";
-                message += "Put in the complete location: drive, path, filename, and extension.";
-				break;
+                                message += " If running on local xampp server put in the complete location: drive, path, filename, and extension.";
+		                message += " If running on public linux server enter in relitave path from jumpPoint.php. Sample: ../doc/jumpPoint.html";
+		break;
 				
 			case "project":
 				message = "Enter the name of the project files to be processed with the autodoc ";

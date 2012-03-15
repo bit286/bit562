@@ -9,10 +9,8 @@ $newCheck = new CheckUser ($username, $password);
 
 $result = $newCheck->authenticate();
 
-if ($result == 1) {
+if ($result !== false) {
 		session_start();
-		$_SESSION['username'] = $username;
-		$_SESSION['password'] = $password;
 		$_SESSION['loggedIn'] = true;
                 header("Location:../index.php");
 

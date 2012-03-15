@@ -22,9 +22,14 @@
 
 			$loginQuery = "SELECT COUNT(*) FROM users WHERE userName = '" .$this->username. "' AND password = '" .$this->password. "'";
 			$getLogin = $DB->execute($loginQuery);
-
+                        
+                        if ($getLogin == 1) {
+                            $result = true;
+                        } else {
+                            $result = false;
+                        }
 					
-			return $getLogin;
+			return $result;
 		}
 }
 ?>

@@ -3,3 +3,6 @@ nbproject/*
 
 # ignore database credentials
 php/db_login.php
+
+# ignore auto generated documentation
+doc/*

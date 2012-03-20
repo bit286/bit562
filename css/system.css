@@ -1,65 +1,65 @@
 /* 
-    Document   : system.css
-    Created on : Feb 22, 2012, 11:13:35 PM
-    Author     : Mike McGinn
-    Description:
-       CSS to apply the proper colors to the test code output.
-*/
+Document   : system.css
+Created on : Feb 22, 2012, 11:13:35 PM
+Author     : Mike McGinn
+Description:
+CSS to apply the proper colors to the test code output.
+ */
 
- .comment {
-                color: red;
-            }
-            
-            .codeline {
-                color: blue;
-            }
-            
-            .body {
-                margin-left: 50px;
-            }
-                
-            .bigcode {
-                font-size: 36pt;
-                font-weight: bold;
-            }
-                
-            .codeline {
-                cursor: pointer;
-            }
-                
-            .classDefinition {
-                color: green;
-                cursor: pointer;
-            }
-                
-            .class .body {
-                position: relative;
-            }
-                
-            .functionDefinition {
-                color: magenta;
-                cursor: pointer;
-            }
-                
-            .function .body {
-                position: relative;
-            }
-                
-            .expandFunction {
-                cursor: pointer;
-            }
-            .selector {
-                color: deeppink;
-            }
-            .rule {
-               position: absolute;
-               left: 50px;
-                color: teal;
-            }
-            .cssatributes {
-                color: yellowgreen;
-            }
-            .cssindividual {
-                color: #3395E1;
-            }
+.comment {
+    color: red;
+}
+
+.codeline {
+    color: blue;
+}
+
+.body {
+    margin-left: 50px;
+}
+
+.bigcode {
+    font-size: 36pt;
+    font-weight: bold;
+}
+
+.codeline {
+    cursor: pointer;
+}
+
+.classDefinition {
+    color: green;
+    cursor: pointer;
+}
+
+.class .body {
+    position: relative;
+}
+
+.functionDefinition {
+    color: magenta;
+    cursor: pointer;
+}
+
+.function .body {
+    position: relative;
+}
+
+.expandFunction {
+    cursor: pointer;
+}
+.selector {
+    color: deeppink;
+}
+.rule {
+    position: absolute;
+    left: 50px;
+    color: teal;
+}
+.cssatributes {
+    color: yellowgreen;
+}
+.cssindividual {
+    color: #3395E1;
+}
 

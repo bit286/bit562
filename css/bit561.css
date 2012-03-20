@@ -8,7 +8,7 @@
     height: 1275px;
 }
 
-#bgframe { 
+#bgframe {
     position: absolute;
     left: 126px;
     top: 75px;
@@ -59,59 +59,60 @@ h2 {
     color: #FFFFFF;
 }
 
-fieldset { border: #FFFFFF solid 2px; 
-		 }
-				
+fieldset { border: #FFFFFF solid 2px; }
+
 fieldset.hot { background-color:#FFA953; }
 
-span.asterisk { font-weight: 900;
-				color: red; 
-			  }
-			
-.undertitle	{ color:##5E1F00;
-			  font-weight:100 
-			}
-			  
-.fields { color:##5E1F00; 
-		  font-weight:900
-		}	
-		  
-input { border-bottom: black solid 1px;
-		border-right: black solid 1px;
-		border-top: gray solid 1px; 
-		border-left: gray solid 1px;
-	  }
-	  
-input.radio { border: black solid 1px; 
-			}
-			
-input.checkbox { border: #FFFFFF solid 2px;
-			   }
-			   
-input.submit { border: #000000 solid 1px;
-			 }
-
-input.level { border: #FFFFFF solid 2px; 
-			}
-
-textarea { border-bottom: black solid 1px;
-		border-right: black solid 1px;
-		border-top: gray solid 1px; 
-		border-left: gray solid 1px;
-	  }
-            
-select#country  { font-size:14px;
-				  width: 240px;
-				  border-bottom: black solid 2px;
-				  border-right: black solid 2px; 
-				}
-
-.wideSelect { 
-    width: 355px; 
-	border-color : #CC712B; 
+span.asterisk {
+    font-weight: 900;
+    color: red;
 }
 
-.controlColor { 
+.undertitle {
+    color:##5E1F00;
+    font-weight:100
+}
+
+.fields {
+    color:##5E1F00;
+    font-weight:900
+}
+
+input {
+    border-bottom: black solid 1px;
+    border-right: black solid 1px;
+    border-top: gray solid 1px;
+    border-left: gray solid 1px;
+}
+
+input.radio { border: black solid 1px; }
+
+input.checkbox { border: #FFFFFF solid 2px; }
+
+input.submit { border: #000000 solid 1px; }
+
+input.level { border: #FFFFFF solid 2px; }
+
+textarea {
+    border-bottom: black solid 1px;
+    border-right: black solid 1px;
+    border-top: gray solid 1px;
+    border-left: gray solid 1px;
+}
+
+select#country  {
+    font-size:14px;
+    width: 240px;
+    border-bottom: black solid 2px;
+    border-right: black solid 2px;
+}
+
+.wideSelect {
+    width: 355px;
+    border-color : #CC712B;
+}
+
+.controlColor {
     background-color : black;
     color : white;
 }
@@ -123,5 +124,4 @@ select#country  { font-size:14px;
     top: 200px;
     z-index: 10;
 }
-   
 

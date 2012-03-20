@@ -1,81 +1,81 @@
-/* 
+/*
     Document   : doc_style.css
     Created on : Mar 3, 2012, 12:57:27 PM
     Author     : Michael Olmstead
     Description:
-        Auto-document stylesheet.
+    Auto-document stylesheet.
 */
 
-.comment { 
-	color: green; 
+.comment {
+    color: green;
 }
 
-.codeline { 
-	color: blue; 
-	cursor: pointer;
+.codeline {
+    color: blue;
+    cursor: pointer;
 }
 
-.body { 
-	margin-left: 30px; 
+.body {
+    margin-left: 30px;
 }
-	
-.bigcode { 
-	font-size: 24pt; 
-	font-weight: bold; 
+
+.bigcode {
+    font-size: 24pt;
+    font-weight: bold;
 }
 
 .classDefinition {
-	color: black; 
-	cursor: pointer; 
+    color: black;
+    cursor: pointer;
 }
 
-.class .body { 
-	position: relative; 
+.class .body {
+    position: relative;
 }
 
-.functionDefinition { 
-	color: magenta; 
-	cursor: pointer; 
+.functionDefinition {
+    color: magenta;
+    cursor: pointer;
 }
 
-.function .body { 
-	position: relative; 
+.function .body {
+    position: relative;
 }
-.expandFunction { 
-	cursor: pointer; 
+.expandFunction {
+    cursor: pointer;
 }
 
-.selector { 
-	color: blue; 
+.selector {
+    color: blue;
 }
 
 .closeSelector {
-	position: relative;
-	color: black;
+    position: relative;
+    color: black;
 }
 
-.rule { 
-	 position: relative;
-	 left: 40px;
-	 color: black; 
+.rule {
+     position: relative;
+     left: 40px;
+     color: black;
 }
 
-.cssatributes { 
-	color: blue; 
+.cssatributes {
+    color: blue;
 }
 
-.cssindividual { 
-	color: #3395E1; 
+.cssindividual {
+    color: #3395E1;
 }
 
 /* Colors from style.css that override some of the above colors. */
-.mlComment { 
-	color: green; 
+.mlComment {
+    color: green;
 }
 
-.block { 
-	border: 1px solid blue; 
-	margin: 5px; 
-	padding: 5px; 
+.block {
+    border: 1px solid blue;
+    margin: 5px;
+    padding: 5px;
 }
 

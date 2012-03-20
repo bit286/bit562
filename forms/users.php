@@ -54,16 +54,16 @@ if ($_SESSION['loggedIn'] != true)
         <br /><br />
         <form id="userscontrol" class="dataControl">
           <img src="../images/prevArrow.jpg" 
-          title="Look at the previous user in the dropdown list." />
+            title="Look at the previous user in the dropdown list." />
           <img src="../images/SaveData.jpg" 
-          title="Save the current user information." />
+            title="Save the current user information." />
           <img src="../images/NewData.jpg" 
-          title="Blank the form to create a new user." />
+            title="Blank the form to create a new user." />
           <img src="../images/DeleteData.jpg" 
-          title="Remove the current user from the database." />
+            title="Remove the current user from the database." />
           <img src="../images/ExitData.jpg" title="Exit the user form." />
           <img src="../images/nextArrow.jpg" 
-          title="Look at the next user in the dropdown list." />
+            title="Look at the next user in the dropdown list." />
           <input type="hidden" class="formdata dirtyFlag" value="false" />
         </form>
         <form name="users" id="users">
@@ -73,7 +73,10 @@ if ($_SESSION['loggedIn'] != true)
                 <td class="fields">object_ID:</td>
               </tr>
               <tr>
-                <td><input disabled="disabled" class="formdata object_ID" size="84" value="" /></td>
+                <td>
+                  <input disabled="disabled" class="formdata object_ID"
+                    size="84" value="" />
+                </td>
               </tr>
               <tr>
                 <td class="undertitle"></td>
@@ -87,7 +90,10 @@ if ($_SESSION['loggedIn'] != true)
                   <span class="asterisk">&nbsp;*</span></td>
               </tr>
               <tr>
-                <td><input type="text" class="formdata userName" size="84" value="" /></td>
+                <td>
+                  <input type="text" class="formdata userName" size="84"
+                    value="" />
+                </td>
               </tr>
               <tr>
                 <td class="undertitle">Enter desired username</td>
@@ -102,7 +108,10 @@ if ($_SESSION['loggedIn'] != true)
                   <span class="asterisk">&nbsp;*</span></td>
               </tr>
               <tr>
-                <td><input type="text" class="formdata firstName" size="84" value="" /></td>
+                <td>
+                  <input type="text" class="formdata firstName" size="84"
+                    value="" />
+                </td>
               </tr>
               <tr>
                 <td class="undertitle">Enter your given name</td>
@@ -117,7 +126,10 @@ if ($_SESSION['loggedIn'] != true)
                   <span class="asterisk">&nbsp;*</span></td>
               </tr>
               <tr>
-                <td><input type="text" class="formdata lastName" size="84" value="" /></td>
+                <td>
+                  <input type="text" class="formdata lastName" size="84"
+                    value="" />
+                </td>
               </tr>
               <tr>
                 <td class="undertitle">Enter your surname</td>
@@ -132,7 +144,10 @@ if ($_SESSION['loggedIn'] != true)
                   <span class="asterisk">&nbsp;*</span></td>
               </tr>
               <tr>
-                <td><input type="text" class="formdata email" size="84" value="" /></td>
+                <td>
+                  <input type="text" class="formdata email" size="84" 
+                    value="" />
+                </td>
               </tr>
               <tr>
                 <td class="undertitle">Enter a valid email address</td>
@@ -147,7 +162,10 @@ if ($_SESSION['loggedIn'] != true)
                   <span class="asterisk">&nbsp;*</span></td>
               </tr>
               <tr>
-                <td><input type="password" class="formdata password" size="84" value="" /></td>
+                <td>
+                  <input type="password" class="formdata password"
+                    size="84" value="" />
+                </td>
               </tr>
               <tr>
                 <td class="undertitle">Enter your desired password</td>
@@ -168,12 +186,12 @@ if ($_SESSION['loggedIn'] != true)
     <script src="../base/formhandler.js" type="text/javascript"></script>
     <script src="../base/view.js" type="text/javascript"></script>
     <script src="../base/validator.js" type="text/javascript"></script>
-    <script src="../controls/usersControl.js" type="text/javascript"></script>
+    <script src="../controls/usersControl.js" type="text/javascript">
+    </script>
 
     <script>
 
       $U.setUpUsers();
-
 
     </script>
   </body>

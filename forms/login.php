@@ -33,23 +33,27 @@
 
         <hr color="black" width="670px" />
 
-        <table><tr><td width="150" valign="center"><font size="+1" style="bold">
-                <strong id="formTitle">Please Login</strong></font></td>
+        <table>
+          <tr>
+            <td width="150" valign="center">
+              <font size="+1" style="bold">
+                <strong id="formTitle">Please Login</strong>
+            </font>
+          </td>
           </tr>
         </table><br />
+
         <form method="POST" action="../php/authorize.php">
-      Username:<br />
-      <input type="text" name="userName" />
-      <br /><br />
-      Password:<br />
-      <input type="password" name="password" />
-      <br /><br />
-      <input type="submit" id="submit" value="Submit" />
-    </form>
-        
+          Username:<br />
+          <input type="text" name="userName" />
+          <br /><br />
+          Password:<br />
+          <input type="password" name="password" />
+          <br /><br />
+          <input type="submit" id="submit" value="Submit" />
+        </form>
+
       </div>
     </div>
-
-    
   </body>
 </html>

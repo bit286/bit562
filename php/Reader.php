@@ -15,11 +15,11 @@ class Reader {
     protected $braceCounter = 0;
     protected $links = array();
     private $results = array();
-	 private $br;
+    private $br;
 
     function __construct(DBManager $databaseManager) {
         $this->mgr = $databaseManager;
-		  $this->br = new Brace($databaseManager);
+        $this->br = new Brace($databaseManager);
     }
 
     public function getCommandType($commandType) {
@@ -46,22 +46,28 @@ class Reader {
         $this->mgr->open();
         $result = $this->mgr->execute("SELECT * FROM projectfiles WHERE project='".$projectName."'");
 
-       if (!$result) {
-           $this->results[] = array('success'=>FALSE
-               ,'description'=>"There are no ".$this->projectName." files to document in the project_files table");
-           return $this->results;
-       } // Return when the result set is empty.
+        if (!$result) {
+            $this->results[] = array('success'=>FALSE
+                ,'description'=>"There are no ".
+                $this->projectName.
+                " files to document in the project_files table");
+            return $this->results;
+        } // Return when the result set is empty.
 
         // Loop through projects files, putting each into an object, placing that object in the $projectFiles array
 
         while ($row = $result->fetch(PDO::FETCH_ASSOC)) {
-            $this->projectFiles[] = new ProjectFile($row['object_ID'], $row['source'],
-                            $row['destination'], $row['name'], $row['description'], $row['entryDate']);
+            $this->projectFiles[] = new ProjectFile($row['object_ID'],
+                $row['source'],
+                $row['destination'],
+                $row['name'],
+                $row['description'],
+                $row['entryDate']);
         }
     }
 
     // Go through all project files, controlling the reading of the files and then the writing
-    // of the HTML version of the file to the documentation folder.  
+    // of the HTML version of the file to the documentation folder.
     public function readAndWriteProject() {
 
         $numProjFiles = count($this->projectFiles);
@@ -73,14 +79,14 @@ class Reader {
 
     // Handle one file at a time given the file name and the target HTML name.
     // Read a single file, one line at a time, and convert the single lines to
-    // HTML one at a time.  
+    // HTML one at a time.
     protected function readAndWriteFile($inputFilename, $outputFilename) {
 
         $this->location = 0;
 
         if (!is_file($inputFilename)){
             $this->results[] = array('success'=>FALSE,
-               'description'=>"Input file does not exist: ".$inputFilename);
+                'description'=>"Input file does not exist: ".$inputFilename);
             return;
         }
 
@@ -88,19 +94,19 @@ class Reader {
 
         if ( $filePackager->getTestFlagsCount() === 0 ){
             $this->results[] = array('success'=>FALSE,
-               'description'=>"Input file type not recognized: ".$inputFilename);
+                'description'=>"Input file type not recognized: ".$inputFilename);
             return;
         }
-        
+
         $lastSlashPos = strrpos($outputFilename, '/');
-        if (!$lastSlashPos){ 
-           $lastSlashPos = strrpos($outputFilename, '\\'); 
+        if (!$lastSlashPos){
+            $lastSlashPos = strrpos($outputFilename, '\\');
         }
         $outputFilePath = substr($outputFilename,0,$lastSlashPos);
-        
+
         if (!is_dir($outputFilePath)){
             $this->results[] = array('success'=>FALSE,
-               'description'=>"Output document path does not exist: ".$outputFilename);
+                'description'=>"Output document path does not exist: ".$outputFilename);
             return;
         }
 
@@ -116,43 +122,43 @@ class Reader {
 
         while (!feof($fileReader)) {
             $fileLine = fgets($fileReader);
-				$fileLine = trim($fileLine);
+            $fileLine = trim($fileLine);
             $this->location += 1;
             if (strpos($fileLine, '/*+') === 0) {
-               $this->planguageReader($fileReader, $fileWriter, $inputFilename, $fileLine);
+                $this->planguageReader($fileReader, $fileWriter, $inputFilename, $fileLine);
             }
             else {
-               if (strpos($fileLine,'<') === 0) { 
-						$fileLine = '&lt;'.substr($fileLine,1); 
-					}
-               $html = $filePackager->packager($fileLine, $braceCount);
-               fwrite($fileWriter, $html . "\n");
+                if (strpos($fileLine,'<') === 0) {
+                    $fileLine = '&lt;'.substr($fileLine,1);
+                }
+                $html = $filePackager->packager($fileLine, $braceCount);
+                fwrite($fileWriter, $html . "\n");
             }
         }
 
         // Get Javascript.
         fwrite($fileWriter, "\n".
-        '<script type="text/javascript" src="../tools/jquery-1.5.2.min.js"></script>'."\n".
-        '<script type="text/javascript" language="javascript" src="../javascript/doc_style.js"></script>'."\n\n");
+            '<script type="text/javascript" src="../tools/jquery-1.5.2.min.js"></script>'."\n".
+            '<script type="text/javascript" language="javascript" src="../javascript/doc_style.js"></script>'."\n\n");
 
         fwrite($fileWriter, '</body>'."\n\n".'</html>');
         fclose($fileReader);
         fclose($fileWriter);
 
         $this->results[] = array('success'=>TRUE,
-               'description'=>"Output document was successfully created: ".$outputFilename);
+            'description'=>"Output document was successfully created: ".$outputFilename);
     }
 
     // When the beginning of a planguage comment is present in a file line,
-    // pass the line to the planguageReader.  The planguageReader handles an entire planguage
-    // comment, regardless of comment length and regardless of the number of commands
-    // in the comment.  Comment strings are parsed and put into the planguage array.  Some
-    // commands will be packaged in the planguageReader and sent to the write file as HTML.
+    // pass the line to the planguageReader.  The planguageReader handles
+    // an entire planguage comment, regardless of comment length and
+    // regardless of the number of command in the comment.  Comment strings
+    // are parsed and put into the planguage array.  Some commands will be
+    // packaged in the planguageReader and sent to the write file as HTML.
     // The LINK command would be an example.
     private function planguageReader($readHandle, $writeHandle, $filePath, $commentLine) {
 
-
-        //Extract desired planguage block from file.
+        // Extract desired planguage block from file.
         $planguageString = $commentLine;
         $planguageLocation = $this->location;
         while (strpos($planguageString, '*/') === false) {
@@ -162,12 +168,13 @@ class Reader {
         $planguageString = trim($planguageString);
         $planguageString = trim($planguageString, '*/+');
 
-        //Separate the individual command sections in the planguage string into an array
-        //and trim the whitespace from all strings.
+        // Separate the individual command sections in the planguage
+        // string into an array and trim the whitespace from all strings.
         $commandSections = explode(';;', $planguageString);
         $commandSections = array_map('trim', $commandSections);
 
-        //For each command section, break down into Command Name and Key/Value pairs and store in a jagged array.
+        // For each command section, break down into Command Name and
+        // Key/Value pairs and store in a jagged array.
         for ($i = 0; $i < count($commandSections); $i+=1) {
             $commandObject = new Command($commandSections[$i], $filePath, $planguageLocation);
             if ($commandObject->getCommandName() === 'LINK') {
@@ -209,24 +216,24 @@ class Reader {
     }
 
     protected function linkBuilder($pairs) {
-//        $linkHtml = '<a href="' . $pairs['href'] . '" title="' . $pairs['title'] . '">link</a>';
-//        $this->links[] = $linkHtml;
+        //  $linkHtml = '<a href="' . $pairs['href'] . '" title="' . $pairs['title'] . '">link</a>';
+        //  $this->links[] = $linkHtml;
     }
-    
+
     public function writeProjectFilesIndexPage() {
         $outputFilename = $this->projectFiles[0]->getDestination();
         $lastSlashPos = strrpos($outputFilename, '/');
         if (!$lastSlashPos){ $lastSlashPos = strrpos($outputFilename, '\\'); }
         $outputFilePath = substr($outputFilename,0,$lastSlashPos);
-        
-        
+
+
         $outputIndexFilePath = $outputFilePath . '/index.html';
-        
+
         $indexHtml = fopen($outputIndexFilePath, 'w');
-        
+
         // including link to sorttable.js relative to the index file
         fwrite($indexHtml, '<script src="../javascript/sorttable.js" type"text/javascript"></script>');
-        
+
         fwrite($indexHtml, '<table id="project-files" class="sortable">');
         fwrite($indexHtml, '<tr><th>File</th><th>Extension</th><th>Destination</th><th>Source</th><th>File Size</th></tr>');
         foreach ($this->projectFiles as $projectFile) {
@@ -235,12 +242,18 @@ class Reader {
             $lastPeriodPos = strrpos($inputFileNameAndExtension, '.');
             $inputFileNameMinusExtension = substr($inputFileNameAndExtension, 0, $lastPeriodPos);
             $inputFileExtension = substr($inputFileNameAndExtension, $lastPeriodPos, strlen($inputFileNameAndExtension));
-            fwrite($indexHtml, '<tr><td><a href="' . $projectFile->getDestination() . '">' . $inputFileNameMinusExtension .'</a></td><td>' . $inputFileExtension . '</td><td>' . $projectFile->getDestination() . '</td><td>' . $projectFile->getSource() . '</td><td>' . (filesize($projectFile->getSource()) / 1024) . 'kb</td></tr>');
+            fwrite($indexHtml, '<tr><td><a href="' .
+                $projectFile->getDestination() . '">' .
+                $inputFileNameMinusExtension .'</a></td><td>' .
+                $inputFileExtension . '</td><td>' .
+                $projectFile->getDestination() . '</td><td>' .
+                $projectFile->getSource() . '</td><td>' .
+                (filesize($projectFile->getSource()) / 1024) .
+                'kb</td></tr>');
         }
         fwrite($indexHtml, '</table>');
         fclose($indexHtml);
     }
-    
 }
 
 ?>

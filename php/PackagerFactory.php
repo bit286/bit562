@@ -3,13 +3,12 @@
 require_once('Packager.php');
 
 function packagerFactory($codeFileName) {
-   
+
     //getting extension
     $extension = substr($codeFileName, strrpos($codeFileName, ".") + 1);
-	 
-   
-    switch($extension)
-    {
+
+
+    switch($extension) {
         case "html":
             $packager = new Packager(array("comment", "codeline"));
             break;
@@ -25,14 +24,13 @@ function packagerFactory($codeFileName) {
         case "css":
             $packager = new Packager(array("comment", "selector", "rule"));
             break;
-            
+
         default:
             $packager = new Packager(array());
             break;
     }
 
-    return $packager;  
+    return $packager;
 }
-
 
 ?>

@@ -3,7 +3,7 @@
 /**********************************************************
  *  Post for this data pipe with:
  *     {
-            "pipe" : "projectfiles",
+ *          "pipe" : "projectfiles",
  *          "queryType" : "select",
  *          "tableName" : "projectfiles",
  *          "project" : "BIT561"
@@ -15,7 +15,7 @@ class ProjectFilesDataPipe extends baseDataPipe {
 
     function __construct($tableMapManager, $dataManager) {
         parent::__construct($tableMapManager, $dataManager);
-        $this->project = $_REQUEST['project'];       
+        $this->project = $_REQUEST['project'];
     }
 
     function where() {

@@ -34,19 +34,19 @@ class tableMap {
 
     private $values = array();
 
-	function __construct($tableName, 
+  function __construct($tableName, 
                                  $browserFormName, 
                                  $dbColumnName, 
                                  $queryType, 
                                  $dataType) {
                                  
-		$this->values['table']= $tableName;
-		$this->values['browser'] = $browserFormName;
-		$this->values['dbCol'] = $dbColumnName;
-		$this->values['query']= $queryType;
-		$this->values['dataType'] = $dataType;
+    $this->values['table']= $tableName;
+    $this->values['browser'] = $browserFormName;
+    $this->values['dbCol'] = $dbColumnName;
+    $this->values['query']= $queryType;
+    $this->values['dataType'] = $dataType;
         
-	}
+  }
 
     public function get($element) {
         return $this->values[$element];

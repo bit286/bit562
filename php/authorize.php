@@ -10,12 +10,12 @@ $newCheck = new CheckUser ($username, $password);
 $result = $newCheck->authenticate();
 
 if ($result !== false) {
-		session_start();
-		$_SESSION['loggedIn'] = true;
+    session_start();
+    $_SESSION['loggedIn'] = true;
                 header("Location:../index.php");
 
 } else {
-		echo 'Login Failed';
+    echo 'Login Failed';
 }
 
 ?>

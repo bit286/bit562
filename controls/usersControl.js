@@ -38,7 +38,7 @@
 
     // Display the first data value or a clear screen.
     if ( usernames.length > 0 ) {
-      
+
       $F.clearForm("users");
     }
 
@@ -48,9 +48,9 @@
     $C.makeEventHandlers("userscontrol", "users", $U.bailout );
 
   };
- 
-   
-		
+
+
+
   // Do nothing on bailout at the moment.
   $U.fn.bailout = function() {
   };
@@ -103,5 +103,4 @@ $(document).ready( function() {
   $("#helpComments").html(message);
   });
 });
-
 

@@ -4,6 +4,7 @@ require_once(dirname(__FILE__) . '/simpletest/autorun.php');
 require_once(dirname(__FILE__) . '/simpletest/web_tester.php');
 require_once(dirname(__FILE__).'/../php/db_login.php');
 require_once(dirname(__FILE__).'/../php/DBManager.php');
+require_once(dirname(__FILE__).'/../php/TestDisplayer.php');
 
 class TestOfTestsWebDisplay extends UnitTestCase {
     private $DBManager;
@@ -39,7 +40,7 @@ class TestOfTestsWebDisplay extends UnitTestCase {
         $this->DBManager->open();
         $res = $this->DBManager->getDBtests();
         $row = $res[0];
-        $html = $this->DBManager->rowWrap($row);
+        $html = TestDisplayer::rowWrap($row);
         $this->assertPattern('/<tr>.*<\/tr>/', $html);
         $edReg = '/.*<td>'.$row['entryDate'].'<\/td>.*/';
         $succReg = '/.*<td>'.$row['success'].'<\/td>.*/';

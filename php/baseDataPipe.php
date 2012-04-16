@@ -19,7 +19,7 @@
  * the BaseDataPipe itself.
  **********************************************************************/
 
-include ('utilities.php');
+include_once ('utilities.php');
 
 class BaseDataPipe {
 
@@ -83,38 +83,37 @@ class BaseDataPipe {
     public function execute() {
         $masterSql = "";
         switch ( $this->queryType ) {
-
             case "search";
-            $sql = $this->select();
-            $this->tableName = $this->tableName."Search";
-            break;
+                $sql = $this->select();
+                $this->tableName = $this->tableName."Search";
+                break;
 
-        case "select":
-            $sql = $this->select();
-            break;
+            case "select":
+                $sql = $this->select();
+                break;
 
-        case "insert":
-            $sql = $this->insert();
-            $this->db->test($sql);
-            $masterSql = "insert into masterID ".
-                "( object_ID, tableName, authoroid ) ";
-            $masterSql .= "values ( '".$this->object_ID."', '".
-                $this->tableName."', '".$_REQUEST['authoroid']."' )";
-            break;
+            case "insert":
+                $sql = $this->insert();
+                $this->db->test($sql);
+                $masterSql = "insert into masterID ".
+                    "( object_ID, tableName, authoroid ) ";
+                $masterSql .= "values ( '".$this->object_ID."', '".
+                    $this->tableName."', '".$_REQUEST['authoroid']."' )";
+                break;
 
-        case "delete":
-            $sql = $this->delete();
-            $masterSql = "delete from masterID where object_ID = '".
-                $this->object_ID."'";
-            break;
+            case "delete":
+                $sql = $this->delete();
+                $masterSql = "delete from masterID where object_ID = '".
+                    $this->object_ID."'";
+                break;
 
-        case "update":
-            $sql = $this->update();
-            $this->db->test('Execute update: '.$sql);
-            $masterSql = "update masterID set entryDate = '".
-                date('Y-m-d H:i:s').
-                "' where object_ID = '".$this->object_ID."'";
-            break;
+            case "update":
+                $sql = $this->update();
+                $this->db->test('Execute update: '.$sql);
+                $masterSql = "update masterID set entryDate = '".
+                    date('Y-m-d H:i:s').
+                    "' where object_ID = '".$this->object_ID."'";
+                break;
         }
 
         // Work first with the masterid table.

@@ -3,7 +3,7 @@
  *  Autorunner which runs all tests cases found in a file
  *  that includes this module.
  *  @package    SimpleTest
- *  @version    $Id: autorun.php 2037 2011-11-30 17:58:21Z pp11 $
+ *  @version    $Id$
  */
 
 /**#@+

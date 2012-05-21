@@ -1,5 +1,5 @@
 <?php
-// $Id: interfaces_test.php 1981 2010-03-23 23:29:56Z lastcraft $
+// $Id$
 require_once(dirname(__FILE__) . '/../autorun.php');
 if (function_exists('spl_classes')) {
     include(dirname(__FILE__) . '/support/spl_examples.php');

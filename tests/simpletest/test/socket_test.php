@@ -1,5 +1,5 @@
 <?php
-// $Id: socket_test.php 1782 2008-04-25 17:09:06Z pp11 $
+// $Id$
 require_once(dirname(__FILE__) . '/../autorun.php');
 require_once(dirname(__FILE__) . '/../socket.php');
 Mock::generate('SimpleSocket');

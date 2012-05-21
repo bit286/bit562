@@ -1,0 +1,247 @@
+/* begin Page */
+
+/* Created by Artisteer v3.1.0.46558 */
+
+#art-page-background-glare{
+   display: none;
+}
+.cleared {
+   width:1px;
+}
+/* Start Box */
+.art-box, .art-box-body {
+   zoom:1;
+}
+/* End Box */
+/* Start Bar */
+.art-bar{
+   zoom:1;
+}
+/* End Bar */
+/* end Page */
+
+/* begin Header */
+.art-header {
+   zoom:expression(runtimeStyle.zoom=1);
+   z-index: 1;
+}
+
+/* end Header */
+
+/* begin HeaderObject */
+div.art-headerobject{
+   font-size: 1px;
+}
+/* end HeaderObject */
+
+/* begin Menu */
+ul.art-hmenu, ul.art-hmenu ul, ul.art-hmenu li, ul.art-hmenu a {
+   zoom:1;
+}
+.art-hmenu li.art-hmenuhover{
+   z-index: 10000;
+}
+.art-hmenu .art-hmenuhoverUL{
+   visibility: visible;
+   top: 100%;
+   left: 0;
+}
+.art-hmenu .art-hmenuhoverUL .art-hmenuhoverUL{
+   top: 0;
+   left: 100%;
+}
+.art-hmenu ul li {
+   float: left !important;
+   clear: both;
+   width: 100%;
+}
+.art-nav
+{
+   zoom: 1;
+   height: 45px;
+   background:#C3C4C9;
+}
+
+/* end Menu */
+
+/* begin MenuItem */
+.art-hmenu a 
+{
+   display:inline-block;
+   color: #FAFAFA;
+   padding: 0 22px;
+   line-height: 45px;
+   text-align: center;
+}
+
+.art-hmenu a.active 
+{
+   color: #000000;
+   background-color:#FAFAFA;
+}
+
+.art-hmenu a:hover, .art-hmenuhoverA,  .art-hmenuhover a 
+{
+   color: #000000;
+   background-color:#238DDE;
+}
+
+/* end MenuItem */
+
+/* begin MenuSeparator */
+ul.art-hmenu li {
+   margin-left:expression(this.previousSibling==null?'0':'1px');
+}
+ul.art-hmenu li li{
+   margin-left:0;
+}
+
+span.art-hmenu-separator
+{
+   position:absolute;
+   display: block;
+   top:0;
+   left:  -1px;
+   width: 1px;
+   height: 45px;
+   background: url('images/menuseparator.png') center center no-repeat;
+}
+/* end MenuSeparator */
+
+/* begin MenuSubItem */
+.art-hmenu ul a 
+{
+   color: #000000 !important;
+   float: left;
+}
+
+.art-hmenu ul a:hover, .art-hmenu ul .art-hmenuhover .art-hmenuhoverA 
+{
+   color: #000000 !important;
+   background-position: left bottom;
+   border-color: #9AA9A4;
+   border-top-width: 1px !important;
+}
+
+/* end MenuSubItem */
+
+/* begin Box, Sheet */
+.art-sheet {
+   background:#FFFFFF;
+}
+/* end Box, Sheet */
+
+/* begin Layout */
+.art-content-layout, .art-content-layout-row, .art-layout-cell 
+{
+   display: block;
+   zoom: 1;
+}
+.art-layout-cell
+{
+   position:relative;
+   float: left;
+   clear: right;
+}
+/* end Layout */
+
+/* begin Button */
+.art-button-wrapper{
+   zoom: 1;
+}
+.art-button-wrapper .art-button-l, .art-button-wrapper .art-button-r {
+   display: none;
+}
+.art-button-wrapper .art-button {
+   float: left;
+}
+/* end Button */
+
+/* begin Box, Block */
+.art-block {
+   background:#FFFFFF;
+}
+/* end Box, Block */
+
+/* begin BlockHeader */
+.art-blockheader {
+   background:#FFFFFF;
+}
+/* end BlockHeader */
+
+/* begin Box, BlockContent */
+.art-blockcontent {
+   background:#FFFFFF;
+}
+.art-blockcontent-body ul li{
+   height: 1%;
+}
+
+/* end Box, BlockContent */
+
+/* begin Box, Post */
+.art-post {
+   background:#FFFFFF;
+}
+/* end Box, Post */
+
+/* begin PostIcons, PostHeaderIcons */
+.art-postheadericons span{
+   zoom: 1;
+}
+/* end PostIcons, PostHeaderIcons */
+
+/* begin PostBullets */
+.art-post ul li, .art-post ol ul li
+{
+   height: 1%;
+   padding-left: 12px;
+   /* makes "ul li" not to align behind the image if they are in the same line */
+  overflow-x: visible;
+   overflow-y: hidden;
+}
+
+.art-post ul ol li
+{
+   background: none;
+   padding-left: 0;
+   /* overrides overflow for "ul li" and sets the default value */
+  overflow: visible;
+}
+/* end PostBullets */
+
+/* begin PostIcons, PostFooterIcons */
+.art-postfootericons span{
+   zoom: 1;
+}
+/* end PostIcons, PostFooterIcons */
+
+/* begin Footer */
+.art-footer-body{
+   padding-right: 0;
+   zoom:1;
+}
+.art-footer{
+   zoom:1;
+   background:#353844;
+}
+
+.art-footer-text
+{
+   height: 32px;
+}
+
+.art-rss-tag-icon
+{
+   zoom: 1;
+   font-size: 1px;
+}
+
+/* end Footer */
+
+/* begin LayoutCell, content */
+.art-sidebar1 {
+   width: auto;
+}
+/* end LayoutCell, content */
+

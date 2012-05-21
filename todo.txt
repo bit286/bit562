@@ -1,0 +1,25 @@
+BIT286
+class goal
+
+1500 tests
+~2000 lines of code
+
+Sprint #1
+1.) 330 tests
+2.) Reformat code in GIT - Tim's work validated (ALL)
+3.) Project Files - done (ED)
+    Users form - done 
+	code snippits - incomplete <- refactoring baseDataPipe (Tom & Tim)
+	BackLog - form, dataPipe, DB (Logan, Mason)
+	Tests DB table -> web display in last test first ( Tim, Chris)
+	home Page to link to all tests ( mike and tom )
+4.) autodoc
+      planguage definitions (Shawn and alfred)
+	  db titles  Web Display(Mike O, Igor )
+	  refactor packager tests  (Ed)
+5.) read simple test code (All)
+	unittestcase
+	autorun.php
+	simpletest
+	get cool code to convert into html and get it on GIT
+6.) get php manual shortcut on desktop (all)

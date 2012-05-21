@@ -3,7 +3,7 @@
  *  Base include file for SimpleTest.
  *  @package    SimpleTest
  *  @subpackage WebTester
- *  @version    $Id: selector.php 1786 2008-04-26 17:32:20Z pp11 $
+ *  @version    $Id$
  */
 
 /**#@+

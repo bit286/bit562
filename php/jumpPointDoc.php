@@ -10,7 +10,7 @@ $databaseManager = new DBManager($db_dsn, $db_username, $db_password);
 $databaseManager->open();
 // $databaseManager->assertToggle();
 
-$reader = new Reader($databaseManager);
+ $reader = new Reader($databaseManager);
 $reader->retrieveProjectFiles('BIT561');
 $results = $reader->readAndWriteProject();
 

@@ -3,7 +3,7 @@
  *  base include file for SimpleTest
  *  @package    SimpleTest
  *  @subpackage UnitTester
- *  @version    $Id: detached.php 1784 2008-04-26 13:07:14Z pp11 $
+ *  @version    $Id$
  */
 
 /**#@+

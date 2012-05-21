@@ -1,5 +1,5 @@
 <?php
-// $Id: form_test.php 1996 2010-07-27 09:11:59Z pp11 $
+// $Id$
 require_once(dirname(__FILE__) . '/../autorun.php');
 require_once(dirname(__FILE__) . '/../url.php');
 require_once(dirname(__FILE__) . '/../form.php');

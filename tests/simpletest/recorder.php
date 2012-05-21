@@ -6,7 +6,7 @@
  *  @author Rene vd O (original code)
  *  @author Perrick Penet
  *  @author Marcus Baker
- *	@version	$Id: recorder.php 2011 2011-04-29 08:22:48Z pp11 $
+ *	@version	$Id$
  */
 
 /**

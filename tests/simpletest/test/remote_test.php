@@ -1,5 +1,5 @@
 <?php
-// $Id: remote_test.php 1759 2008-04-15 02:37:07Z edwardzyang $
+// $Id$
 require_once('../remote.php');
 require_once('../reporter.php');
 

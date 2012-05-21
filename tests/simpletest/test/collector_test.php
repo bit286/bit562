@@ -1,5 +1,5 @@
 <?php
-// $Id: collector_test.php 1769 2008-04-19 14:39:00Z pp11 $
+// $Id$
 require_once(dirname(__FILE__) . '/../autorun.php');
 require_once(dirname(__FILE__) . '/../collector.php');
 SimpleTest::ignore('MockTestSuite');

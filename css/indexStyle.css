@@ -1,0 +1,117 @@
+body {
+	background:#000;
+	color:#ccc;
+}
+#wrapper {
+	width:100%;
+}
+
+#container {
+	width:900px;
+	margin:auto;
+}
+
+#header {
+	background-image:url('../images/bit562Head.png');
+	height:200px;
+	margin:auto;
+}
+
+#navigation {
+	margin:auto;
+}
+
+ul.nav {
+	list-style:none;
+	margin:0;
+	padding:0;
+}
+
+ul.nav * {
+	margin:0;
+	padding:0;
+}
+
+ul.nav a {
+	display:block;
+	color:#000;
+	text-decoration:none;
+}
+
+ul.nav li {
+	position:relative;
+	float:left;
+	margin-right:2px;
+}
+
+ul.nav ul {
+	position:absolute;
+	top:26px;
+	left:0;
+	background:#d1d1d1;
+	display:none;
+	opacity:0;
+	list-style:none;
+}
+
+ul.nav ul li {
+	position:relative;
+	border:1px solid #aaa;
+	border-top:none;
+	width:143px;
+	margin:0;
+}
+
+ul.nav ul li a {
+	display:block;
+	padding:3px 7px 5px;
+	background-color:#d1d1d1;
+}
+
+ul.nav ul li a:hover {
+	background-color:#c5c5c5;
+}
+
+ul.nav ul ul {
+	left:143px; top:-1px;
+}
+
+ul.nav .navlink {
+	border:1px solid #aaa;
+	padding:5px 7px 7px;
+	font-weight:bold;
+	background:url('../images/nav/header.gif');
+	width:129px;
+}
+
+ul.nav .navlink:hover, ul.nav .navhover {
+	background:url('../images/nav/header_over.gif');
+}
+
+ul.nav .sub {
+	background:#d1d1d1 url('../images/nav/arrow.gif') 131px 8px no-repeat;
+}
+
+ul.nav .topline {
+	border-top:1px solid #aaa;
+}
+
+#main {
+	margin:auto;
+	margin-top:50px;
+}
+
+
+#main h2 {
+	text-decoration:underline;
+	text-align:center;
+}
+
+#main li {
+	list-style-image:url('../images/bullet_hole_1.png');
+}
+#footer {
+	text-align:center;
+	width:900px;
+	clear:both;
+}

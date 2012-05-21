@@ -1,5 +1,5 @@
 <?php
-// $Id: user_agent_test.php 1788 2008-04-27 11:01:59Z pp11 $
+// $Id$
 require_once(dirname(__FILE__) . '/../autorun.php');
 require_once(dirname(__FILE__) . '/../user_agent.php');
 require_once(dirname(__FILE__) . '/../authentication.php');

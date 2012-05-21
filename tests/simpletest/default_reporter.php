@@ -3,7 +3,7 @@
  *  Optional include file for SimpleTest
  *  @package    SimpleTest
  *  @subpackage UnitTester
- *  @version    $Id: default_reporter.php 2011 2011-04-29 08:22:48Z pp11 $
+ *  @version    $Id$
  */
 
 /**#@+

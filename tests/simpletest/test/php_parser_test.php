@@ -1,5 +1,5 @@
 <?php
-// $Id: php_parser_test.php 1911 2009-07-29 16:38:04Z lastcraft $
+// $Id$
 require_once(dirname(__FILE__) . '/../autorun.php');
 require_once(dirname(__FILE__) . '/../php_parser.php');
 require_once(dirname(__FILE__) . '/../tag.php');

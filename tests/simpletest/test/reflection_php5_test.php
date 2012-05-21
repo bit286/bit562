@@ -1,5 +1,5 @@
 <?php
-// $Id: reflection_php5_test.php 1778 2008-04-21 16:13:08Z edwardzyang $
+// $Id$
 require_once(dirname(__FILE__) . '/../autorun.php');
 require_once(dirname(__FILE__) . '/../reflection_php5.php');
 

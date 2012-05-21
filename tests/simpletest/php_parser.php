@@ -3,7 +3,7 @@
  *  base include file for SimpleTest
  *  @package    SimpleTest
  *  @subpackage WebTester
- *  @version    $Id: php_parser.php 1927 2009-07-31 12:45:36Z dgheath $
+ *  @version    $Id$
  */
 
 /**#@+

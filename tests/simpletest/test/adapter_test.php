@@ -1,5 +1,5 @@
 <?php
-// $Id: adapter_test.php 1748 2008-04-14 01:50:41Z lastcraft $
+// $Id$
 require_once(dirname(__FILE__) . '/../autorun.php');
 require_once(dirname(__FILE__) . '/../extensions/pear_test_case.php');
 

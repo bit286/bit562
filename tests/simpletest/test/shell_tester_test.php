@@ -1,5 +1,5 @@
 <?php
-// $Id: shell_tester_test.php 1787 2008-04-26 20:35:39Z pp11 $
+// $Id$
 require_once(dirname(__FILE__) . '/../autorun.php');
 require_once(dirname(__FILE__) . '/../shell_tester.php');
 Mock::generate('SimpleShell');

@@ -1,5 +1,5 @@
 <?php
-// $Id: exceptions_test.php 1882 2009-07-01 14:30:05Z lastcraft $
+// $Id$
 require_once(dirname(__FILE__) . '/../autorun.php');
 require_once(dirname(__FILE__) . '/../exceptions.php');
 require_once(dirname(__FILE__) . '/../expectation.php');

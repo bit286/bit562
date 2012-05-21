@@ -3,7 +3,7 @@
  *  Base include file for SimpleTest
  *  @package    SimpleTest
  *  @subpackage UnitTester
- *  @version    $Id: test_case.php 2012 2011-04-29 08:57:00Z pp11 $
+ *  @version    $Id$
  */
 
 /**#@+

@@ -3,7 +3,7 @@
  *	Extension for a TestDox reporter
  *	@package	SimpleTest
  *	@subpackage	Extensions
- *	@version	$Id: testdox.php 2004 2010-10-31 13:44:14Z jsweat $
+ *	@version	$Id$
  */
 
 /**

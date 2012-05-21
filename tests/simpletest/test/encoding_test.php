@@ -1,5 +1,5 @@
 <?php
-// $Id: encoding_test.php 1963 2009-10-07 11:57:52Z maetl_ $
+// $Id$
 require_once(dirname(__FILE__) . '/../autorun.php');
 require_once(dirname(__FILE__) . '/../url.php');
 require_once(dirname(__FILE__) . '/../socket.php');

@@ -1,5 +1,5 @@
 <?php
-// $Id: browser_test.php 1964 2009-10-13 15:27:31Z maetl_ $
+// $Id$
 require_once(dirname(__FILE__) . '/../autorun.php');
 require_once(dirname(__FILE__) . '/../browser.php');
 require_once(dirname(__FILE__) . '/../user_agent.php');

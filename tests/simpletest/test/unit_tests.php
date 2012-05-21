@@ -1,5 +1,5 @@
 <?php
-// $Id: unit_tests.php 1986 2010-04-02 10:02:42Z lastcraft $
+// $Id$
 require_once(dirname(__FILE__) . '/../autorun.php');
 require_once(dirname(__FILE__) . '/../unit_tester.php');
 require_once(dirname(__FILE__) . '/../shell_tester.php');
